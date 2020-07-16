@@ -13,7 +13,7 @@ class MainPage extends Component {
                 Compare your Steam games library to the libraries of 1 or more
                 friends{" "}
               </h3>
-              <TextInput />
+              <TextInput placeholder="Steam Vanity URL"/>
               <Button text="Add User" />
               <Button text="Compare Games" />
             </div>
