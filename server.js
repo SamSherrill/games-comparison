@@ -24,6 +24,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 // SETUP ROUTES / initial controller here:
+require("./controllers/user-games-api.js")(app);
+require("./controllers/other-controller.js")(app);
 
 app.get("/api/config", (req, res) => {
     res.json({
