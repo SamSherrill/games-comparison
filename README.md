@@ -20,3 +20,6 @@ A big observation we had was that these controllers are intertwined. We may want
 
 I setup a utils folder with an api js file (named frontend-api.js). However, we're not using that yet. I'll leave it there as a reminder for now. I will proceed with the writing the axios functions inside the react containers / components first, and may export those later. I'll have to research what is best practice for these kind of things.
 
+## Tasks to do:
+
+Add user button needs to give us an option to compare additional users

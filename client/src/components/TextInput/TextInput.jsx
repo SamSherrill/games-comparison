@@ -9,6 +9,7 @@ const TextInput = (props) => {
               className="form-control"
               aria-describedby={props.name}
               placeholder={props.placeholder}
+              onChange={props.onChange}
             />
         </div>
     );
