@@ -3,8 +3,8 @@
 //    (see David's work & do additional research)
 
 // Add immediately:
-// * Reference models
-// * setup sequelize
+// * Reference models -- seems to be working 7/20/2020 at 3:20 PM
+// * setup sequelize -- done
 // * setup controller -- step 1 would be do that in here,
 //    then step 2 move it into a separate controller file
 
@@ -24,6 +24,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 // SETUP ROUTES / initial controller here:
+require("./controllers/user-games-api.js")(app);
+require("./controllers/other-controller.js")(app);
 
 app.get("/api/config", (req, res) => {
     res.json({
