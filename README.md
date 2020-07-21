@@ -22,4 +22,18 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 
 ## Tasks to do:
 
-Add user button needs to give us an option to compare additional users
+1) Get the compare user button to dispaly a table of games for one user
+1a) Games list componenet
+1b) Getting the data in correctly from backend (this is where we're stuck EOS 7/21)
+
+2) Add user button needs to give us an option to compare additional users
+
+3) Display games that both users share
+
+## Notes for future refactoring:
+
+## Lessons learned:
+
+It looks like I don't need Axios installed in both the client & the root folders. It may only need to be in the root folder. That's how we had it for Job Init.
+
+We had to uninstall Axios from the front end to get the first FE Axios.post we wrote to go the backend for the information we were sending.
