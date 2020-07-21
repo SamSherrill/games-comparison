@@ -11,9 +11,10 @@ module.exports = function (app) {
   const axios = require("axios");
   const apiKey = process.env.API_KEY;
 
-  app.get("/", function (req, res) {
-    res.render("index");
-  });
+  // This block of code is for handlerbars specifically, I believe
+  // app.get("/", function (req, res) {
+  //   res.render("index");
+  // });
 
   function getUserInfo(apiKey, user, cb) {
     const queryVanityUrl = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${apiKey}&vanityurl=${user}`;
@@ -112,16 +113,24 @@ module.exports = function (app) {
     const user = req.params.username;
     // use sequelize to find the user in our DB
     db.SteamUser.findOne({
-      where: {
-        vanityUrl: user,
-      },
-      include: [db.Game],
-    })
+        where: {
+          vanityUrl: user,
+        },
+        include: [db.Game],
+      })
       .then((user) => {
-        user = [{ user: user.dataValues }];
+        {
+          user: user.dataValues
+        };
         // check our DB for the user. IF they exist their with their games list,
         // then we display those in the browser with res.render("SteamUser");
-        res.render("index", {
+
+        // This block of code is specifically for handlebars (a server side rendering engine) so I'm commenting it out
+        // res.render("index", {
+        //   user: user,
+        // });
+
+        res.json({
           user: user,
         });
       })
@@ -134,11 +143,11 @@ module.exports = function (app) {
     let retrievedUserArray = [];
     for (let i = 0; i < usersArray.length; i++) {
       await db.SteamUser.findOne({
-        where: {
-          vanityUrl: usersArray[i],
-        },
-        include: [db.Game],
-      })
+          where: {
+            vanityUrl: usersArray[i],
+          },
+          include: [db.Game],
+        })
         .then(async (res) => {
           if (res) {
             const userObject = {
@@ -167,7 +176,14 @@ module.exports = function (app) {
           gamesArray.includes(game)
         );
       }
-      res.render("partials/shared-games-block", {
+      
+      // This block of code was for handlebars:
+      // res.render("partials/shared-games-block", {
+      //   user: usersArray,
+      //   sharedGames: sharedGamesArray,
+      // });
+
+      res.json({
         user: usersArray,
         sharedGames: sharedGamesArray,
       });
