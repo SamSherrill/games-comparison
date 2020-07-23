@@ -3,6 +3,7 @@ import "./MainPage.scss";
 import axios from "axios";
 import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
+import UserGamesTable from "../../components/UserGamesTable/UserGamesTable";
 
 class MainPage extends Component {
   // below we setup a state to track state changes in the username text input field
@@ -11,6 +12,7 @@ class MainPage extends Component {
     users: "",
     additionalUsers: 1,
     usersToSearch: ["user1"],
+    userObject: false,
   };
 
   compareGames = (event) => {
@@ -66,7 +68,10 @@ class MainPage extends Component {
               .get("/SteamUser/" + usersArray[0], {
                 userOne: usersArray[0],
               })
-              .then(console.log(res.data));
+              .then((returnedUser) => {
+                this.setState({ userObject: returnedUser.data });
+                console.log(returnedUser.data);
+              });
           });
       })
       .catch((er) => console.log(er));
@@ -88,6 +93,11 @@ class MainPage extends Component {
   };
 
   render() {
+    // let GamesTable;
+    // if (this.state.userObject !== {}) {
+    //   GamesTable = <UserGamesTable user={this.state.userObject} />;
+    // }
+
     return (
       <>
         <div className="container">
@@ -104,6 +114,8 @@ class MainPage extends Component {
           />
           <Button text="Add User" />
           <Button text="Compare Games" onClick={this.compareGames} />
+          {/* {GamesTable}; */}
+          {this.state.userObject && <UserGamesTable userInfo={this.state.userObject}/>}
         </div>
       </>
     );
