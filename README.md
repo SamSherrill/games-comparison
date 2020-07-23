@@ -22,13 +22,28 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 
 ## Tasks to do:
 
-1) Get the compare user button to dispaly a table of games for one user
-1a) Games list componenet
-1b) Getting the data in correctly from backend (this is where we're stuck EOS 7/21)
+### Core programming tasks:
+
+1) DONE Get the compare user button to dispaly a table of games for one user
+1a) DONE Games list componenet 
+1b) DONE Getting the data in correctly from backend (this is where we're stuck EOS 7/
+1c) DONE Games component to display when (and only when) game data is loaded after the API call is made
 
 2) Add user button needs to give us an option to compare additional users
 
-3) Display games that both users share
+3) Repeat multiple tables of games, one for eah user
+
+4) Display table of games that all users share
+
+#### Programming tasks after core functionality is achieved:
+
+- For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
+
+### Styling to do:
+
+- Use baseSCSS file for: color variables, margin/padding variables, etc.
+- Fix the lines between table rows
+- Consider rounding the corners of the table slightly
 
 ## Notes for future refactoring:
 
