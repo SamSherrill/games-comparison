@@ -15,6 +15,10 @@ class MainPage extends Component {
     userObject: false,
   };
 
+  addUser = (event) => {
+    this.setState({additionalUsers: this.state.additionalUsers+1});
+  }
+
   compareGames = (event) => {
     // David did an if else to check if only one or multiple users had been entered.
     // we'll probably need a state to track how many users there are
@@ -25,24 +29,6 @@ class MainPage extends Component {
       .post("/api/steamUsers", { usersArray })
       .then((res) => {
         console.log(res.data);
-        // Code from the handlebars version:
-        // if (res.userNotFound) {
-        //   $("#shared-games-container").empty();
-        //   return $("#errors").append(
-        //     `<h1 class="error-type">Vanity URLs invalid or privacy settings preventing access for users: ${res.notFoundUsers}</h1><p class="error-message">Make sure privacy settings are public for the Steam profile. Make sure to use the user's vanity URL: <a href="https://steamcommunity.com/discussions/forum/1/537402115094224389/">How to find Steam vanity URL</a> </p>`
-        //   );
-        // }
-        // $.post("/api/games", {
-        //   usersArray,
-        // })
-        //   .done(() => {
-        //     $.get("/SteamUser/" + usersArray[0], {
-        //       userOne: usersArray[0],
-        //     }).done(
-        //       () => (window.location.href = "/SteamUser/" + usersArray[0])
-        //     );
-        //   })
-        //   .catch((er) => console.log(er));
 
         if (res.userNotFound) {
           // Display err to user explaining that the user wasn't found
@@ -93,11 +79,17 @@ class MainPage extends Component {
   };
 
   render() {
-    // let GamesTable;
-    // if (this.state.userObject !== {}) {
-    //   GamesTable = <UserGamesTable user={this.state.userObject} />;
-    // }
-
+    const userInputs = [];
+    for(let i = 1; i < this.state.additionalUsers; i++){
+       userInputs.push(
+        <TextInput
+      placeholder="Steam Vanity URL"
+      name="users"
+      value={this.state.users}
+      onChange={this.handleInuptChange}
+    />
+      )
+    }
     return (
       <>
         <div className="container">
@@ -112,14 +104,16 @@ class MainPage extends Component {
             value={this.state.users}
             onChange={this.handleInuptChange}
           />
-          <Button text="Add User" />
+          {userInputs}
+          <Button text="Add User" onClick={this.addUser} />
           <Button text="Compare Games" onClick={this.compareGames} />
-          {/* {GamesTable}; */}
-          {this.state.userObject && <UserGamesTable userInfo={this.state.userObject}/>}
+          {this.state.userObject && (
+            <UserGamesTable userInfo={this.state.userObject} />
+          )}
         </div>
       </>
     );
   }
 }
-
+ 
 export default MainPage;
