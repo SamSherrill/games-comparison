@@ -8,41 +8,34 @@ import UserGamesTable from "../../components/UserGamesTable/UserGamesTable";
 class MainPage extends Component {
   // below we setup a state to track state changes in the username text input field
   // We also initialize a couple over states for the user search we are going to do later for multiple users
+ 
+  // Likely NEEDED CHANGE: userToSearch likely needs to be sent to the backend as an array
   state = {
-    users: "",
-    additionalUsers: 1,
-    usersToSearch: ["user1"],
+    additionalUsers: 2,
+    usersToSearch: {},
     userObject: false,
+  };
+
+  addUser = (event) => {
+    // We don't want to compare the games lists of more than 10 users
+    if (this.state.additionalUsers < 10) {
+      this.setState({
+        additionalUsers: this.state.additionalUsers + 1,
+      });
+    }
+    // The display warning about 10 user max will need to happen in render, I think
   };
 
   compareGames = (event) => {
     // David did an if else to check if only one or multiple users had been entered.
     // we'll probably need a state to track how many users there are
-    console.log("Comparing games for: " + this.state.users);
-    const usersArray = [this.state.users];
+    console.log("Comparing games for: " + this.state.usersToSearch.user0);
+    const usersArray = [this.state.usersToSearch.user0];
     axios
       //This API call calls the Steam API and puts user info into our database
       .post("/api/steamUsers", { usersArray })
       .then((res) => {
         console.log(res.data);
-        // Code from the handlebars version:
-        // if (res.userNotFound) {
-        //   $("#shared-games-container").empty();
-        //   return $("#errors").append(
-        //     `<h1 class="error-type">Vanity URLs invalid or privacy settings preventing access for users: ${res.notFoundUsers}</h1><p class="error-message">Make sure privacy settings are public for the Steam profile. Make sure to use the user's vanity URL: <a href="https://steamcommunity.com/discussions/forum/1/537402115094224389/">How to find Steam vanity URL</a> </p>`
-        //   );
-        // }
-        // $.post("/api/games", {
-        //   usersArray,
-        // })
-        //   .done(() => {
-        //     $.get("/SteamUser/" + usersArray[0], {
-        //       userOne: usersArray[0],
-        //     }).done(
-        //       () => (window.location.href = "/SteamUser/" + usersArray[0])
-        //     );
-        //   })
-        //   .catch((er) => console.log(er));
 
         if (res.userNotFound) {
           // Display err to user explaining that the user wasn't found
@@ -88,16 +81,25 @@ class MainPage extends Component {
   handleInuptChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value,
+      usersToSearch: {...this.state.usersToSearch, [name]: value},
     });
   };
 
   render() {
-    // let GamesTable;
-    // if (this.state.userObject !== {}) {
-    //   GamesTable = <UserGamesTable user={this.state.userObject} />;
-    // }
-
+    // Following code causes an additional username input field
+    // to render for each time the add user button is clicked
+    // TODO: Display a message once 10 username input fields are reached
+    const userInputs = [];
+    for (let i = 1; i < this.state.additionalUsers; i++) {
+      userInputs.push(
+        <TextInput
+          placeholder="Steam Vanity URL"
+          name={"user" + i}
+          value={this.state.users}
+          onChange={this.handleInuptChange}
+        />
+      );
+    }
     return (
       <>
         <div className="container">
@@ -108,14 +110,16 @@ class MainPage extends Component {
           </h3>
           <TextInput
             placeholder="Steam Vanity URL"
-            name="users"
+            name="user0"
             value={this.state.users}
             onChange={this.handleInuptChange}
           />
-          <Button text="Add User" />
+          {userInputs}
+          <Button text="Add User" onClick={this.addUser} />
           <Button text="Compare Games" onClick={this.compareGames} />
-          {/* {GamesTable}; */}
-          {this.state.userObject && <UserGamesTable userInfo={this.state.userObject}/>}
+          {this.state.userObject && (
+            <UserGamesTable userInfo={this.state.userObject} />
+          )}
         </div>
       </>
     );

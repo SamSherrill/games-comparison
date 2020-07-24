@@ -20,7 +20,7 @@ A big observation we had was that these controllers are intertwined. We may want
 
 I setup a utils folder with an api js file (named frontend-api.js). However, we're not using that yet. I'll leave it there as a reminder for now. I will proceed with the writing the axios functions inside the react containers / components first, and may export those later. I'll have to research what is best practice for these kind of things.
 
-## Tasks to do:
+## Development Plan / Tasks To Do:
 
 ### Core programming tasks:
 
@@ -29,7 +29,15 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 1b) DONE Getting the data in correctly from backend (this is where we're stuck EOS 7/
 1c) DONE Games component to display when (and only when) game data is loaded after the API call is made
 
+*** Likely NEEDED CHANGE: userToSearch likely needs to be sent to the backend as an array ***
+
 2) Add user button needs to give us an option to compare additional users
+2a) The FE API requests we're doing need to be able to make requests for multiple users
+2b) Get all old API features brought into this newer version of the app
+2c) Add user button needs to add a new field to the DOM (cut off 10 unique users at once)
+2d) * (Maybe do late) Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
+2e) Bring it full cirlce & compare the users accurately, the move to (3) for displaying those shared games
+2f) Probably move the API requests to a separate file or files, then import them to MainPage
 
 3) Repeat multiple tables of games, one for eah user
 
@@ -38,12 +46,16 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 #### Programming tasks after core functionality is achieved:
 
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
+- May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
 
 ### Styling to do:
 
 - Use baseSCSS file for: color variables, margin/padding variables, etc.
+- Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in mind.
+- Add option to remove a username input line, down to only 1 user
 - Fix the lines between table rows
 - Consider rounding the corners of the table slightly
+- Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 
 ## Notes for future refactoring:
 
