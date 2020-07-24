@@ -20,7 +20,7 @@ A big observation we had was that these controllers are intertwined. We may want
 
 I setup a utils folder with an api js file (named frontend-api.js). However, we're not using that yet. I'll leave it there as a reminder for now. I will proceed with the writing the axios functions inside the react containers / components first, and may export those later. I'll have to research what is best practice for these kind of things.
 
-## Tasks to do:
+## Development Plan / Tasks To Do:
 
 ### Core programming tasks:
 
@@ -28,6 +28,8 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 1a) DONE Games list componenet 
 1b) DONE Getting the data in correctly from backend (this is where we're stuck EOS 7/
 1c) DONE Games component to display when (and only when) game data is loaded after the API call is made
+
+*** Likely NEEDED CHANGE: userToSearch likely needs to be sent to the backend as an array ***
 
 2) Add user button needs to give us an option to compare additional users
 2a) The FE API requests we're doing need to be able to make requests for multiple users
@@ -49,9 +51,11 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 ### Styling to do:
 
 - Use baseSCSS file for: color variables, margin/padding variables, etc.
-- Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in minde.
+- Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in mind.
+- Add option to remove a username input line, down to only 1 user
 - Fix the lines between table rows
 - Consider rounding the corners of the table slightly
+- Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 
 ## Notes for future refactoring:
 
