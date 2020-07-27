@@ -2,9 +2,8 @@ import React from "react";
 import "./UserGamesTable.scss";
 
 const UserGamesTable = (props) => {
-  // These class names are from when we did it in handlebars
+  // These class names are from when we did it in handlebars:
   // <div class="column is-one-third user-one-column" id="single-user-table"></div>
-  console.log("props: ", props);
 
   return (
     <>
