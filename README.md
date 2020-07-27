@@ -31,21 +31,21 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 
 2) Add user button needs to give us an option to compare additional users
 2a) DONE The FE API requests we're doing need to be able to make requests for multiple users
-2b) DONE Get all old API features brought into this newer version of the app --- ***We do want to clean up some console logs here, now that it's working***
+2b) DONE Get all old API features brought into this newer version of the app --- ***We want to clean up some console logs in the BE & FE API functions, now that they're all working***
 2c) DONE Add user button needs to add a new field to the DOM (cut off 10 unique users at once)
-2d) * (Maybe do late) Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
-2e) Need to make a state for the shared games, and pass that down in props to the SharedGamesTable.jsx
-2f) Bring it full cirlce & compare the users accurately, the move to (3) for displaying those shared games
-2g) Probably move the API requests to a separate file or files, then import them to MainPage
+2d) Need to make a state for the shared games, and pass that down in props to the SharedGamesTable.jsx
+2e) Bring it full cirlce & compare the users accurately, the move to (3) for displaying those shared games
+2f) Probably move the API requests to a separate file or files, then import them to MainPage
 
-3) Repeat multiple tables of games, one for eah user
+3) Display table of games that all users share
 
-4) Display table of games that all users share
+4) Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
 #### Programming tasks after core functionality is achieved:
 
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
 - May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
+- (More detials on the the previous bullet, copied & pasted from a different section.) Repeat multiple tables of games, one for each user. Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
 
 ### Styling to do:
 
