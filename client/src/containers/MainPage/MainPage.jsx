@@ -19,6 +19,7 @@ class MainPage extends Component {
     additionalUsers: 2,
     usersToSearch: {},
     userObject: false,
+    sharedGamesState: false,
   };
 
   addUser = (event) => {
@@ -107,8 +108,8 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
-          // $("#shared-games-container").empty().append(res);
-          console.log(res);
+          console.log(res.data.sharedGames);
+          this.setState({ sharedGamesState: res.data.sharedGames });
         });
     } else {
       console.log("must input at least one user");
@@ -156,6 +157,9 @@ class MainPage extends Component {
           <Button text="Compare Games" onClick={this.compareGames} />
           {this.state.userObject && (
             <UserGamesTable userInfo={this.state.userObject} />
+          )}
+          {this.state.sharedGamesState && (
+            <SharedGamesTable sharedGames={this.state.sharedGamesState} />
           )}
         </div>
       </>

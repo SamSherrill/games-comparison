@@ -29,15 +29,17 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 1b) DONE Getting the data in correctly from backend (this is where we're stuck EOS 7/
 1c) DONE Games component to display when (and only when) game data is loaded after the API call is made
 
+
+**I just noticed that Mr. Hat isn't in our local database, but dog hat is. I believe that means that searching using a number instead of a vanityURL isn't working.**
+
 2) Add user button needs to give us an option to compare additional users
 2a) DONE The FE API requests we're doing need to be able to make requests for multiple users
 2b) DONE Get all old API features brought into this newer version of the app --- ***We want to clean up some console logs in the BE & FE API functions, now that they're all working***
 2c) DONE Add user button needs to add a new field to the DOM (cut off 10 unique users at once)
-2d) Need to make a state for the shared games, and pass that down in props to the SharedGamesTable.jsx
-2e) Bring it full cirlce & compare the users accurately, the move to (3) for displaying those shared games
-2f) Probably move the API requests to a separate file or files, then import them to MainPage
+2d) DONE Need to make a state for the shared games, and pass that down in props to the SharedGamesTable.jsx
+2e) DONE Bring it full cirlce & compare the users accurately
 
-3) Display table of games that all users share
+3) DONE Display table of games that all users share
 
 4) Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
@@ -57,6 +59,9 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 - Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 
 ## Notes for future refactoring:
+
+- Currently all FE API calls happen in MainPage.jsx. We should probably move the API requests to a separate file or files, then import them to MainPage.
+- Clean up the FE & BE console logs.
 
 ## Lessons learned:
 
