@@ -75,8 +75,6 @@ module.exports = function (app) {
               createdUsers.push(dbPost);
             });
           });
-        } else {
-          console.log("user already exists!");
         }
       });
     });

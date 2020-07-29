@@ -7,13 +7,8 @@ import UserGamesTable from "../../components/UserGamesTable/UserGamesTable";
 import SharedGamesTable from "../../components/SharedGamesTable/SharedGamesTable";
 
 class MainPage extends Component {
-  // below we setup a state to track state changes in the username text input field
-  // We also initialize a couple over states for the user search we are going to do later for multiple users
-
-  // Likely NEEDED CHANGE: userToSearch likely needs to be sent
-  // to the backend as an array. We will probably leave it as
-  // an object for now, then convert it to an array right as we
-  // send it to the backend.
+  // Setup a state for tracking username text input field
+  // Also initialize state for searching multiple users
 
   state = {
     additionalUsers: 2,
@@ -33,11 +28,13 @@ class MainPage extends Component {
   };
 
   compareGames = async (event) => {
-    // David did an if else to check if only one or multiple users had been entered.
+    event.preventDefault();
     // we'll probably need a state to track how many users there are
     console.log("Comparing games for: " + this.state.usersToSearch.user0);
     const usersArray = Object.values(this.state.usersToSearch);
     console.log("user array: ", usersArray);
+
+    // This if / else checks if 1 or multiple users had been entered
     if (usersArray.length === 1) {
       axios
         //This API call calls the Steam API and puts user info into our database
@@ -70,7 +67,9 @@ class MainPage extends Component {
                   userOne: usersArray[0],
                 })
                 .then((returnedUser) => {
-                  this.setState({ userObject: returnedUser.data });
+                  this.setState({
+                    userObject: returnedUser.data,
+                  });
                   console.log(returnedUser.data);
                 });
             });
@@ -109,7 +108,9 @@ class MainPage extends Component {
         })
         .then((res) => {
           console.log(res.data.sharedGames);
-          this.setState({ sharedGamesState: res.data.sharedGames });
+          this.setState({
+            sharedGamesState: res.data.sharedGames,
+          });
         });
     } else {
       console.log("must input at least one user");
@@ -123,38 +124,68 @@ class MainPage extends Component {
     });
   };
 
+  // Tried to get pressing enter to run compareGames()
+  // Used suggestions from this article: 
+  // https://stackoverflow.com/questions/39442419/reactjs-is-there-a-way-to-trigger-a-method-by-pressing-the-enter-key-inside/39442477
+  // enterPressed(event) {
+  //   console.log("Enter was pressed");
+  //   var code = event.keyCode || event.which;
+  //   if (code === 13) {
+  //     //13 is the enter keycode
+  //     //Do stuff in here
+  //     this.compareGames(event);
+  //   }
+  // }
+
   render() {
     // Following code causes an additional username input field
     // to render for each time the add user button is clicked
     // TODO: Display a message once 10 username input fields are reached
     const userInputs = [];
-    for (let i = 1; i < this.state.additionalUsers; i++) {
+    for (let i = 0; i < this.state.additionalUsers; i++) {
       userInputs.push(
+        // <div className="row">
         <TextInput
           placeholder="Steam Vanity URL"
           name={"user" + i}
           value={this.state.users}
           onChange={this.handleInuptChange}
         />
+        // </div>
       );
     }
     return (
       <>
         <div className="container">
-          <h3>
+          <h4 id="headline">
             {" "}
             Compare your Steam games library to the libraries of 1 or more
             friends{" "}
-          </h3>
-          <TextInput
-            placeholder="Steam Vanity URL"
-            name="user0"
-            value={this.state.users}
-            onChange={this.handleInuptChange}
-          />
-          {userInputs}
-          <Button text="Add User" onClick={this.addUser} />
-          <Button text="Compare Games" onClick={this.compareGames} />
+          </h4>
+
+          <form onSubmit={(event) => this.compareGames(event)}>
+            {userInputs}
+
+            <div className="row">
+              <div className="col">
+                <Button
+                  text="Compare Games"
+                  id="compare-games-button"
+                  // onKeyPress={this.enterPressed.bind(this)}
+                  type="submit"
+                />
+              </div>
+
+              <div className="col">
+                <Button
+                  text="Add User"
+                  id="add-user-button"
+                  onClick={this.addUser}
+                />
+              </div>
+            </div>
+          </form>
+
           {this.state.userObject && (
             <UserGamesTable userInfo={this.state.userObject} />
           )}

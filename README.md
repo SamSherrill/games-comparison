@@ -41,16 +41,19 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 
 3) DONE Display table of games that all users share
 
-4) Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
+4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
 #### Programming tasks after core functionality is achieved:
 
+- Allow user to search using something other than their Vanity URL. Some don't have a Vanity URL. At the minimum we should explain how to find or create their Vanity URL.
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
 - May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
 - (More detials on the the previous bullet, copied & pasted from a different section.) Repeat multiple tables of games, one for each user. Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
 
 ### Styling to do:
 
+- Display loading wheel similar to what David added to the handlebars version of the app.
+- Deal with the left shift that happens with the margins when the Shared Games table loads.
 - Use baseSCSS file for: color variables, margin/padding variables, etc.
 - Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in mind.
 - Add option to remove a username input line, down to only 1 user
@@ -60,8 +63,15 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 
 ## Notes for future refactoring:
 
+- Add err handling. Need to tell user why certain things didn't work.
+- Resolve all warnings in the browser console.
+- See if we can resolve the depracation warning in the BE console. This one: (node:31268) [SEQUELIZE0004] DeprecationWarning: A boolean value was passed to options.operatorsAliases. This is a no-op with v5 and should be removed.
 - Currently all FE API calls happen in MainPage.jsx. We should probably move the API requests to a separate file or files, then import them to MainPage.
+- Clean up any unused code, packages, etc.
 - Clean up the FE & BE console logs.
+- Improve code comments
+
+**Think about how users could use & misuse this app.** We probably have a lot more refactoring that we can do besides what is noted above.
 
 ## Lessons learned:
 
