@@ -176,13 +176,6 @@ module.exports = function (app) {
           gamesArray.includes(game)
         );
       }
-      
-      // This block of code was for handlebars:
-      // res.render("partials/shared-games-block", {
-      //   user: usersArray,
-      //   sharedGames: sharedGamesArray,
-      // });
-
       res.json({
         user: usersArray,
         sharedGames: sharedGamesArray,

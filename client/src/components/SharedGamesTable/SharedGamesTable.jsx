@@ -2,21 +2,20 @@ import React from "react";
 import "./SharedGamesTable.scss";
 
 const SharedGamesTable = (props) => {
-  console.log("props: ", props);
-  
+
   return (
     <>
       <table className="table">
         <thead>
           <tr>
-            <th> Shared Games</th>
+            <th> Shared Games </th>
           </tr>
         </thead>
         <tbody>
-          {props.userInfo.user.Games.map((game) => {
+          {props.sharedGames.map((game, index) => {
             return (
-              <tr>
-                <td>{game.name}</td>
+              <tr key={index}>
+                <td>{game}</td>
               </tr>
             );
           })}
