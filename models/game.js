@@ -7,7 +7,8 @@ module.exports = function (sequelize, DataTypes) {
     windows: DataTypes.BOOLEAN,
     mac: DataTypes.BOOLEAN,
     linux: DataTypes.BOOLEAN
-  });
+  }
+  );
 
   Game.associate = function (models) {
     Game.belongsToMany(models.SteamUser, {

@@ -12,7 +12,7 @@ module.exports = function (app) {
       .then(() => console.log("success"))
       //console logs error type if there was any attempt to put in duplicate value
       .catch((err) => {
-        console.log(err.original.code);
+        // console.log(err.original.code);
       });
   }
 
