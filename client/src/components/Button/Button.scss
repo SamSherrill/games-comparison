@@ -1,7 +1,10 @@
 @import "../../baseScss/base";
 
 .btn {
-    background-color: #367095;
+    background-color: $steam-light-blue;
     color: white;
     margin-top:1.5rem;
+    // &:focus{
+    //     background-color: $steam-light-blue !important;
+    // }
 }
