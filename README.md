@@ -45,6 +45,7 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 
 #### Programming tasks after core functionality is achieved:
 
+- About Us page, or something similar, where we can intro ourselves & explain why we made this.
 - Allow user to search using something other than their Vanity URL. Some don't have a Vanity URL. At the minimum we should explain how to find or create their Vanity URL.
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
 - May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
@@ -52,14 +53,14 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 
 ### Styling to do:
 
-- Display loading wheel similar to what David added to the handlebars version of the app.
-- Deal with the left shift that happens with the margins when the Shared Games table loads.
-- Use baseSCSS file for: color variables, margin/padding variables, etc.
+- DONE Display loading wheel similar to what David added to the handlebars version of the app.
+- Use baseSCSS file for: DONE color variables, margin/padding variables, etc.
 - Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in mind.
 - Add option to remove a username input line, down to only 1 user
 - Fix the lines between table rows
 - Consider rounding the corners of the table slightly
 - Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
+- Deal with the left shift that happens with the margins when the Shared Games table loads. --- We realized that this is actually happening because the scroll bar comes in. It would be interesting if we could figure out how to compensate for that.
 
 ## Notes for future refactoring:
 
@@ -70,6 +71,7 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 - Clean up any unused code, packages, etc.
 - Clean up the FE & BE console logs.
 - Improve code comments
+- Consider combing SharedGamesTable & UserGamesTable into 1 component.
 
 **Think about how users could use & misuse this app.** We probably have a lot more refactoring that we can do besides what is noted above.
 

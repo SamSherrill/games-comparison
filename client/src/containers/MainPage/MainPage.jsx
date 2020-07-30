@@ -5,6 +5,7 @@ import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
 import UserGamesTable from "../../components/UserGamesTable/UserGamesTable";
 import SharedGamesTable from "../../components/SharedGamesTable/SharedGamesTable";
+import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 class MainPage extends Component {
   // Setup a state for tracking username text input field
@@ -15,6 +16,7 @@ class MainPage extends Component {
     usersToSearch: {},
     userObject: false,
     sharedGamesState: false,
+    isLoading: false
   };
 
   addUser = (event) => {
@@ -29,6 +31,7 @@ class MainPage extends Component {
 
   compareGames = async (event) => {
     event.preventDefault();
+    this.setState({isLoading: true, sharedGamesState: false, userObject: false});
     // we'll probably need a state to track how many users there are
     console.log("Comparing games for: " + this.state.usersToSearch.user0);
     const usersArray = Object.values(this.state.usersToSearch);
@@ -67,6 +70,7 @@ class MainPage extends Component {
                   userOne: usersArray[0],
                 })
                 .then((returnedUser) => {
+                  this.setState({isLoading: false});
                   this.setState({
                     userObject: returnedUser.data,
                   });
@@ -74,7 +78,10 @@ class MainPage extends Component {
                 });
             });
         })
-        .catch((er) => console.log(er));
+        .catch((er) => {
+          this.setState({isLoading: false});
+          console.log(er);
+        });
       //Next steps would be to go through the else statement in the index.js file in the handlebars version and
       //add one section at a time both to ensure that it works and to understand each
       //API call that is made in the function
@@ -107,12 +114,18 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
+          this.setState({ isLoading: false });
           console.log(res.data.sharedGames);
           this.setState({
             sharedGamesState: res.data.sharedGames,
           });
+        })
+        .catch((er) => {
+          this.setState({ isLoading: false });
+          console.log(er);
         });
     } else {
+      this.setState({isLoading: false});
       console.log("must input at least one user");
     }
   };
@@ -154,6 +167,7 @@ class MainPage extends Component {
         // </div>
       );
     }
+
     return (
       <>
         <div className="container">
@@ -185,6 +199,10 @@ class MainPage extends Component {
               </div>
             </div>
           </form>
+
+          {this.state.isLoading && (
+            <LoadingWheel isLoading={this.state.isLoading} />
+          )}
 
           {this.state.userObject && (
             <UserGamesTable userInfo={this.state.userObject} />
