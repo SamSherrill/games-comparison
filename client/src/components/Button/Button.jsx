@@ -3,9 +3,7 @@ import "./Button.scss";
 
 const Button = (props) => {
   return (
-    <div id={props.id}>
-      <button className="btn btn-light" onClick={props.onClick}>{props.text}</button>
-    </div>
+      <button  id={props.id} className="btn btn-light" onClick={props.onClick}>{props.text}</button>
   );
 };
 
