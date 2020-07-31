@@ -4,47 +4,29 @@
 
 This app is a work in progress. It's purpose will be to allow gamers, like myself, to compare their games lists with their friends. The MVP will be for Steam only, but I'll work to expand that to other platforms at some point post-MVP.
 
-## Initial Pseudo Code
-
-- Need to create Heroku app
-
-## Controllers
-
-Notes to self 7/20/2020:
-
-I pulled the routes from the old handlebars version of the app. Some of this for sure needs to change, because we're not server side rendering in this updated, react version of the app. So I have commented out the res.render lines of code, an replaced most of them with res.json.
-
-A big observation we had was that these controllers are intertwined. We may want to separate the exported functions to their own files to "separate concerns". Then it'll be more readable, I'd hope.
-
-## Frontend API calls
-
-I setup a utils folder with an api js file (named frontend-api.js). However, we're not using that yet. I'll leave it there as a reminder for now. I will proceed with the writing the axios functions inside the react containers / components first, and may export those later. I'll have to research what is best practice for these kind of things.
-
 ## Development Plan / Tasks To Do:
 
 ### Core programming tasks:
 
 1) DONE Get the compare user button to dispaly a table of games for one user
-1a) DONE Games list componenet 
-1b) DONE Getting the data in correctly from backend (this is where we're stuck EOS 7/
-1c) DONE Games component to display when (and only when) game data is loaded after the API call is made
-
-
-**I just noticed that Mr. Hat isn't in our local database, but dog hat is. I believe that means that searching using a number instead of a vanityURL isn't working.**
+- 1a) DONE Games list componenet 
+- 1b) DONE Getting the data in correctly from backend (this is where we're stuck EOS 7/
+- 1c) DONE Games component to display when (and only when) game data is loaded after the API call is made
 
 2) Add user button needs to give us an option to compare additional users
-2a) DONE The FE API requests we're doing need to be able to make requests for multiple users
-2b) DONE Get all old API features brought into this newer version of the app --- ***We want to clean up some console logs in the BE & FE API functions, now that they're all working***
-2c) DONE Add user button needs to add a new field to the DOM (cut off 10 unique users at once)
-2d) DONE Need to make a state for the shared games, and pass that down in props to the SharedGamesTable.jsx
-2e) DONE Bring it full cirlce & compare the users accurately
+- 2a) DONE The FE API requests we're doing need to be able to make requests for multiple users
+- 2b) DONE Get all old API features brought into this newer version of the app
+- 2c) DONE Add user button needs to add a new field to the DOM (cut off 10 unique users at once)
+- 2d) DONE Need to make a state for the shared games, and pass that down in props to the SharedGamesTable.jsx
+- 2e) DONE Bring it full cirlce & compare the users accurately
 
 3) DONE Display table of games that all users share
 
 4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
-#### Programming tasks after core functionality is achieved:
+### Programming tasks after core functionality is achieved:
 
+- How to use page - explain the need for public Steam games list, how to find / create Vanity URL, etc.
 - About Us page, or something similar, where we can intro ourselves & explain why we made this.
 - Allow user to search using something other than their Vanity URL. Some don't have a Vanity URL. At the minimum we should explain how to find or create their Vanity URL.
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
@@ -62,8 +44,22 @@ I setup a utils folder with an api js file (named frontend-api.js). However, we'
 - Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 - Deal with the left shift that happens with the margins when the Shared Games table loads. --- We realized that this is actually happening because the scroll bar comes in. It would be interesting if we could figure out how to compensate for that.
 
-## Notes for future refactoring:
+### Notes About Controllers:
 
+Notes to self 7/20/2020:
+
+I pulled the routes from the old handlebars version of the app. Some of this for sure needs to change, because we're not server side rendering in this updated, react version of the app. So I have commented out the res.render lines of code, an replaced most of them with res.json.
+
+A big observation we had was that these controllers are intertwined. We may want to separate the exported functions to their own files to "separate concerns". Then it'll be more readable, I'd hope.
+
+### Notes About Frontend API Calls:
+
+I setup a utils folder with an api js file (named frontend-api.js). However, we're not using that yet. I'll leave it there as a reminder for now. I will proceed with the writing the axios functions inside the react containers / components first, and may export those later. I'll have to research what is best practice for these kind of things.
+
+### Notes for future refactoring:
+
+- If any of the user states are blank strings, the search will run as a Shared Games search. -- Maybe we solve this by deleting that index position in the array when the string is deleted by the user.
+- FIXED: Add user button re-runs the search without anything else being clicked
 - Add err handling. Need to tell user why certain things didn't work.
 - Resolve all warnings in the browser console.
 - See if we can resolve the depracation warning in the BE console. This one: (node:31268) [SEQUELIZE0004] DeprecationWarning: A boolean value was passed to options.operatorsAliases. This is a no-op with v5 and should be removed.

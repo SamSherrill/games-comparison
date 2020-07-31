@@ -16,8 +16,20 @@ class MainPage extends Component {
     usersToSearch: {},
     userObject: false,
     sharedGamesState: false,
-    isLoading: false
+    isLoading: false,
   };
+
+  componentDidMount() {
+    document.addEventListener("keyup", function (e) {
+      if (e.target && e.target.className === "form-control") {
+        if (e.keyCode === 13) {
+          // Prevent default may or may not be needed
+          e.preventDefault();
+          document.getElementById("compare-games-button").click();
+        }
+      }
+    });
+  }
 
   addUser = (event) => {
     // We don't want to compare the games lists of more than 10 users
@@ -30,8 +42,11 @@ class MainPage extends Component {
   };
 
   compareGames = async (event) => {
-    event.preventDefault();
-    this.setState({isLoading: true, sharedGamesState: false, userObject: false});
+    this.setState({
+      isLoading: true,
+      sharedGamesState: false,
+      userObject: false,
+    });
     // we'll probably need a state to track how many users there are
     console.log("Comparing games for: " + this.state.usersToSearch.user0);
     const usersArray = Object.values(this.state.usersToSearch);
@@ -70,7 +85,7 @@ class MainPage extends Component {
                   userOne: usersArray[0],
                 })
                 .then((returnedUser) => {
-                  this.setState({isLoading: false});
+                  this.setState({ isLoading: false });
                   this.setState({
                     userObject: returnedUser.data,
                   });
@@ -79,7 +94,7 @@ class MainPage extends Component {
             });
         })
         .catch((er) => {
-          this.setState({isLoading: false});
+          this.setState({ isLoading: false });
           console.log(er);
         });
       //Next steps would be to go through the else statement in the index.js file in the handlebars version and
@@ -125,7 +140,7 @@ class MainPage extends Component {
           console.log(er);
         });
     } else {
-      this.setState({isLoading: false});
+      this.setState({ isLoading: false });
       console.log("must input at least one user");
     }
   };
@@ -138,7 +153,7 @@ class MainPage extends Component {
   };
 
   // Tried to get pressing enter to run compareGames()
-  // Used suggestions from this article: 
+  // Used suggestions from this article:
   // https://stackoverflow.com/questions/39442419/reactjs-is-there-a-way-to-trigger-a-method-by-pressing-the-enter-key-inside/39442477
   // enterPressed(event) {
   //   console.log("Enter was pressed");
@@ -177,28 +192,26 @@ class MainPage extends Component {
             friends{" "}
           </h4>
 
-          <form onSubmit={(event) => this.compareGames(event)}>
-            {userInputs}
+          {userInputs}
 
-            <div className="row">
-              <div className="col">
-                <Button
-                  text="Compare Games"
-                  id="compare-games-button"
-                  // onKeyPress={this.enterPressed.bind(this)}
-                  type="submit"
-                />
-              </div>
-
-              <div className="col">
-                <Button
-                  text="Add User"
-                  id="add-user-button"
-                  onClick={this.addUser}
-                />
-              </div>
+          <div className="row">
+            <div className="col">
+              <Button
+                text="Compare Games"
+                id="compare-games-button"
+                onClick={this.compareGames}
+                type="submit"
+              />
             </div>
-          </form>
+
+            <div className="col">
+              <Button
+                text="Add User"
+                id="add-user-button"
+                onClick={this.addUser}
+              />
+            </div>
+          </div>
 
           {this.state.isLoading && (
             <LoadingWheel isLoading={this.state.isLoading} />
