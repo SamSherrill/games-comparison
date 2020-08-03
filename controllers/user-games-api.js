@@ -1,4 +1,5 @@
 var db = require("../models");
+
 module.exports = function (app) {
   const axios = require("axios");
   const apiKey = process.env.API_KEY;
@@ -9,14 +10,17 @@ module.exports = function (app) {
       steamUserId,
       gameId,
     })
-      .then(() => console.log("success"))
+      // We don't need a .then, and apparently it's not necessary for this to work, so I've commented it out
+      // .then()
+
       //console logs error type if there was any attempt to put in duplicate value
       .catch((err) => {
-        // console.log(err.original.code);
+        console.log("Error in createJoinRow()");
+        console.log(err);
       });
   }
 
-  //Just helps in getting the id from our database table to be used for later purposes
+  // Gets the Steam user id from our database to be used later
   async function getSteamUserIdBySteamId(steamId) {
     let id;
     await db.SteamUser.findOne({

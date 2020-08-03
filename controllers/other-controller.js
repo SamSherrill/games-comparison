@@ -1,25 +1,12 @@
-// THIS CONTROLLER IS GOING TO NEED SOME WORK
-// This was handlebars routes, and has some references to handlebars
-// Going to have to see what we can use from this, and what needs changes
-
 const db = require("../models");
-
-//add vanity URL to user model
-//use it where needed
 
 module.exports = function (app) {
   const axios = require("axios");
   const apiKey = process.env.API_KEY;
 
-  // This block of code is for handlerbars specifically, I believe
-  // app.get("/", function (req, res) {
-  //   res.render("index");
-  // });
-
   function getUserInfo(apiKey, user, cb) {
     const queryVanityUrl = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${apiKey}&vanityurl=${user}`;
-    console.log(`=============${queryVanityUrl}===============`);
-
+    
     axios
       .get(queryVanityUrl)
       .then(function (res) {
