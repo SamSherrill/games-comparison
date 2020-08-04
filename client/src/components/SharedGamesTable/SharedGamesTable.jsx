@@ -16,7 +16,7 @@ const SharedGamesTable = (props) => {
           {props.sharedGames.map((game, index) => {
             return (
               <tr key={index}>
-                <td>{game}</td>
+                <td>{game.name}</td>
               </tr>
             );
           })}

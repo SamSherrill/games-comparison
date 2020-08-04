@@ -151,15 +151,33 @@ module.exports = function (app) {
   app.post("/sharedGames", function (req, res) {
     getUsers(res, req.body.usersArray, (usersArray) => {
       let sharedGamesArray = usersArray[0].user.Games.map(
-        (game) => game.dataValues.name
+        (game) => {
+          return {
+            name: game.dataValues.name,
+            id: game.appId,
+            image: game.headerImage
+          }
+        }
       );
       for (var i = 1; i < usersArray.length; i++) {
         let gamesArray = usersArray[i].user.Games.map(
-          (game) => game.dataValues.name
+          (game) => {
+            return {
+              name: game.dataValues.name,
+              id: game.appId,
+              image: game.headerImage
+            }
+          }
         );
-        sharedGamesArray = sharedGamesArray.filter((game) =>
-          gamesArray.includes(game)
-        );
+        sharedGamesArray = sharedGamesArray.filter((game) =>{
+          let containsGame = false;
+          gamesArray.forEach(comparedGame=>{
+            if(comparedGame.name === game.name){
+              containsGame = true;
+            }
+          })
+          return containsGame;  
+      });
       }
       res.json({
         user: usersArray,

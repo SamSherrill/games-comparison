@@ -24,71 +24,9 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
-***ERROR TO TACKLE TOMORROW***
-
-Error in createJoinRow()
-[0] UniqueConstraintError [SequelizeUniqueConstraintError]: Validation error
-[0]     at Query.formatError (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\sequelize\lib\dialects\mysql\query.js:218:16)
-[0]     at Query.run (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\sequelize\lib\dialects\mysql\query.js:54:18)
-[0]     at runMicrotasks (<anonymous>)
-[0]     at processTicksAndRejections (internal/process/task_queues.js:97:5) {
-[0]   name: 'SequelizeUniqueConstraintError',
-[0]   errors: [
-[0]     ValidationErrorItem {
-[0]       message: 'steamusergames.PRIMARY must be unique',
-[0]       type: 'unique violation',
-[0]       path: 'steamusergames.PRIMARY',
-[0]       value: '7-226',
-[0]       origin: 'DB',
-[0]       instance: [SteamUserGames],
-[0]       validatorKey: 'not_unique',
-[0]       validatorName: null,
-[0]       validatorArgs: []
-[0]     }
-[0]   ],
-[0]   fields: { 'steamusergames.PRIMARY': '7-226' },
-[0]   parent: Error: Duplicate entry '7-226' for key 'steamusergames.PRIMARY'
-[0]       at Packet.asError (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\packets\packet.js:712:17)
-[0]       at Execute.execute (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\commands\command.js:28:26)
-[0]       at Connection.handlePacket (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\connection.js:417:32)
-[0]       at PacketParser.onPacket (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\connection.js:75:12)
-[0]       at PacketParser.executeStart (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\packet_parser.js:75:16)
-[0]       at Socket.<anonymous> (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\connection.js:82:25)
-[0]       at Socket.emit (events.js:311:20)
-[0]       at addChunk (_stream_readable.js:294:12)
-[0]       at readableAddChunk (_stream_readable.js:275:11)
-[0]       at Socket.Readable.push (_stream_readable.js:209:10) {
-[0]     code: 'ER_DUP_ENTRY',
-[0]     errno: 1062,
-[0]     sqlState: '23000',
-[0]     sqlMessage: "Duplicate entry '7-226' for key 'steamusergames.PRIMARY'",
-[0]     sql: 'INSERT INTO `SteamUserGames` (`steamUserId`,`gameId`) VALUES (?,?);',
-[0]     parameters: [ 7, 226 ]
-[0]   },
-[0]   original: Error: Duplicate entry '7-226' for key 'steamusergames.PRIMARY'
-[0]       at Packet.asError (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\packets\packet.js:712:17)
-[0]       at Execute.execute (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\commands\command.js:28:26)
-[0]       at Connection.handlePacket (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\connection.js:417:32)
-[0]       at PacketParser.onPacket (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\connection.js:75:12)
-[0]       at PacketParser.executeStart (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\packet_parser.js:75:16)
-[0]       at Socket.<anonymous> (C:\Users\Samue\gt\sams-apps\games-comparison\node_modules\mysql2\lib\connection.js:82:25)
-[0]       at Socket.emit (events.js:311:20)
-[0]       at addChunk (_stream_readable.js:294:12)
-[0]       at readableAddChunk (_stream_readable.js:275:11)
-[0]       at Socket.Readable.push (_stream_readable.js:209:10) {
-[0]     code: 'ER_DUP_ENTRY',
-[0]     errno: 1062,
-[0]     sqlState: '23000',
-[0]     sqlMessage: "Duplicate entry '7-226' for key 'steamusergames.PRIMARY'",
-[0]     sql: 'INSERT INTO `SteamUserGames` (`steamUserId`,`gameId`) VALUES (?,?);',
-[0]     parameters: [ 7, 226 ]
-[0]   },
-[0]   sql: 'INSERT INTO `SteamUserGames` (`steamUserId`,`gameId`) VALUES (?,?);'
-[0] }
-
 ### Programming tasks after core functionality is achieved:
 
-- Add the game's picture / icon next to it's name in the table(s)
+- Add the game's picture / icon next to it's name in the table(s) -- Model
 - PARTIALLY CHANGED Consider showing a list of users compared. Showing their Steam username, profile pics, and/or Vanity URLs in a list of compared users might be best. 
 - Checkout out what is returned by our calls to Steam's API, and see if we get more back that we want to use
 - Checkout what else we can get from the Steam API, and see if we want to expand the site's function
@@ -102,6 +40,11 @@ Error in createJoinRow()
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
 - May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
 - (More detials on the the previous bullet, copied & pasted from a different section.) Repeat multiple tables of games, one for each user. Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
+
+#### More things we can do with Steam's API:
+
+- Get the friends list for any user that has that set to public: https://developer.valvesoftware.com/wiki/Steam_Web_API#GetFriendList_.28v0001.29 --- We could use this to pull their friends, and allow them to select which ones they want to compare games with.
+
 
 ### Styling to do:
 
@@ -127,8 +70,17 @@ Error in createJoinRow()
 - Clean up the FE & BE console logs.
 - Improve code comments
 - Consider combing SharedGamesTable & UserGamesTable into 1 component.
+- Currently we're using createJoinRow() in our controller to create the many to many relationship between users & games, but also to just give us an error if we try to duplicate an existing relationship. This is intentional, because it prevents us from having to first check if the relationship already exists. This makes a 2 step process (checking, then creating if it doesn't exist) into a 1 step process (just letting Sequelize do both). However, this may not be best practice. Consider & research if it needs to changes.
+- In other-contoller, towards the end, we have this: app.post("/sharedGames", function (req, res) { getUsers(res, req.body.usersArray, (usersArray).... etc. This bigger block of code has a lot of loops inside loops. How can we refactor this?
 
 **Think about how users could use & misuse this app.** We probably have a lot more refactoring that we can do besides what is noted above.
+
+### Models:
+
+#### Changes that need to happen to models:
+
+headerImage could be changed to just gameBanner or gameIcon
+delete windows, mac, linux because we have no use for that
 
 ### Notes About Controllers:
 
