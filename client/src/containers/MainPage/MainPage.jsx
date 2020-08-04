@@ -14,6 +14,7 @@ class MainPage extends Component {
   state = {
     additionalUsers: 2,
     usersToSearch: {},
+    searchedUsers: "",
     userObject: false,
     sharedGamesState: false,
     isLoading: false,
@@ -48,9 +49,8 @@ class MainPage extends Component {
       userObject: false,
     });
     // we'll probably need a state to track how many users there are
-    console.log("Comparing games for: " + this.state.usersToSearch.user0);
     const usersArray = Object.values(this.state.usersToSearch);
-    console.log("user array: ", usersArray);
+    this.setState({searchedUsers: usersArray});
 
     // This if / else checks if 1 or multiple users had been entered
     if (usersArray.length === 1) {
@@ -113,9 +113,7 @@ class MainPage extends Component {
         .then((res) => {
           console.log(res);
           if (res.userNotFound) {
-            // $("#errors").append(
-            //   `<h1 class="error-type">Vanity URLs invalid for users: ${res.notFoundUsers}</h1><p class="error-message">Make sure to use the user's vanity URL: <a href="https://steamcommunity.com/discussions/forum/1/537402115094224389/">How to find Steam vanity URL</a></p>`
-            // );
+            // *** We need a better way to tell the user if a Vanity URL isn't good
             console.log(res.userNotFound);
           }
         });
@@ -152,19 +150,6 @@ class MainPage extends Component {
     });
   };
 
-  // Tried to get pressing enter to run compareGames()
-  // Used suggestions from this article:
-  // https://stackoverflow.com/questions/39442419/reactjs-is-there-a-way-to-trigger-a-method-by-pressing-the-enter-key-inside/39442477
-  // enterPressed(event) {
-  //   console.log("Enter was pressed");
-  //   var code = event.keyCode || event.which;
-  //   if (code === 13) {
-  //     //13 is the enter keycode
-  //     //Do stuff in here
-  //     this.compareGames(event);
-  //   }
-  // }
-
   render() {
     // Following code causes an additional username input field
     // to render for each time the add user button is clicked
@@ -174,6 +159,7 @@ class MainPage extends Component {
       userInputs.push(
         // <div className="row">
         <TextInput
+          index={i}
           placeholder="Steam Vanity URL"
           name={"user" + i}
           value={this.state.users}
@@ -221,9 +207,21 @@ class MainPage extends Component {
             <UserGamesTable userInfo={this.state.userObject} />
           )}
           {this.state.sharedGamesState && (
-            <SharedGamesTable sharedGames={this.state.sharedGamesState} />
+            <SharedGamesTable sharedGames={this.state.sharedGamesState} searchedUsers={this.state.searchedUsers}/>
           )}
         </div>
+        {/* <footer>
+          {" "}
+          Icons made by{" "}
+          <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+            Freepik
+          </a>{" "}
+          from{" "}
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            {" "}
+            www.flaticon.com
+          </a>
+        </footer> */}
       </>
     );
   }

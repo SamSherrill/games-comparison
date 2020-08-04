@@ -1,25 +1,12 @@
-// THIS CONTROLLER IS GOING TO NEED SOME WORK
-// This was handlebars routes, and has some references to handlebars
-// Going to have to see what we can use from this, and what needs changes
-
 const db = require("../models");
-
-//add vanity URL to user model
-//use it where needed
 
 module.exports = function (app) {
   const axios = require("axios");
   const apiKey = process.env.API_KEY;
 
-  // This block of code is for handlerbars specifically, I believe
-  // app.get("/", function (req, res) {
-  //   res.render("index");
-  // });
-
   function getUserInfo(apiKey, user, cb) {
     const queryVanityUrl = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${apiKey}&vanityurl=${user}`;
-    console.log(`=============${queryVanityUrl}===============`);
-
+    
     axios
       .get(queryVanityUrl)
       .then(function (res) {
@@ -164,15 +151,33 @@ module.exports = function (app) {
   app.post("/sharedGames", function (req, res) {
     getUsers(res, req.body.usersArray, (usersArray) => {
       let sharedGamesArray = usersArray[0].user.Games.map(
-        (game) => game.dataValues.name
+        (game) => {
+          return {
+            name: game.dataValues.name,
+            id: game.appId,
+            image: game.headerImage
+          }
+        }
       );
       for (var i = 1; i < usersArray.length; i++) {
         let gamesArray = usersArray[i].user.Games.map(
-          (game) => game.dataValues.name
+          (game) => {
+            return {
+              name: game.dataValues.name,
+              id: game.appId,
+              image: game.headerImage
+            }
+          }
         );
-        sharedGamesArray = sharedGamesArray.filter((game) =>
-          gamesArray.includes(game)
-        );
+        sharedGamesArray = sharedGamesArray.filter((game) =>{
+          let containsGame = false;
+          gamesArray.forEach(comparedGame=>{
+            if(comparedGame.name === game.name){
+              containsGame = true;
+            }
+          })
+          return containsGame;  
+      });
       }
       res.json({
         user: usersArray,

@@ -1,22 +1,29 @@
 var db = require("../models");
+
 module.exports = function (app) {
   const axios = require("axios");
   const apiKey = process.env.API_KEY;
 
-  //function that creates the row connecting the user to the games they own in the join table(SteamUserGames)
+  // function that creates the row connecting the user to the games they own in the join table(SteamUserGames)
   async function createJoinRow(steamUserId, gameId) {
     await db.SteamUserGames.create({
       steamUserId,
       gameId,
     })
-      .then(() => console.log("success"))
-      //console logs error type if there was any attempt to put in duplicate value
+      // We don't need to do anything in the .then, and apparently
+      // it's not necessary for this to work, so I've commented it out
+      // .then(() => console.log("Success in createJoinRow()"))
+
+      // We catch the err here, but don't do anything with it because
+      // it is expected that we'll have an "error" whenever we try to 
+      // create a many to many relationship that already exists
       .catch((err) => {
-        // console.log(err.original.code);
+        // console.log("Error in createJoinRow()");
+        // console.log(err);
       });
   }
 
-  //Just helps in getting the id from our database table to be used for later purposes
+  // Gets the Steam user id from our database to be used later
   async function getSteamUserIdBySteamId(steamId) {
     let id;
     await db.SteamUser.findOne({

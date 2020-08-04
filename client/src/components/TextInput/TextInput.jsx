@@ -3,8 +3,8 @@ import "./TextInput.scss";
 
 const TextInput = (props) => {
     return (
-        <div>
-            <label for={props.name}>{props.label}</label>
+        <div key={props.index}>
+            <label htmlFor={props.name}>{props.label}</label>
             <input 
               type="text" 
               className="form-control"
