@@ -2,11 +2,8 @@ module.exports = function (sequelize, DataTypes) {
   const Game = sequelize.define("Game", {
     name: DataTypes.STRING,
     appId: DataTypes.STRING,
-    website: DataTypes.STRING,
-    headerImage: DataTypes.STRING,
-    windows: DataTypes.BOOLEAN,
-    mac: DataTypes.BOOLEAN,
-    linux: DataTypes.BOOLEAN
+    playtime: DataTypes.STRING,
+    gameBanner: DataTypes.STRING
   }
   );
 

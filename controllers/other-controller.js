@@ -155,7 +155,7 @@ module.exports = function (app) {
           return {
             name: game.dataValues.name,
             id: game.appId,
-            image: game.headerImage
+            image: game.gameBanner
           }
         }
       );
@@ -165,7 +165,7 @@ module.exports = function (app) {
             return {
               name: game.dataValues.name,
               id: game.appId,
-              image: game.headerImage
+              image: game.gameBanner
             }
           }
         );

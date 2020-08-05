@@ -1,1 +1,12 @@
 @import "../../baseScss/base";
+td, th{
+    font-weight: bold;
+    font-size: larger;
+}
+.gameBannerImage{
+    margin-right: 2%;
+    max-width: 120px;
+    width: 100%;
+    height: auto;
+    // float: left;
+}
