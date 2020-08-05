@@ -62,6 +62,8 @@ module.exports = function (app) {
                   singleGame = await db.Game.create({
                     name: response.data.response.games[i].name,
                     appId: response.data.response.games[i].appid,
+                    playtime: response.data.response.games[i].playtime_forever,
+                    gameBanner: response.data.response.games[i].img_logo_url,
                   });
                 } else {
                   singleGame = gameFromDatabase;

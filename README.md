@@ -40,6 +40,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
 - May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
 - (More detials on the the previous bullet, copied & pasted from a different section.) Repeat multiple tables of games, one for each user. Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
+- Give users the option to go to the Steam store page for each game.
 
 #### More things we can do with Steam's API:
 
@@ -52,11 +53,17 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Use baseSCSS file for: DONE color variables, margin/padding variables, etc.
 - Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in mind.
 - Add option to remove a username input line, down to only 1 user
-- Fix the lines between table rows
-- Consider rounding the corners of the table slightly
 - Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 - Deal with the left shift that happens with the margins when the Shared Games table loads. --- We realized that this is actually happening because the scroll bar comes in. It would be interesting if we could figure out how to compensate for that.
 - favicon
+
+#### Table Styling:
+
+- Figure how to get the text to wrap responsively, and still be centered with the image.
+- Consider if we need the image to scale more than it does.
+- Fix the lines between table rows -- We're mostly okay with the table lines between the rows, but the top line on the <th> bugs us a little.
+- Consider rounding the corners of the table slightly
+- When we enable users to look at the individual games list of each entered Steam user, we would want to make the styling a universal variable so it can be used by multiple table components. That, or we combine both table components into 1 component.
 
 ### Notes for future refactoring:
 
@@ -81,6 +88,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 headerImage could be changed to just gameBanner or gameIcon
 delete windows, mac, linux because we have no use for that
+capture playtime from the Steam API
+
 
 ### Notes About Controllers:
 
