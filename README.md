@@ -24,6 +24,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
+***Remove users not found from SharedGamesTable header***
+
 ### Programming tasks after core functionality is achieved:
 
 - Add the game's picture / icon next to it's name in the table(s) -- Model
@@ -40,7 +42,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
 - May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
 - (More detials on the the previous bullet, copied & pasted from a different section.) Repeat multiple tables of games, one for each user. Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
-- Give users the option to go to the Steam store page for each game.
+- DONE Give users the option to go to the Steam store page for each game.
+- Following the bullet above: Consider linking to the user's desktop Steam app & opening up the game in their game library. We would have to determine how to do that first.
 
 #### More things we can do with Steam's API:
 
@@ -79,6 +82,9 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Consider combing SharedGamesTable & UserGamesTable into 1 component.
 - Currently we're using createJoinRow() in our controller to create the many to many relationship between users & games, but also to just give us an error if we try to duplicate an existing relationship. This is intentional, because it prevents us from having to first check if the relationship already exists. This makes a 2 step process (checking, then creating if it doesn't exist) into a 1 step process (just letting Sequelize do both). However, this may not be best practice. Consider & research if it needs to changes.
 - In other-contoller, towards the end, we have this: app.post("/sharedGames", function (req, res) { getUsers(res, req.body.usersArray, (usersArray).... etc. This bigger block of code has a lot of loops inside loops. How can we refactor this?
+- DONE: Discuss NPM audit fix with David
+- FIXED: Also discuss the lodash security warning I'm getting on GitHub
+- Let's also revisit server.js
 
 **Think about how users could use & misuse this app.** We probably have a lot more refactoring that we can do besides what is noted above.
 
