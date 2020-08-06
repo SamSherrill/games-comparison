@@ -79,6 +79,9 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Consider combing SharedGamesTable & UserGamesTable into 1 component.
 - Currently we're using createJoinRow() in our controller to create the many to many relationship between users & games, but also to just give us an error if we try to duplicate an existing relationship. This is intentional, because it prevents us from having to first check if the relationship already exists. This makes a 2 step process (checking, then creating if it doesn't exist) into a 1 step process (just letting Sequelize do both). However, this may not be best practice. Consider & research if it needs to changes.
 - In other-contoller, towards the end, we have this: app.post("/sharedGames", function (req, res) { getUsers(res, req.body.usersArray, (usersArray).... etc. This bigger block of code has a lot of loops inside loops. How can we refactor this?
+- DONE: Discuss NPM audit fix with David
+- FIXED: Also discuss the lodash security warning I'm getting on GitHub
+- Let's also revisit server.js
 
 **Think about how users could use & misuse this app.** We probably have a lot more refactoring that we can do besides what is noted above.
 

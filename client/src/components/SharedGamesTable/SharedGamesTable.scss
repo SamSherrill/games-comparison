@@ -1,4 +1,10 @@
 @import "../../baseScss/base";
+a {
+    color: white;
+    &:hover {
+        color: #bebebe;
+    }
+}
 td, th{
     font-weight: bold;
     font-size: larger;
