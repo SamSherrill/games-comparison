@@ -18,6 +18,7 @@ class MainPage extends Component {
     userObject: false,
     sharedGamesState: false,
     isLoading: false,
+    usersNotFound: false
   };
 
   componentDidMount() {
@@ -47,6 +48,7 @@ class MainPage extends Component {
       isLoading: true,
       sharedGamesState: false,
       userObject: false,
+      usersNotFound: false,
     });
     // we'll probably need a state to track how many users there are
     const usersArray = Object.values(this.state.usersToSearch);
@@ -58,12 +60,12 @@ class MainPage extends Component {
         //This API call calls the Steam API and puts user info into our database
         .post("/api/steamUsers", { usersArray })
         .then((res) => {
-          console.log(res.data);
 
-          if (res.userNotFound) {
+          if (res.data.userNotFound) {
             // Display err to user explaining that the user wasn't found
             // We believe that this means they weren't found in our DB, or using Steam's API
             // The code in other-controller.js confirms that
+            this.setState({usersNotFound: res.data.notFoundUsers});
             console.log(
               "User wasn't found (this message coming from inside if res.userNotFound)"
             );
@@ -111,10 +113,9 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
-          console.log(res);
-          if (res.userNotFound) {
-            // *** We need a better way to tell the user if a Vanity URL isn't good
-            console.log(res.userNotFound);
+          console.log(res.data);
+          if (res.data.userNotFound) {
+            this.setState({usersNotFound: res.data.notFoundUsers});
           }
         });
       //adds users games to db
@@ -199,6 +200,10 @@ class MainPage extends Component {
             </div>
           </div>
 
+          {this.state.usersNotFound && (
+            <h3 id="user-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound}`}</h3>
+          )}
+
           {this.state.isLoading && (
             <LoadingWheel isLoading={this.state.isLoading} />
           )}
@@ -207,7 +212,10 @@ class MainPage extends Component {
             <UserGamesTable userInfo={this.state.userObject} />
           )}
           {this.state.sharedGamesState && (
-            <SharedGamesTable sharedGames={this.state.sharedGamesState} searchedUsers={this.state.searchedUsers}/>
+            <SharedGamesTable
+              sharedGames={this.state.sharedGamesState}
+              searchedUsers={this.state.searchedUsers}
+            />
           )}
         </div>
         {/* <footer>

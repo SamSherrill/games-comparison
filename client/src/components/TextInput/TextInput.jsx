@@ -12,6 +12,7 @@ const TextInput = (props) => {
               name={props.name}
               placeholder={props.placeholder}
               onChange={props.onChange}
+              spellCheck="false"
             />
         </div>
     );

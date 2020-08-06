@@ -17,7 +17,11 @@ const SharedGamesTable = (props) => {
             return (
               <tr key={index}>
                 <td>
-                  <a href={`https://store.steampowered.com/app/${game.id}`} target="_blank">
+                  <a
+                    href={`https://store.steampowered.com/app/${game.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <img
                       className="gameBannerImage"
                       src={`http://media.steampowered.com/steamcommunity/public/images/apps/${game.id}/${game.image}.jpg`}

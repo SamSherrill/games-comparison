@@ -24,6 +24,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
+***Remove users not found from SharedGamesTable header***
+
 ### Programming tasks after core functionality is achieved:
 
 - Add the game's picture / icon next to it's name in the table(s) -- Model
@@ -40,7 +42,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - For multiple users, show games that all users except 1 have. For example, if 4 users are entered, and 3 have Bannerlord, we can show that 3 of 4 own that game, in case the 4th wants to buy it to play with the rest.
 - May move showing individual games lists to a later task. When we do that, we may want to initially hide those lists on mobile because that's not the main info someone comes to the site to look at.
 - (More detials on the the previous bullet, copied & pasted from a different section.) Repeat multiple tables of games, one for each user. Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
-- Give users the option to go to the Steam store page for each game.
+- DONE Give users the option to go to the Steam store page for each game.
+- Following the bullet above: Consider linking to the user's desktop Steam app & opening up the game in their game library. We would have to determine how to do that first.
 
 #### More things we can do with Steam's API:
 
