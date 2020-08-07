@@ -24,7 +24,11 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
 
-***Remove users not found from SharedGamesTable header***
+### Items that need to be addressed ASAP:
+
+- Remove users not found from SharedGamesTable header
+- Live site time delay / timing out
+- Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 
 ### Programming tasks after core functionality is achieved:
 
