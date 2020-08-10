@@ -29,9 +29,11 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Remove users not found from SharedGamesTable header
 - Live site time delay / timing out
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
+- Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
 
 ### Programming tasks after core functionality is achieved:
 
+- Playtime is hard coded to the game for the first related user, not related to each user who owns the game
 - Add the game's picture / icon next to it's name in the table(s) -- Model
 - PARTIALLY CHANGED Consider showing a list of users compared. Showing their Steam username, profile pics, and/or Vanity URLs in a list of compared users might be best. 
 - Checkout out what is returned by our calls to Steam's API, and see if we get more back that we want to use
