@@ -27,7 +27,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 ### Items that need to be addressed ASAP:
 
 - Remove users not found from SharedGamesTable header
-- Live site time delay / timing out
+- FIXED Live site time delay / timing out -- The problem was that we had changed the models, but hadn't had the live site's DB reset. We pushed a force:true, ran some searches, then pushed the code with the force:true out.
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 - Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
 
@@ -76,6 +76,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### Notes for future refactoring:
 
+- Live site warning: "Mixed Content: The page at 'https://comparegameslibrary.herokuapp.com/' was loaded over HTTPS, but requested an insecure image 'http://media.steampowered.com/steamcommunity/public/images/apps/4700/fcd1abd6380998e473b92690e28a9fe0a1a27b8d.jpg'. This content should also be served over HTTPS."
 - If any of the user states are blank strings, the search will run as a Shared Games search. -- Maybe we solve this by deleting that index position in the array when the string is deleted by the user.
 - FIXED: Add user button re-runs the search without anything else being clicked
 - Add err handling. Need to tell user why certain things didn't work.

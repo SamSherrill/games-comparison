@@ -12,6 +12,17 @@ body {
   text-align: center;
 }
 
+#user-input-section {
+  // display: inline;
+}
+
+#compare-games-button,
+#add-user-button {
+  background-color: $steam-light-blue;
+  color: white;
+  margin-top: 1.5rem;
+}
+
 #add-user-button {
   float: right;
 }

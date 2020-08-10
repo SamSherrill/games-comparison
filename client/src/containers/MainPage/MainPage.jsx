@@ -179,7 +179,7 @@ class MainPage extends Component {
             friends{" "}
           </h4>
 
-          {userInputs}
+          <div id="user-input-section">{userInputs}</div>
 
           <div className="row">
             <div className="col">
