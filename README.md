@@ -77,6 +77,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 ### Notes for future refactoring:
 
 - Live site warning: "Mixed Content: The page at 'https://comparegameslibrary.herokuapp.com/' was loaded over HTTPS, but requested an insecure image 'http://media.steampowered.com/steamcommunity/public/images/apps/4700/fcd1abd6380998e473b92690e28a9fe0a1a27b8d.jpg'. This content should also be served over HTTPS."
+- Do we need both usersToSearch & searchedUsers as separate states? Or could we refactor this by deleting one of those, and only using the other.
+- Is it best practice to setup usersToSearch as an 
 - If any of the user states are blank strings, the search will run as a Shared Games search. -- Maybe we solve this by deleting that index position in the array when the string is deleted by the user.
 - FIXED: Add user button re-runs the search without anything else being clicked
 - Add err handling. Need to tell user why certain things didn't work.

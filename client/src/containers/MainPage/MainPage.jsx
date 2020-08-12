@@ -151,6 +151,20 @@ class MainPage extends Component {
     });
   };
 
+  deleteUserInputLine = (event) => {
+    const { name } = event.target;
+
+    let usersObject = {...this.state.usersToSearch};
+    delete usersObject[name];
+    this.setState({
+      usersToSearch: usersObject,
+    });
+    
+    let removeAUser = this.state.additionalUsers;
+    removeAUser--;
+    this.setState({additionalUsers: removeAUser});
+  }
+
   render() {
     // Following code causes an additional username input field
     // to render for each time the add user button is clicked
@@ -165,6 +179,7 @@ class MainPage extends Component {
           name={"user" + i}
           value={this.state.users}
           onChange={this.handleInuptChange}
+          onClick={this.deleteUserInputLine}
         />
         // </div>
       );

@@ -17,7 +17,8 @@ const TextInput = (props) => {
       <div className="input-group-append">
         <button
           className="btn btn-danger"
-          onClick={() => console.log("Delete")}
+          name={props.name}
+          onClick={props.onClick}
         >
           X
         </button>
