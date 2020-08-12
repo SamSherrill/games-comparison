@@ -25,7 +25,6 @@ class MainPage extends Component {
     document.addEventListener("keyup", function (e) {
       if (e.target && e.target.className === "form-control") {
         if (e.keyCode === 13) {
-          // Prevent default may or may not be needed
           e.preventDefault();
           document.getElementById("compare-games-button").click();
         }

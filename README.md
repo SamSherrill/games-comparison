@@ -26,8 +26,9 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### Items that need to be addressed ASAP:
 
+- Since adding the delete button to the end of each input field, pressing enter no longer runs compare games. This may be fixed by changing that button to be a span. But I doubt that would fix it, because we already had multiple buttons when we changed enter to only activate compare games.
+- Figure out how to delete the text from the input field when the delete button is pressed for that input field, and there are following input fields.
 - Remove users not found from SharedGamesTable header
-- FIXED Live site time delay / timing out -- The problem was that we had changed the models, but hadn't had the live site's DB reset. We pushed a force:true, ran some searches, then pushed the code with the force:true out.
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 - Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
 
@@ -74,26 +75,33 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Consider rounding the corners of the table slightly
 - When we enable users to look at the individual games list of each entered Steam user, we would want to make the styling a universal variable so it can be used by multiple table components. That, or we combine both table components into 1 component.
 
+### Bugs to fix & already fixed:
+
+- FIXED Live site time delay / timing out -- The problem was that we had changed the models, but hadn't had the live site's DB reset. We pushed a force:true, ran some searches, then pushed the code with the force:true out.
+
 ### Notes for future refactoring:
 
 - Live site warning: "Mixed Content: The page at 'https://comparegameslibrary.herokuapp.com/' was loaded over HTTPS, but requested an insecure image 'http://media.steampowered.com/steamcommunity/public/images/apps/4700/fcd1abd6380998e473b92690e28a9fe0a1a27b8d.jpg'. This content should also be served over HTTPS."
 - Do we need both usersToSearch & searchedUsers as separate states? Or could we refactor this by deleting one of those, and only using the other.
-- Is it best practice to setup usersToSearch as an 
+- Is it best practice to setup usersToSearch as an object, then change it to an array to pass it to the backend? Should it be an array throughout, or an object throughout?
 - If any of the user states are blank strings, the search will run as a Shared Games search. -- Maybe we solve this by deleting that index position in the array when the string is deleted by the user.
 - FIXED: Add user button re-runs the search without anything else being clicked
 - Add err handling. Need to tell user why certain things didn't work.
 - Resolve all warnings in the browser console.
 - See if we can resolve the depracation warning in the BE console. This one: (node:31268) [SEQUELIZE0004] DeprecationWarning: A boolean value was passed to options.operatorsAliases. This is a no-op with v5 and should be removed.
 - Currently all FE API calls happen in MainPage.jsx. We should probably move the API requests to a separate file or files, then import them to MainPage.
-- Clean up any unused code, packages, etc.
-- Clean up the FE & BE console logs.
-- Improve code comments
 - Consider combing SharedGamesTable & UserGamesTable into 1 component.
 - Currently we're using createJoinRow() in our controller to create the many to many relationship between users & games, but also to just give us an error if we try to duplicate an existing relationship. This is intentional, because it prevents us from having to first check if the relationship already exists. This makes a 2 step process (checking, then creating if it doesn't exist) into a 1 step process (just letting Sequelize do both). However, this may not be best practice. Consider & research if it needs to changes.
 - In other-contoller, towards the end, we have this: app.post("/sharedGames", function (req, res) { getUsers(res, req.body.usersArray, (usersArray).... etc. This bigger block of code has a lot of loops inside loops. How can we refactor this?
 - DONE: Discuss NPM audit fix with David
 - FIXED: Also discuss the lodash security warning I'm getting on GitHub
 - Let's also revisit server.js
+
+Minor tasks we can repeat periodically during development:
+- Clean up any unused code, packages, etc.
+- Clean up the FE & BE console logs.
+- Improve code comments
+
 
 **Think about how users could use & misuse this app.** We probably have a lot more refactoring that we can do besides what is noted above.
 
