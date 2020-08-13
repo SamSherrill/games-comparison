@@ -10,6 +10,7 @@ const TextInput = (props) => {
         className="form-control rounded-left"
         aria-describedby={props.name}
         name={props.name}
+        id={props.name}
         placeholder={props.placeholder}
         onChange={props.onChange}
         spellCheck="false"
@@ -18,7 +19,7 @@ const TextInput = (props) => {
         <button
           className="btn btn-danger"
           name={props.name}
-          onClick={props.onClick}
+          onClick={(event) => props.onClick(event, props.name)}
         >
           X
         </button>

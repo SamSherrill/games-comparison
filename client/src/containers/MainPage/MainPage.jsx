@@ -18,12 +18,13 @@ class MainPage extends Component {
     userObject: false,
     sharedGamesState: false,
     isLoading: false,
-    usersNotFound: false
+    usersNotFound: false,
   };
 
   componentDidMount() {
     document.addEventListener("keyup", function (e) {
-      if (e.target && e.target.className === "form-control") {
+      //Make sure full class list is in conditional to get enter key to submit compare games
+      if (e.target && e.target.className === "form-control rounded-left") {
         if (e.keyCode === 13) {
           e.preventDefault();
           document.getElementById("compare-games-button").click();
@@ -51,7 +52,7 @@ class MainPage extends Component {
     });
     // we'll probably need a state to track how many users there are
     const usersArray = Object.values(this.state.usersToSearch);
-    this.setState({searchedUsers: usersArray});
+    this.setState({ searchedUsers: usersArray });
 
     // This if / else checks if 1 or multiple users had been entered
     if (usersArray.length === 1) {
@@ -59,12 +60,11 @@ class MainPage extends Component {
         //This API call calls the Steam API and puts user info into our database
         .post("/api/steamUsers", { usersArray })
         .then((res) => {
-
           if (res.data.userNotFound) {
             // Display err to user explaining that the user wasn't found
             // We believe that this means they weren't found in our DB, or using Steam's API
             // The code in other-controller.js confirms that
-            this.setState({usersNotFound: res.data.notFoundUsers});
+            this.setState({ usersNotFound: res.data.notFoundUsers });
             console.log(
               "User wasn't found (this message coming from inside if res.userNotFound)"
             );
@@ -114,7 +114,7 @@ class MainPage extends Component {
         .then((res) => {
           console.log(res.data);
           if (res.data.userNotFound) {
-            this.setState({usersNotFound: res.data.notFoundUsers});
+            this.setState({ usersNotFound: res.data.notFoundUsers });
           }
         });
       //adds users games to db
@@ -143,26 +143,36 @@ class MainPage extends Component {
     }
   };
 
-  handleInuptChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      usersToSearch: { ...this.state.usersToSearch, [name]: value },
-    });
-  };
-
-  deleteUserInputLine = (event) => {
-    const { name } = event.target;
-
-    let usersObject = {...this.state.usersToSearch};
+  deleteFromUsersToSearch = (name) => {
+    let usersObject = { ...this.state.usersToSearch };
     delete usersObject[name];
     this.setState({
       usersToSearch: usersObject,
     });
-    
+  };
+
+  handleInuptChange = (event) => {
+    const { name, value } = event.target;
+    if (value === "") {
+      this.deleteFromUsersToSearch(name);
+    } else {
+      this.setState({
+        usersToSearch: { ...this.state.usersToSearch, [name]: value },
+      });
+    }
+  };
+
+  deleteUserInputLine = (event, inputId) => {
+    const { name } = event.target;
+    const selectedInput = document.getElementById(inputId);
+    selectedInput.value = "";
+
+    this.deleteFromUsersToSearch(name);
+
     let removeAUser = this.state.additionalUsers;
     removeAUser--;
-    this.setState({additionalUsers: removeAUser});
-  }
+    this.setState({ additionalUsers: removeAUser });
+  };
 
   render() {
     // Following code causes an additional username input field
@@ -170,8 +180,15 @@ class MainPage extends Component {
     // TODO: Display a message once 10 username input fields are reached
     const userInputs = [];
     for (let i = 0; i < this.state.additionalUsers; i++) {
+      // let textInputValue = this.state.users
+      // if (`this.state.usersToSearch.user${i}`) {
+      //   console.log(`this.state.usersToSearch.user${i}`);
+      //   textInputValue = this.state.usersToSearch.value[i]
+      //   const selectedInput = document.getElementById(inputId);
+      //   selectedInput.value = `this.state.usersToSearch.user${[i]}`;
+      // }
+
       userInputs.push(
-        // <div className="row">
         <TextInput
           index={i}
           placeholder="Steam Vanity URL"
@@ -180,7 +197,6 @@ class MainPage extends Component {
           onChange={this.handleInuptChange}
           onClick={this.deleteUserInputLine}
         />
-        // </div>
       );
     }
 

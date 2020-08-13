@@ -26,8 +26,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### Items that need to be addressed ASAP:
 
-- Since adding the delete button to the end of each input field, pressing enter no longer runs compare games. This may be fixed by changing that button to be a span. But I doubt that would fix it, because we already had multiple buttons when we changed enter to only activate compare games.
-- Figure out how to delete the text from the input field when the delete button is pressed for that input field, and there are following input fields.
+- Delete button now works almost fully as intended. The only remaining error we're still running into with this is when a user is deleted from the beginning or middle of the list, and there is already text in any of the following input fields. Those fields are rerendered blank in the DOM, even though the usersToSearch object still contains what was previously typed by the user.
 - Remove users not found from SharedGamesTable header
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 - Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
@@ -78,6 +77,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 ### Bugs to fix & already fixed:
 
 - FIXED Live site time delay / timing out -- The problem was that we had changed the models, but hadn't had the live site's DB reset. We pushed a force:true, ran some searches, then pushed the code with the force:true out.
+- FIXED: Since adding the delete button to the end of each input field, pressing enter no longer runs compare games. This may be fixed by changing that button to be a span. But I doubt that would fix it, because we already had multiple buttons when we changed enter to only activate compare games.
+- DONE: Figure out how to delete the text from the input field when the delete button is pressed for that input field, and there are following input fields.
 
 ### Notes for future refactoring:
 
@@ -85,6 +86,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Do we need both usersToSearch & searchedUsers as separate states? Or could we refactor this by deleting one of those, and only using the other.
 - Is it best practice to setup usersToSearch as an object, then change it to an array to pass it to the backend? Should it be an array throughout, or an object throughout?
 - If any of the user states are blank strings, the search will run as a Shared Games search. -- Maybe we solve this by deleting that index position in the array when the string is deleted by the user.
+- Check for a user being double entered. That doesn't break the search, but it'd be nice to not have that user double entered in our system
 - FIXED: Add user button re-runs the search without anything else being clicked
 - Add err handling. Need to tell user why certain things didn't work.
 - Resolve all warnings in the browser console.
