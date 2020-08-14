@@ -26,6 +26,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### Items that need to be addressed ASAP:
 
+- Fix formating for input rows now that delete button is implemented & working.
 - BUG: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
 - Remove users not found from SharedGamesTable header
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
