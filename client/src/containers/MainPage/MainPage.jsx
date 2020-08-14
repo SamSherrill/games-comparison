@@ -40,7 +40,7 @@ class MainPage extends Component {
         additionalUsers: this.state.additionalUsers + 1,
       });
     }
-    // The display warning about 10 user max will need to happen in render, I think
+    // The display warning about 10 user max will need to happen in render
   };
 
   compareGames = async (event) => {
@@ -50,7 +50,7 @@ class MainPage extends Component {
       userObject: false,
       usersNotFound: false,
     });
-    // we'll probably need a state to track how many users there are
+
     const usersArray = Object.values(this.state.usersToSearch);
     this.setState({ searchedUsers: usersArray });
 
@@ -61,16 +61,10 @@ class MainPage extends Component {
         .post("/api/steamUsers", { usersArray })
         .then((res) => {
           if (res.data.userNotFound) {
-            // Display err to user explaining that the user wasn't found
-            // We believe that this means they weren't found in our DB, or using Steam's API
-            // The code in other-controller.js confirms that
             this.setState({ usersNotFound: res.data.notFoundUsers });
             console.log(
               "User wasn't found (this message coming from inside if res.userNotFound)"
             );
-
-            // TO DO: Figure out how to do this in react, because our old code used jQuery & handlebars (probably with a state prop called error)
-            //error will display based on conditional rendering
           }
           // 2nd layer api call: inserts games and user-game relationships into our database from Steam API
           // ^^^ REASSESS THIS in refactoring. The many layers of API calls are almost certainly a major performance hit
@@ -98,14 +92,6 @@ class MainPage extends Component {
           this.setState({ isLoading: false });
           console.log(er);
         });
-      //Next steps would be to go through the else statement in the index.js file in the handlebars version and
-      //add one section at a time both to ensure that it works and to understand each
-      //API call that is made in the function
-
-      // If I were writing this from scratch, things to consider:
-      // We don't want to duplicate info in the data: not the user's info, nor the game's info
-      // However, we may want to update their info if we find it needs an update (might address in refactoring)
-      // We'll deal with performance during refactoring
     } else if (usersArray.length > 1) {
       await axios
         .post("/api/steamUsers", {
@@ -143,6 +129,9 @@ class MainPage extends Component {
     }
   };
 
+  // Deletes a user key:value pair from the usersToSearch state.
+  // We separated this into it's own function originally because we used it in to places.
+  // After some refactoring this is only used in one place now, in handleInputChange()
   deleteFromUsersToSearch = (name) => {
     let usersObject = { ...this.state.usersToSearch };
     delete usersObject[name];
@@ -162,16 +151,29 @@ class MainPage extends Component {
     }
   };
 
-  deleteUserInputLine = (event, inputId) => {
+  deleteUserInputLine = (event) => {
     const { name } = event.target;
-    const selectedInput = document.getElementById(inputId);
-    selectedInput.value = "";
 
-    this.deleteFromUsersToSearch(name);
-
+    let deletedRowIndexPosition = Number(name.slice(name.length - 1));
+    // for loop for replacing the text of all input fields with the text of the following input field, starting with the deleted row
+    for (let i = deletedRowIndexPosition; i < this.state.additionalUsers-1; i++) {
+      let deletedInputField = document.getElementById(`user${i}`);
+      let nextInputField = document.getElementById(`user${i + 1}`);
+      deletedInputField.value = nextInputField.value;
+    }
+    
     let removeAUser = this.state.additionalUsers;
     removeAUser--;
     this.setState({ additionalUsers: removeAUser });
+
+    let newUsersToSearch = {};
+    for (let i = 0; i < this.state.additionalUsers-1; i++) {
+      let currentInputField = document.getElementById(`user${i}`);
+      newUsersToSearch[`user${i}`] = currentInputField.value;
+      console.log("newUsersToSearch in loop: ", newUsersToSearch);
+    }
+    console.log("newUsersToSearch outside of loop: ", newUsersToSearch);
+    this.setState({ usersToSearch: newUsersToSearch });
   };
 
   render() {
@@ -180,14 +182,6 @@ class MainPage extends Component {
     // TODO: Display a message once 10 username input fields are reached
     const userInputs = [];
     for (let i = 0; i < this.state.additionalUsers; i++) {
-      // let textInputValue = this.state.users
-      // if (`this.state.usersToSearch.user${i}`) {
-      //   console.log(`this.state.usersToSearch.user${i}`);
-      //   textInputValue = this.state.usersToSearch.value[i]
-      //   const selectedInput = document.getElementById(inputId);
-      //   selectedInput.value = `this.state.usersToSearch.user${[i]}`;
-      // }
-
       userInputs.push(
         <TextInput
           index={i}

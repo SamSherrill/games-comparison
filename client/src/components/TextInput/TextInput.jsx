@@ -19,7 +19,7 @@ const TextInput = (props) => {
         <button
           className="btn btn-danger"
           name={props.name}
-          onClick={(event) => props.onClick(event, props.name)}
+          onClick={(event) => props.onClick(event)}
         >
           X
         </button>

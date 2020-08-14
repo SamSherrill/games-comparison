@@ -26,7 +26,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### Items that need to be addressed ASAP:
 
-- Delete button now works almost fully as intended. The only remaining error we're still running into with this is when a user is deleted from the beginning or middle of the list, and there is already text in any of the following input fields. Those fields are rerendered blank in the DOM, even though the usersToSearch object still contains what was previously typed by the user.
+- BUG: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
 - Remove users not found from SharedGamesTable header
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 - Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
@@ -50,6 +50,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - (More detials on the the previous bullet, copied & pasted from a different section.) Repeat multiple tables of games, one for each user. Make sure the tables of games of each user displays correctly & aesthically well; Check for responsiveness. We may want to have the tables cut off at 20 games, with an option to display more. Also may want to display the games in order of play time. However, I think that players may have their "hours played" stats set to private, even if the games list is visible.
 - DONE Give users the option to go to the Steam store page for each game.
 - Following the bullet above: Consider linking to the user's desktop Steam app & opening up the game in their game library. We would have to determine how to do that first.
+- DONE Delete button now works almost fully as intended.
 
 #### More things we can do with Steam's API:
 
