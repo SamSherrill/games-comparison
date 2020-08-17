@@ -67,6 +67,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 - Deal with the left shift that happens with the margins when the Shared Games table loads. --- We realized that this is actually happening because the scroll bar comes in. It would be interesting if we could figure out how to compensate for that.
 - favicon
+- Consider our margins between elements. We're mostly using 2% top margin, but use 1.5rem at one point because 2% wasn't doing what we wanted.
 
 #### Table Styling:
 
@@ -129,6 +130,10 @@ A big observation we had was that these controllers are intertwined. We may want
 ### Notes About Frontend API Calls:
 
 I setup a utils folder with an api js file (named frontend-api.js). However, we're not using that yet. I'll leave it there as a reminder for now. I will proceed with the writing the axios functions inside the react containers / components first, and may export those later. I'll have to research what is best practice for these kind of things.
+
+## UI / UX Thought Process:
+
+We decided not to display a warning to the user that they need to search with at least one input field completed. That seems instinctive that nothing would happen if they didn't enter any username. We spent time working on other code.
 
 ## Lessons learned:
 

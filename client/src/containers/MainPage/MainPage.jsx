@@ -125,7 +125,8 @@ class MainPage extends Component {
         });
     } else {
       this.setState({ isLoading: false });
-      console.log("must input at least one user");
+      // We discussed sending a user a warning to input at least one Vanity URL, but
+      // we're sure users will understand that nothing will happen until they do that.
     }
   };
 
@@ -170,9 +171,7 @@ class MainPage extends Component {
     for (let i = 0; i < this.state.additionalUsers-1; i++) {
       let currentInputField = document.getElementById(`user${i}`);
       newUsersToSearch[`user${i}`] = currentInputField.value;
-      console.log("newUsersToSearch in loop: ", newUsersToSearch);
     }
-    console.log("newUsersToSearch outside of loop: ", newUsersToSearch);
     this.setState({ usersToSearch: newUsersToSearch });
   };
 
