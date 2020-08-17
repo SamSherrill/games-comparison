@@ -26,9 +26,9 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### Items that need to be addressed ASAP:
 
-- Fix formating for input rows now that delete button is implemented & working.
 - BUG: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
 - Remove users not found from SharedGamesTable header
+- ***Look at Brian Freeman's email to Sam which had advice for speed performance improvements.***
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 - Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
 
@@ -82,6 +82,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - FIXED Live site time delay / timing out -- The problem was that we had changed the models, but hadn't had the live site's DB reset. We pushed a force:true, ran some searches, then pushed the code with the force:true out.
 - FIXED: Since adding the delete button to the end of each input field, pressing enter no longer runs compare games. This may be fixed by changing that button to be a span. But I doubt that would fix it, because we already had multiple buttons when we changed enter to only activate compare games.
 - DONE: Figure out how to delete the text from the input field when the delete button is pressed for that input field, and there are following input fields.
+- FIXED: Fix formating for input rows now that delete button is implemented & working.
 
 ### Notes for future refactoring:
 
