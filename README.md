@@ -6,6 +6,15 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ## Development Plan / Tasks To Do:
 
+### To Do During Next Pairing Session:
+
+- 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
+- FOLLOW UP on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
+
+- ***Look at Brian Freeman's email to Sam which had advice for speed performance improvements.***
+- Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
+- Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
+
 ### Core programming tasks:
 
 1) DONE Get the compare user button to dispaly a table of games for one user
@@ -23,14 +32,6 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 3) DONE Display table of games that all users share
 
 4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
-
-### Items that need to be addressed ASAP:
-
-- Fix formating for input rows now that delete button is implemented & working.
-- BUG: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
-- Remove users not found from SharedGamesTable header
-- Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
-- Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
 
 ### Programming tasks after core functionality is achieved:
 
@@ -57,13 +58,12 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 - Get the friends list for any user that has that set to public: https://developer.valvesoftware.com/wiki/Steam_Web_API#GetFriendList_.28v0001.29 --- We could use this to pull their friends, and allow them to select which ones they want to compare games with.
 
-
 ### Styling to do:
 
 - DONE Display loading wheel similar to what David added to the handlebars version of the app.
 - Use baseSCSS file for: DONE color variables, margin/padding variables, etc.
 - Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in mind.
-- Add option to remove a username input line, down to only 1 user
+- DONE Add option to remove a username input line, down to only 1 user
 - Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 - Deal with the left shift that happens with the margins when the Shared Games table loads. --- We realized that this is actually happening because the scroll bar comes in. It would be interesting if we could figure out how to compensate for that.
 - favicon
@@ -82,6 +82,24 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - FIXED Live site time delay / timing out -- The problem was that we had changed the models, but hadn't had the live site's DB reset. We pushed a force:true, ran some searches, then pushed the code with the force:true out.
 - FIXED: Since adding the delete button to the end of each input field, pressing enter no longer runs compare games. This may be fixed by changing that button to be a span. But I doubt that would fix it, because we already had multiple buttons when we changed enter to only activate compare games.
 - DONE: Figure out how to delete the text from the input field when the delete button is pressed for that input field, and there are following input fields.
+- FIXED: Fix formating for input rows now that delete button is implemented & working.
+- FIXED: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
+- FIXED: Remove users not found from SharedGamesTable header
+
+### 8/18/2020 Big Refactor Conversation:
+
+- Combine SharedGamesTable & UserGamesTable into one component. 
+- Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.
+- 
+
+#### Things We Like From https://www.lorenzostanco.com/lab/steam/friends
+We found this website mid-August when someone we showed our app to brought it to our attention. He does a lot of things that we like. Some we'd already considered, and some things he had implemented before we thought of them. Here are some things we saw that we might want to implement:
+
+- We really like how he shows games that multiple users, but not all, own.
+
+#### Things We'd Do Differently From https://www.lorenzostanco.com/lab/steam/friends
+
+- 
 
 ### Notes for future refactoring:
 

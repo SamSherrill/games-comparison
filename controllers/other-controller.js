@@ -46,6 +46,7 @@ module.exports = function (app) {
   app.post("/api/steamUsers", async function (req, res) {
     const notFoundUsers = [];
     let userNotFound = false;
+    const foundUsers = [];
     await req.body.usersArray.forEach(async (user) => {
       await db.SteamUser.findOne({
         where: {
@@ -62,6 +63,8 @@ module.exports = function (app) {
               createdUsers.push(dbPost);
             });
           });
+        }else{
+          foundUsers.push(dbUser);
         }
       });
     });
@@ -69,6 +72,7 @@ module.exports = function (app) {
       res.json({
         userNotFound: userNotFound,
         notFoundUsers: notFoundUsers,
+        foundUsers: foundUsers
       });
     }, 1000);
   });
