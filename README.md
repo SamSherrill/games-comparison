@@ -58,13 +58,12 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 - Get the friends list for any user that has that set to public: https://developer.valvesoftware.com/wiki/Steam_Web_API#GetFriendList_.28v0001.29 --- We could use this to pull their friends, and allow them to select which ones they want to compare games with.
 
-
 ### Styling to do:
 
 - DONE Display loading wheel similar to what David added to the handlebars version of the app.
 - Use baseSCSS file for: DONE color variables, margin/padding variables, etc.
 - Username input boxes to separate into 2 columns. Maybe we start with 2 boxes, 1 in each column. This would have to be developed with responsiveness in mind.
-- Add option to remove a username input line, down to only 1 user
+- DONE Add option to remove a username input line, down to only 1 user
 - Consider moving the buttons to the top. Each time "Add User" is clicked, that button moves down. So if you try to double click the button, the button has moved away from your cursor before you hit it the second time. We can also consider moving the cursor with the button.
 - Deal with the left shift that happens with the margins when the Shared Games table loads. --- We realized that this is actually happening because the scroll bar comes in. It would be interesting if we could figure out how to compensate for that.
 - favicon
@@ -86,6 +85,21 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - FIXED: Fix formating for input rows now that delete button is implemented & working.
 - FIXED: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
 - FIXED: Remove users not found from SharedGamesTable header
+
+### 8/18/2020 Big Refactor Conversation:
+
+- Combine SharedGamesTable & UserGamesTable into one component. 
+- Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.
+- 
+
+#### Things We Like From https://www.lorenzostanco.com/lab/steam/friends
+We found this website mid-August when someone we showed our app to brought it to our attention. He does a lot of things that we like. Some we'd already considered, and some things he had implemented before we thought of them. Here are some things we saw that we might want to implement:
+
+- We really like how he shows games that multiple users, but not all, own.
+
+#### Things We'd Do Differently From https://www.lorenzostanco.com/lab/steam/friends
+
+- 
 
 ### Notes for future refactoring:
 
