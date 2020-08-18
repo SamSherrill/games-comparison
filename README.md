@@ -26,7 +26,6 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### Items that need to be addressed ASAP:
 
-- BUG: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
 - Remove users not found from SharedGamesTable header
 - ***Look at Brian Freeman's email to Sam which had advice for speed performance improvements.***
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
@@ -83,6 +82,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - FIXED: Since adding the delete button to the end of each input field, pressing enter no longer runs compare games. This may be fixed by changing that button to be a span. But I doubt that would fix it, because we already had multiple buttons when we changed enter to only activate compare games.
 - DONE: Figure out how to delete the text from the input field when the delete button is pressed for that input field, and there are following input fields.
 - FIXED: Fix formating for input rows now that delete button is implemented & working.
+- FIXED: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
 
 ### Notes for future refactoring:
 

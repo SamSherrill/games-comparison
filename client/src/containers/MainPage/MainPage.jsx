@@ -101,6 +101,9 @@ class MainPage extends Component {
           console.log(res.data);
           if (res.data.userNotFound) {
             this.setState({ usersNotFound: res.data.notFoundUsers });
+            if (this.state.searchedUsers.length === this.state.usersNotFound.length) {
+              this.setState({isLoading: false});
+            }
           }
         });
       //adds users games to db
@@ -224,7 +227,7 @@ class MainPage extends Component {
           </div>
 
           {this.state.usersNotFound && (
-            <h3 id="user-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound}`}</h3>
+            <h3 id="user-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound.join(", ")}`}</h3>
           )}
 
           {this.state.isLoading && (
