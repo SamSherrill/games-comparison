@@ -6,6 +6,15 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ## Development Plan / Tasks To Do:
 
+### To Do During Next Pairing Session:
+
+- 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
+- FOLLOW UP on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
+
+- ***Look at Brian Freeman's email to Sam which had advice for speed performance improvements.***
+- Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
+- Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
+
 ### Core programming tasks:
 
 1) DONE Get the compare user button to dispaly a table of games for one user
@@ -23,13 +32,6 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 3) DONE Display table of games that all users share
 
 4) DONE Pressing Enter should fire the search, same as if "Compare Games" is clicked with the mouse. Warning rendered on page if one of the users can't be found.
-
-### Items that need to be addressed ASAP:
-
-- Remove users not found from SharedGamesTable header
-- ***Look at Brian Freeman's email to Sam which had advice for speed performance improvements.***
-- Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
-- Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
 
 ### Programming tasks after core functionality is achieved:
 
@@ -83,6 +85,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - DONE: Figure out how to delete the text from the input field when the delete button is pressed for that input field, and there are following input fields.
 - FIXED: Fix formating for input rows now that delete button is implemented & working.
 - FIXED: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
+- FIXED: Remove users not found from SharedGamesTable header
 
 ### Notes for future refactoring:
 

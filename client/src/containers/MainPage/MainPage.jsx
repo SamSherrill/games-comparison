@@ -52,7 +52,7 @@ class MainPage extends Component {
     });
 
     const usersArray = Object.values(this.state.usersToSearch);
-    this.setState({ searchedUsers: usersArray });
+    // this.setState({ searchedUsers: usersArray });
 
     // This if / else checks if 1 or multiple users had been entered
     if (usersArray.length === 1) {
@@ -98,11 +98,23 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
-          console.log(res.data);
+          console.log("================", res.data);
+          const searchedUsers = [];
+          res.data.foundUsers.forEach((user) => {
+            if (user.vanityUrl === user.personaName) {
+              searchedUsers.push(user.personaName);
+            } else {
+              searchedUsers.push(`${user.personaName} (${user.vanityUrl})`);
+            }
+          });
+          this.setState({ searchedUsers: searchedUsers });
           if (res.data.userNotFound) {
             this.setState({ usersNotFound: res.data.notFoundUsers });
-            if (this.state.searchedUsers.length === this.state.usersNotFound.length) {
-              this.setState({isLoading: false});
+            if (
+              this.state.searchedUsers.length ===
+              this.state.usersNotFound.length
+            ) {
+              this.setState({ isLoading: false });
             }
           }
         });
@@ -160,18 +172,22 @@ class MainPage extends Component {
 
     let deletedRowIndexPosition = Number(name.slice(name.length - 1));
     // for loop for replacing the text of all input fields with the text of the following input field, starting with the deleted row
-    for (let i = deletedRowIndexPosition; i < this.state.additionalUsers-1; i++) {
+    for (
+      let i = deletedRowIndexPosition;
+      i < this.state.additionalUsers - 1;
+      i++
+    ) {
       let deletedInputField = document.getElementById(`user${i}`);
       let nextInputField = document.getElementById(`user${i + 1}`);
       deletedInputField.value = nextInputField.value;
     }
-    
+
     let removeAUser = this.state.additionalUsers;
     removeAUser--;
     this.setState({ additionalUsers: removeAUser });
 
     let newUsersToSearch = {};
-    for (let i = 0; i < this.state.additionalUsers-1; i++) {
+    for (let i = 0; i < this.state.additionalUsers - 1; i++) {
       let currentInputField = document.getElementById(`user${i}`);
       newUsersToSearch[`user${i}`] = currentInputField.value;
     }
@@ -227,7 +243,9 @@ class MainPage extends Component {
           </div>
 
           {this.state.usersNotFound && (
-            <h3 id="user-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound.join(", ")}`}</h3>
+            <h3 id="user-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound.join(
+              ", "
+            )}`}</h3>
           )}
 
           {this.state.isLoading && (
