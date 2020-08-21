@@ -1,7 +1,7 @@
 import React from "react";
-import "./SharedGamesTable.scss";
+import "./GamesTable.scss";
 
-const SharedGamesTable = (props) => {
+const GamesTable = (props) => {
   const userString = props.searchedUsers.join(", ");
 
   return (
@@ -9,7 +9,7 @@ const SharedGamesTable = (props) => {
       <table className="table">
         <thead>
           <tr>
-            <th> Shared games for {userString}</th>
+            {props.foundUsers.length === 1 ? <th> Games owned by {userString}</th> : <th> Shared games for {userString}</th>}
           </tr>
         </thead>
         <tbody>
@@ -39,4 +39,4 @@ const SharedGamesTable = (props) => {
   );
 };
 
-export default SharedGamesTable;
+export default GamesTable;

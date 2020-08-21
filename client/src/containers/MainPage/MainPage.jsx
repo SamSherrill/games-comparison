@@ -3,8 +3,7 @@ import "./MainPage.scss";
 import axios from "axios";
 import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
-import UserGamesTable from "../../components/UserGamesTable/UserGamesTable";
-import SharedGamesTable from "../../components/SharedGamesTable/SharedGamesTable";
+import GamesTable from "../../components/GamesTable/GamesTable";
 import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 class MainPage extends Component {
@@ -19,6 +18,7 @@ class MainPage extends Component {
     sharedGamesState: false,
     isLoading: false,
     usersNotFound: false,
+    foundUsers: false,
   };
 
   componentDidMount() {
@@ -49,50 +49,13 @@ class MainPage extends Component {
       sharedGamesState: false,
       userObject: false,
       usersNotFound: false,
+      foundUsers: false
     });
 
     const usersArray = Object.values(this.state.usersToSearch);
     // this.setState({ searchedUsers: usersArray });
-
-    // This if / else checks if 1 or multiple users had been entered
-    if (usersArray.length === 1) {
-      axios
-        //This API call calls the Steam API and puts user info into our database
-        .post("/api/steamUsers", { usersArray })
-        .then((res) => {
-          if (res.data.userNotFound) {
-            this.setState({ usersNotFound: res.data.notFoundUsers });
-            console.log(
-              "User wasn't found (this message coming from inside if res.userNotFound)"
-            );
-          }
-          // 2nd layer api call: inserts games and user-game relationships into our database from Steam API
-          // ^^^ REASSESS THIS in refactoring. The many layers of API calls are almost certainly a major performance hit
-          axios
-            .post("/api/games", {
-              usersArray,
-            })
-            .then(() => {
-              // 3rd layer api call: retrieves user and their game info from out database to be displayed on the frontend
-              // ^^^ REASSESS in refactoring
-              axios
-                .get("/SteamUser/" + usersArray[0], {
-                  userOne: usersArray[0],
-                })
-                .then((returnedUser) => {
-                  this.setState({ isLoading: false });
-                  this.setState({
-                    userObject: returnedUser.data,
-                  });
-                  console.log(returnedUser.data);
-                });
-            });
-        })
-        .catch((er) => {
-          this.setState({ isLoading: false });
-          console.log(er);
-        });
-    } else if (usersArray.length > 1) {
+ 
+    if (usersArray.length > 0) {
       await axios
         .post("/api/steamUsers", {
           usersArray,
@@ -100,6 +63,7 @@ class MainPage extends Component {
         .then((res) => {
           console.log("================", res.data);
           const searchedUsers = [];
+          this.setState({foundUsers: res.data.foundUsers});
           res.data.foundUsers.forEach((user) => {
             if (user.vanityUrl === user.personaName) {
               searchedUsers.push(user.personaName);
@@ -139,7 +103,9 @@ class MainPage extends Component {
           console.log(er);
         });
     } else {
+      // If the user didn't enter at least one user, then the loading wheel is turned off
       this.setState({ isLoading: false });
+      
       // We discussed sending a user a warning to input at least one Vanity URL, but
       // we're sure users will understand that nothing will happen until they do that.
     }
@@ -251,14 +217,11 @@ class MainPage extends Component {
           {this.state.isLoading && (
             <LoadingWheel isLoading={this.state.isLoading} />
           )}
-
-          {this.state.userObject && (
-            <UserGamesTable userInfo={this.state.userObject} />
-          )}
           {this.state.sharedGamesState && (
-            <SharedGamesTable
+            <GamesTable
               sharedGames={this.state.sharedGamesState}
               searchedUsers={this.state.searchedUsers}
+              foundUsers={this.state.foundUsers}
             />
           )}
         </div>
