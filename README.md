@@ -15,6 +15,62 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 - Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
 
+### 1st Major Refactor Plans: 
+Starting on 8/19/2020:
+
+- WE'RE GOING TO NEED TO COME BACK TO THIS after doing a tutorial or 2. --- Writing tests to automatically confirm that we haven't broken the program each time we change some code.
+1) Figured out how to run tests. Done for FE. We'll have to figure it out for th backend when we get there.
+2) Setup some initial FE tests.
+
+- DONE Combine SharedGamesTable & UserGamesTable into one component. 
+1) DONE make a ternary statement in SharedGamesTable that handles whether there is 1 or more users
+2) DONE Rename SharedGamesTable to GamesTable, delete UserGamesTable, then change all references to this in MainPage & SharedGamesTable
+- DONE Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.
+- Look into using findOrCreate instead of CreateJoinRow. 
+- Brian also suggested some specific SQL queries that could be used to eager load information.
+- Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
+
+
+#### Refactoring Advice from Brian Freeman:
+
+For performance. Some thoughts:
+
+Remember database calls are expensive – like reading files from disk (as compared to in memory operations)
+
+There is findOrCreate that can turn CreateJoinRow into a single step database call instead of find then create if not there. Can user attributes to limit data retrieved (If you only need the steamUserID for a given user use attribute to just get that ID). Think in “sets” for database instead of steps.  For instance you do
+
+For each user – get their games
+For each game – check if it’s contained in other user(s) games
+Return set of shared games
+This can be refactor to “return games shared by all (or at least 2) users” – Possibility is below:
+
+Instead of GetUsers – gets all User data and includes (eager loads) all their games. Can get the aggregate of games that the users jointly own (either all own or at 2 own). In SQL I would use the following query(ies)
+
+Select Game.name, Game.gameBanner, count(*) numUsers
+
+from Game inner join SteamUserGames
+
+on Game.appId=SteamUserGames.gameID
+
+where steamUserID in (ID1, ID2…)
+
+group by Game.name, Game.gameBanner 
+
+having numUsers>1
+
+My system isn’t setup to run the code local to try and refactor and test (I don’t have a steam apiKey), but it might be possible for us to do 1 or more pairing sessions and do some refactoring via zoom.
+
+I hope this helps. Let me if you have questions or might want to try and pair up sometime.
+
+#### Things We Like From https://www.lorenzostanco.com/lab/steam/friends
+We found this website mid-August when someone we showed our app to brought it to our attention. He does a lot of things that we like. Some we'd already considered, and some things he had implemented before we thought of them. Here are some things we saw that we might want to implement:
+
+- We really like how he shows games that multiple users, but not all, own.
+
+#### Things We'd Do Differently From https://www.lorenzostanco.com/lab/steam/friends
+
+- 
+
 ### Core programming tasks:
 
 1) DONE Get the compare user button to dispaly a table of games for one user
@@ -85,21 +141,6 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - FIXED: Fix formating for input rows now that delete button is implemented & working.
 - FIXED: Loading wheel runs infinitely if all users entered are invalid. We don't have a test for compare games if it's run with all invalid users.
 - FIXED: Remove users not found from SharedGamesTable header
-
-### 8/18/2020 Big Refactor Conversation:
-
-- Combine SharedGamesTable & UserGamesTable into one component. 
-- Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.
-- 
-
-#### Things We Like From https://www.lorenzostanco.com/lab/steam/friends
-We found this website mid-August when someone we showed our app to brought it to our attention. He does a lot of things that we like. Some we'd already considered, and some things he had implemented before we thought of them. Here are some things we saw that we might want to implement:
-
-- We really like how he shows games that multiple users, but not all, own.
-
-#### Things We'd Do Differently From https://www.lorenzostanco.com/lab/steam/friends
-
-- 
 
 ### Notes for future refactoring:
 

@@ -1,18 +1,36 @@
 @import "../../baseScss/base";
+
 a {
     color: white;
+
     &:hover {
         color: #bebebe;
     }
 }
-td, th{
+
+table {
+    margin-top: 2%;
+}
+
+thead {
+    background-color: $steam-navy;
+    color: white;
+}
+
+td,
+th {
     font-weight: bold;
     font-size: larger;
 }
-.gameBannerImage{
+
+td {
+    background-color: $steam-light-blue;
+    color: white;
+}
+
+.gameBannerImage {
     margin-right: 2%;
     max-width: 120px;
     width: 100%;
     height: auto;
-    // float: left;
 }
