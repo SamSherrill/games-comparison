@@ -32,7 +32,7 @@ Starting on 8/19/2020:
 - Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
 
 - Show the number of games shared (suggestion from pita82 Sam's brothe-in-law)
-- Repeated games happened for the first time I've ever seen: [./games-repeated.jpg]
+- Repeated games happened for the first time I've ever seen: [./games-repeated.jpg] -- Possible solution: build some logic that determines if names or gameBanner's match. If they do, display only one of those games. This does NOT remove the duplicates (if they are indeed duplicates, and not slightly different versions or editions of the same game) in our database.
 
 #### Refactoring Advice from Brian Freeman:
 
