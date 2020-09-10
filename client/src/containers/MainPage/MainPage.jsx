@@ -106,7 +106,7 @@ class MainPage extends Component {
       // If the user didn't enter at least one user, then the loading wheel is turned off
       this.setState({ isLoading: false });
       
-      // We discussed sending a user a warning to input at least one Vanity URL, but
+      // We discussed sending the user a warning to input at least one Vanity URL, but
       // we're sure users will understand that nothing will happen until they do that.
     }
   };
