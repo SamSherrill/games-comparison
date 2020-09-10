@@ -3,13 +3,22 @@ import "./GamesTable.scss";
 
 const GamesTable = (props) => {
   const userString = props.searchedUsers.join(", ");
+  console.log("sharedGames.length" + props.sharedGames.length);
 
   return (
     <>
       <table className="table">
         <thead>
           <tr>
-            {props.foundUsers.length === 1 ? <th> Games owned by {userString}</th> : <th> Shared games for {userString}</th>}
+            {props.foundUsers.length === 1 ? (
+              <th>
+                {props.sharedGames.length} games owned by {userString}
+              </th>
+            ) : (
+              <th>
+                {props.sharedGames.length} games shared by {userString}
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>

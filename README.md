@@ -31,8 +31,12 @@ Starting on 8/19/2020:
 - Brian also suggested some specific SQL queries that could be used to eager load information.
 - Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
 
-- Show the number of games shared (suggestion from pita82 Sam's brothe-in-law)
+- Show the number of games shared (suggestion from pita82, Sam's brother-in-law)
+
+#### Errors to tackle in refactoring
+
 - Repeated games happened for the first time I've ever seen: [./games-repeated.jpg] -- Possible solution: build some logic that determines if names or gameBanner's match. If they do, display only one of those games. This does NOT remove the duplicates (if they are indeed duplicates, and not slightly different versions or editions of the same game) in our database.
+- Sometimes user names don't appear in the table head even if they are still factored in to the logic that determines the shared games table. This is more likely to happen when the user is pulled into the DB the first time, but we've seen it happen at least 1 other time when a user was already in the database. That happened once with pita82, the 2nd day we used him as an example.
 
 #### Refactoring Advice from Brian Freeman:
 
