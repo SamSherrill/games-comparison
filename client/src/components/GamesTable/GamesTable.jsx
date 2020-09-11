@@ -3,7 +3,6 @@ import "./GamesTable.scss";
 
 const GamesTable = (props) => {
   const userString = props.searchedUsers.join(", ");
-  console.log("sharedGames.length" + props.sharedGames.length);
 
   return (
     <>

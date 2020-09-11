@@ -6,7 +6,7 @@ module.exports = function (app) {
 
   function getUserInfo(apiKey, user, cb) {
     const queryVanityUrl = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${apiKey}&vanityurl=${user}`;
-    
+
     axios
       .get(queryVanityUrl)
       .then(function (res) {
@@ -63,7 +63,7 @@ module.exports = function (app) {
               createdUsers.push(dbPost);
             });
           });
-        }else{
+        } else {
           foundUsers.push(dbUser);
         }
       });
@@ -154,15 +154,23 @@ module.exports = function (app) {
 
   app.post("/sharedGames", function (req, res) {
     getUsers(res, req.body.usersArray, (usersArray) => {
-      let sharedGamesArray = usersArray[0].user.Games.map(
-        (game) => {
-          return {
-            name: game.dataValues.name,
-            id: game.appId,
-            image: game.gameBanner
-          }
+      let sharedGamesArray = [];
+      
+      for (let i = 0; i < usersArray[0].user.Games.length; i++) {
+        if (sharedGamesArray.some(game => {
+            return game.name === usersArray[0].user.Games[i].dataValues.name
+          })) {
+          // console.log(usersArray[0].user.Games[i].dataValues.name + " is a duplicate");
+          continue;
+        } else {
+          sharedGamesArray.push({
+            name: usersArray[0].user.Games[i].dataValues.name,
+            id: usersArray[0].user.Games[i].appId,
+            image: usersArray[0].user.Games[i].gameBanner
+          })
         }
-      );
+      }
+      
       for (var i = 1; i < usersArray.length; i++) {
         let gamesArray = usersArray[i].user.Games.map(
           (game) => {
@@ -173,15 +181,15 @@ module.exports = function (app) {
             }
           }
         );
-        sharedGamesArray = sharedGamesArray.filter((game) =>{
+        sharedGamesArray = sharedGamesArray.filter((game) => {
           let containsGame = false;
-          gamesArray.forEach(comparedGame=>{
-            if(comparedGame.name === game.name){
+          gamesArray.forEach(comparedGame => {
+            if (comparedGame.name === game.name) {
               containsGame = true;
             }
           })
-          return containsGame;  
-      });
+          return containsGame;
+        });
       }
       res.json({
         user: usersArray,
