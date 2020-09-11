@@ -8,18 +8,9 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
-- 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
-- FOLLOW UP on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
-
-- Discuss Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
+- Refactor create with findOrCreate in 2 spots in other-controller.js
 
 ### 1st Major Refactor Plans: 
-Starting on 8/19/2020:
-
-- WE'RE GOING TO NEED TO COME BACK TO THIS after doing a tutorial or 2. --- Writing tests to automatically confirm that we haven't broken the program each time we change some code.
-1) Figured out how to run tests. Done for FE. We'll have to figure it out for th backend when we get there.
-2) Setup some initial FE tests.
-Previous note on the need for tests: Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 
 - DONE Combine SharedGamesTable & UserGamesTable into one component. 
 1) DONE make a ternary statement in SharedGamesTable that handles whether there is 1 or more users
@@ -35,10 +26,19 @@ Previous note on the need for tests: Should we write some tests to make sure fun
 - DONE Show the number of games shared (suggestion from pita82, Sam's brother-in-law) -- we also now show the count of games owned by an individual user, when only 1 user is entered
 - Consider renaming and/or reorganizing the controllers.
 
+- Remember to use if we need to change things in the models / BD: Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
+
+- WE'RE GOING TO NEED TO COME BACK TO THIS after doing a tutorial or 2. --- Writing tests to automatically confirm that we haven't broken the program each time we change some code.
+1) Figured out how to run tests. Done for FE. We'll have to figure it out for th backend when we get there.
+2) Setup some initial FE tests.
+Previous note on the need for tests: Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
+
 #### Errors to tackle in refactoring
 
 - FIXED Repeated games happened for the first time I've ever seen: [./games-repeated.jpg] -- Possible solution: build some logic that determines if names or gameBanner's match. If they do, display only one of those games. This does NOT remove the duplicates (if they are indeed duplicates, and not slightly different versions or editions of the same game) in our database.
-- Sometimes user names don't appear in the table head even if they are still factored in to the logic that determines the shared games table. This is more likely to happen when the user is pulled into the DB the first time, but we've seen it happen at least 1 other time when a user was already in the database. That happened once with pita82, the 2nd day we used him as an example.
+- 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
+- Follow up on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
+- More follow up: Sometimes user names don't appear in the table head even if they are still factored in to the logic that determines the shared games table. This is more likely to happen when the user is pulled into the DB the first time, but we've seen it happen at least 1 other time when a user was already in the database. That happened once with pita82, the 2nd day we used him as an example.
 
 #### Refactoring Advice from Brian Freeman:
 
