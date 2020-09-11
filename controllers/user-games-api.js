@@ -6,20 +6,18 @@ module.exports = function (app) {
 
   // function that creates the row connecting the user to the games they own in the join table(SteamUserGames)
   async function createJoinRow(steamUserId, gameId) {
-    await db.SteamUserGames.create({
-      steamUserId,
-      gameId,
-    })
+    await db.SteamUserGames.findOrCreate({
+        where: {
+          steamUserId,
+          gameId
+        }
+      })
       // We don't need to do anything in the .then, and apparently
       // it's not necessary for this to work, so I've commented it out
       // .then(() => console.log("Success in createJoinRow()"))
-
-      // We catch the err here, but don't do anything with it because
-      // it is expected that we'll have an "error" whenever we try to 
-      // create a many to many relationship that already exists
       .catch((err) => {
-        // console.log("Error in createJoinRow()");
-        // console.log(err);
+        console.log("Error in createJoinRow()");
+        console.log(err);
       });
   }
 
@@ -37,12 +35,12 @@ module.exports = function (app) {
   }
 
   app.post("/api/games", async (req, res) => {
-    for(let k = 0; k < req.body.usersArray.length; k++) {
+    for (let k = 0; k < req.body.usersArray.length; k++) {
       await db.SteamUser.findOne({
-        where: {
-          vanityUrl: req.body.usersArray[k],
-        },
-      })
+          where: {
+            vanityUrl: req.body.usersArray[k],
+          },
+        })
         .then(async (resForSteamId) => {
           const steamID = resForSteamId.steamId;
           const ownedGamesUrl = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${apiKey}&steamid=${steamID}&format=json&include_appinfo=true`;
@@ -59,6 +57,7 @@ module.exports = function (app) {
                   },
                 });
                 if (gameFromDatabase === null) {
+                  //TODO refractor to use findOrCreate()
                   singleGame = await db.Game.create({
                     name: response.data.response.games[i].name,
                     appId: response.data.response.games[i].appid,

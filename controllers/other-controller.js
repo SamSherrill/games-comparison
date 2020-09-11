@@ -59,6 +59,7 @@ module.exports = function (app) {
               notFoundUsers.push(user);
               userNotFound = true;
             }
+            //TODO refractor to use finOrCreate()
             await db.SteamUser.create(newUser).then(function (dbPost) {
               createdUsers.push(dbPost);
             });

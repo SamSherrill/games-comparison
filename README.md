@@ -27,7 +27,8 @@ Previous note on the need for tests: Should we write some tests to make sure fun
 - DONE Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.
 
 - Why do our components show up as "Anonymous" in the Components tab of the Dev Console
-- Look into using findOrCreate instead of CreateJoinRow. 
+- DONE Look into using findOrCreate instead of create in CreateJoinRow in user-games-api. 
+- Implement findOrCreate anywhere else we can use.
 - Brian also suggested some specific SQL queries that could be used to eager load information.
 - Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
 
