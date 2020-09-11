@@ -93,7 +93,6 @@ class MainPage extends Component {
         })
         .then((res) => {
           this.setState({ isLoading: false });
-          console.log(res.data.sharedGames);
           this.setState({
             sharedGamesState: res.data.sharedGames,
           });
