@@ -9,6 +9,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 ### To Do During Next Pairing Session:
 
 - Refactor create with findOrCreate in 2 spots in other-controller.js
+- How are we displaying to the user that a user's games list is private? We likely aren't doing this yet. Our warning is only if we didn't find the user. The loading wheel takes a long time to disappear if we search one user and his/her games list is private. Then the network tab said that sharedGames failed, in red text.
 
 ### 1st Major Refactor Plans: 
 
@@ -27,6 +28,10 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Consider renaming and/or reorganizing the controllers.
 
 - Remember to use if we need to change things in the models / BD: Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
+
+- Do we ever update a user's games list? We think so.
+- Do we ever update a user's profile? We don't think so. Finding the right way to upsert might be the best. We've never done that.
+- Do we use playtime? Not currently. We would likely need to either create a new many to many relationship for this to work, or completely change how our original tables are setup.
 
 - WE'RE GOING TO NEED TO COME BACK TO THIS after doing a tutorial or 2. --- Writing tests to automatically confirm that we haven't broken the program each time we change some code.
 1) Figured out how to run tests. Done for FE. We'll have to figure it out for th backend when we get there.

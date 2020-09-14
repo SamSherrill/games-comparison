@@ -61,7 +61,6 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
-          console.log("================", res.data);
           const searchedUsers = [];
           this.setState({foundUsers: res.data.foundUsers});
           res.data.foundUsers.forEach((user) => {
