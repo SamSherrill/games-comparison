@@ -55,7 +55,7 @@ module.exports = function (app) {
         } else {
           await db.SteamUser.findOrCreate({
             where: steamUser
-          }).then(function (dbUser) {
+          }).then((dbUser) => {
             foundUsers.push(dbUser[0].dataValues);
           });
         }
