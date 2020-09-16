@@ -65,6 +65,8 @@ module.exports = function (app) {
                 }).then(game => {
                   singleGame = game[0].dataValues;
                   createJoinRow(currentUserSteamId, singleGame.id);
+                }).catch((err) => {
+                  console.log(err);
                 });
 
                 // const gameFromDatabase = await db.Game.findOne({
