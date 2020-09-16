@@ -11,6 +11,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - How are we displaying to the user that a user's games list is private? We likely aren't doing this yet. Our warning is only if we didn't find the user. The loading wheel takes a long time to disappear if we search one user and his/her games list is private. Then the network tab said that sharedGames failed, in red text.
 - Maybe do some async refactoring for performance gains
 
+- Heroku specific problem: On the free plan we're hitting the max of 3600 questions when we run comparisons for users with extremely large game libraries (800+). Specific breaking point currently is amusingmouse & sammysticks compared. That doesn't work. However, amusingmouse & dabigcheezey comparison will complete successfully. dabigcheezey owns only 30 games, but sammysticks owns 188. amusingmouse owns 846.
+
 ### 1st Major Refactor Plans: 
 
 - DONE Combine SharedGamesTable & UserGamesTable into one component. 

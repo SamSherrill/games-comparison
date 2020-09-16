@@ -189,8 +189,8 @@ module.exports = function (app) {
     getUsers(res, req.body.usersArray, (usersArray) => {
       let sharedGamesArray = [];
 
-      console.log("UsersArray in other-controller.js in app.post /sharedGames at the start of getUsers being called: ",usersArray);
-      console.log("req.body.usersArray at the same location:", req.body.usersArray);
+      // console.log("UsersArray in other-controller.js in app.post /sharedGames at the start of getUsers being called: ",usersArray);
+      // console.log("req.body.usersArray at the same location:", req.body.usersArray);
 
       for (let i = 0; i < usersArray[0].user.Games.length; i++) {
         if (sharedGamesArray.some(game => {
