@@ -70,7 +70,11 @@ module.exports = function (app) {
     }, 1000);
   });
 
-  // ORIGINAL CODE - it's more lines of code than our 2nd version above, but it only runs the Steam API call if the user isn't already in our DB
+  // ORIGINAL CODE - it's more lines of code than our 2nd version above,
+  // but it only runs the Steam API call if the user isn't already in our DB
+  // We did some very basic manual A/B testing, and their doesn't seem to be
+  // any noticeable difference between the code blocks in speed performance.
+
   // app.post("/api/steamUsers", async function (req, res) {
   //   const notFoundUsers = [];
   //   let userNotFound = false;
@@ -185,6 +189,9 @@ module.exports = function (app) {
     getUsers(res, req.body.usersArray, (usersArray) => {
       let sharedGamesArray = [];
 
+      console.log("UsersArray in other-controller.js in app.post /sharedGames at the start of getUsers being called: ",usersArray);
+      console.log("req.body.usersArray at the same location:", req.body.usersArray);
+
       for (let i = 0; i < usersArray[0].user.Games.length; i++) {
         if (sharedGamesArray.some(game => {
             return game.name === usersArray[0].user.Games[i].dataValues.name
@@ -224,6 +231,6 @@ module.exports = function (app) {
         user: usersArray,
         sharedGames: sharedGamesArray,
       });
-    });
+    }).catch(er => console.log("Error in sharedgames: ", er));
   });
 };
