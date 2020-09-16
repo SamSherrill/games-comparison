@@ -8,7 +8,8 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
-- Refactor create with findOrCreate in 2 spots in other-controller.js
+- How are we displaying to the user that a user's games list is private? We likely aren't doing this yet. Our warning is only if we didn't find the user. The loading wheel takes a long time to disappear if we search one user and his/her games list is private. Then the network tab said that sharedGames failed, in red text.
+- Maybe do some async refactoring for performance gains
 
 ### 1st Major Refactor Plans: 
 
@@ -19,14 +20,25 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 - Why do our components show up as "Anonymous" in the Components tab of the Dev Console
 - DONE Look into using findOrCreate instead of create in CreateJoinRow in user-games-api. 
-- Implement findOrCreate anywhere else we can use.
+- DONE Implement findOrCreate anywhere else we can use. -- * Particular note here: big performance gains from what we changed in the user-games-api.js controller. We were able to drop 3 awaits while also combining 2 blocks of code into 1.
 - Brian also suggested some specific SQL queries that could be used to eager load information.
 - Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
+
+- Analyze all of our async/awaits, setTimeout, and other steps we've taken to deal with the async issues we had in the original version of this project
 
 - DONE Show the number of games shared (suggestion from pita82, Sam's brother-in-law) -- we also now show the count of games owned by an individual user, when only 1 user is entered
 - Consider renaming and/or reorganizing the controllers.
 
 - Remember to use if we need to change things in the models / BD: Sequelize ".sync({ alter: true })" from [https://sequelize.org/master/manual/model-basics.html#:~:text=Models%20are%20the%20essence%20of,(and%20their%20data%20types)]
+
+- Do we ever update a user's games list? We think so.
+- Do we ever update a user's profile? We don't think so. Finding the right way to upsert might be the best. We've never done that.
+- Do we use playtime? Not currently. We would likely need to either create a new many to many relationship for this to work, or completely change how our original tables are setup.
+
+- Do we run createJoinRow (to make many to many relationships between games & users) every time a search is run? Is there a way to avoid this for a performance gain? See Line 85 on MainPage.jsx & about line 50 or so on user-games-api.js controller.
+
+- Should appId be the primary key for our games table?
+- Maybe add in a column for how many games each user owns - integer in steamuser table
 
 - WE'RE GOING TO NEED TO COME BACK TO THIS after doing a tutorial or 2. --- Writing tests to automatically confirm that we haven't broken the program each time we change some code.
 1) Figured out how to run tests. Done for FE. We'll have to figure it out for th backend when we get there.
@@ -37,8 +49,9 @@ Previous note on the need for tests: Should we write some tests to make sure fun
 
 - FIXED Repeated games happened for the first time I've ever seen: [./games-repeated.jpg] -- Possible solution: build some logic that determines if names or gameBanner's match. If they do, display only one of those games. This does NOT remove the duplicates (if they are indeed duplicates, and not slightly different versions or editions of the same game) in our database.
 - 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
-- Follow up on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
-- More follow up: Sometimes user names don't appear in the table head even if they are still factored in to the logic that determines the shared games table. This is more likely to happen when the user is pulled into the DB the first time, but we've seen it happen at least 1 other time when a user was already in the database. That happened once with pita82, the 2nd day we used him as an example.
+    - Follow up on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
+    - More follow up: Sometimes user names don't appear in the table head even if they are still factored in to the logic that determines the shared games table. This is more likely to happen when the user is pulled into the DB the first time, but we've seen it happen at least 1 other time when a user was already in the database. That happened once with pita82, the 2nd day we used him as an example.
+    - 9/15/2020 Even more follow up: We strongly assume that this has to do with the underlying syncronicty issues that caused us to write the setTimeout block of code in other-controller.js (about line 64 at this point). That res.json gets sent back to the front end before the table header is written to the DOM. We will need to figure out how to fix this.
 
 #### Refactoring Advice from Brian Freeman:
 
