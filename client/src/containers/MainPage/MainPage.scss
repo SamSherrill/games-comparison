@@ -6,6 +6,11 @@ body {
   width: 100%;
 }
 
+.user-or-games-not-found-warning {
+  color: orange;
+  margin-top: 2%;
+}
+
 #headline {
   color: white;
   margin-top: 2%;
@@ -25,9 +30,4 @@ body {
 
 #add-user-button {
   float: right;
-}
-
-#user-not-found-warning {
-  color: orangered;
-  margin-top: 2%;
 }

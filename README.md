@@ -8,8 +8,22 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
+- ** When rendering warnings to user, take into account whether there are 1 or multiple users that the warning is about
+- Deal with async issues with removing privateUsers from foundUsers
+
 - How are we displaying to the user that a user's games list is private? We likely aren't doing this yet. Our warning is only if we didn't find the user. The loading wheel takes a long time to disappear if we search one user and his/her games list is private. Then the network tab said that sharedGames failed, in red text.
 - Maybe do some async refactoring for performance gains
+
+- Does the loading wheel turn off if all users are invalid?
+CURRENTLY:
+- Games table shows up with no games in the list, but the user name(s) listed at the top. This means if 1 user is private, and all others are public, then the list comes back empty.
+- TypeError: Cannot read property 'length' of undefined
+at C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:53:64
+at processTicksAndRejections (internal/process/task_queues.js:97:5)
+at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:47:11
+at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:39:7
+
+- Heroku specific problem: On the free plan we're hitting the max of 3600 questions when we run comparisons for users with extremely large game libraries (800+). Specific breaking point currently is amusingmouse & sammysticks compared. That doesn't work. However, amusingmouse & dabigcheezey comparison will complete successfully. dabigcheezey owns only 30 games, but sammysticks owns 188. amusingmouse owns 846.
 
 ### 1st Major Refactor Plans: 
 
@@ -18,7 +32,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 2) DONE Rename SharedGamesTable to GamesTable, delete UserGamesTable, then change all references to this in MainPage & SharedGamesTable
 - DONE Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.
 
-- Why do our components show up as "Anonymous" in the Components tab of the Dev Console
+- Why do our components show up as "Anonymous" in the Components tab of the Dev Console? Is this a problem, or is this ideal (because we don't want our code public to the world)?
 - DONE Look into using findOrCreate instead of create in CreateJoinRow in user-games-api. 
 - DONE Implement findOrCreate anywhere else we can use. -- * Particular note here: big performance gains from what we changed in the user-games-api.js controller. We were able to drop 3 awaits while also combining 2 blocks of code into 1.
 - Brian also suggested some specific SQL queries that could be used to eager load information.
