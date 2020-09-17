@@ -19,6 +19,7 @@ class MainPage extends Component {
     isLoading: false,
     usersNotFound: false,
     foundUsers: false,
+    privateUsers: false,
   };
 
   componentDidMount() {
@@ -49,12 +50,13 @@ class MainPage extends Component {
       sharedGamesState: false,
       userObject: false,
       usersNotFound: false,
-      foundUsers: false
+      foundUsers: false,
+      privateUsers: false,
     });
 
     const usersArray = Object.values(this.state.usersToSearch);
     // this.setState({ searchedUsers: usersArray });
- 
+
     if (usersArray.length > 0) {
       await axios
         .post("/api/steamUsers", {
@@ -62,7 +64,7 @@ class MainPage extends Component {
         })
         .then((res) => {
           const searchedUsers = [];
-          this.setState({foundUsers: res.data.foundUsers});
+          this.setState({ foundUsers: res.data.foundUsers });
           res.data.foundUsers.forEach((user) => {
             if (user.vanityUrl === user.personaName) {
               searchedUsers.push(user.personaName);
@@ -81,10 +83,39 @@ class MainPage extends Component {
             }
           }
         });
+
       //adds users games to db
-      await axios.post("/api/games", {
-        usersArray,
-      });
+      await axios
+        .post("/api/games", {
+          usersArray,
+        })
+        .then((res) => {
+          const newFoundUsers = this.state.foundUsers.filter((user) => {
+            let filter = true;
+            res.data.privateUsers.forEach((privateUser) => {
+              if (privateUser === user.vanityUrl) {
+                filter = false;
+              }
+            });
+            return filter;
+          });
+          const newSearchedUsers = this.state.searchedUsers.filter((user) => {
+            let filter = true;
+            res.data.privateUsers.forEach((privateUser) => {
+              if (privateUser === user) {
+                filter = false;
+              }
+            });
+            return filter;
+          });
+          this.setState({
+            privateUsers: res.data.privateUsers,
+            foundUsers: newFoundUsers,
+            searchedUsers: newSearchedUsers,
+          });
+        })
+        .catch((err) => console.log(err));
+
       //compares games
       await axios
         .post("/sharedGames", {
@@ -103,7 +134,7 @@ class MainPage extends Component {
     } else {
       // If the user didn't enter at least one user, then the loading wheel is turned off
       this.setState({ isLoading: false });
-      
+
       // We discussed sending the user a warning to input at least one Vanity URL, but
       // we're sure users will understand that nothing will happen until they do that.
     }
@@ -176,6 +207,21 @@ class MainPage extends Component {
       );
     }
 
+    // const warningsDisplayedToUser = [];
+    // if (this.state.privateUsers === 1) {
+    //   warningsDisplayedToUser.push(
+    //     <h3 className="user-or-games-not-found-warning">{`This user either (1) has their games list set as private or (2) own no games: ${this.state.privateUsers.join(
+    //       ", "
+    //     )}`}</h3>
+    //   );
+    // } else if (this.state.privateUsers > 1) {
+    //   warningsDisplayedToUser.push(
+    //     <h3 className="user-or-games-not-found-warning">{`These user(s) either (1) have their games list set as private or (2) own no games: ${this.state.privateUsers.join(
+    //       ", "
+    //     )}`}</h3>
+    //   );
+    // }
+
     return (
       <>
         <div className="container">
@@ -207,7 +253,15 @@ class MainPage extends Component {
           </div>
 
           {this.state.usersNotFound && (
-            <h3 id="user-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound.join(
+            <h3 className="user-or-games-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound.join(
+              ", "
+            )}`}</h3>
+          )}
+
+          {/* {warningsDisplayedToUser} */}
+
+          {this.state.privateUsers && (
+            <h3 className="user-or-games-not-found-warning">{`These user(s) either (1) have their games list set as private or (2) own no games: ${this.state.privateUsers.join(
               ", "
             )}`}</h3>
           )}
@@ -215,6 +269,7 @@ class MainPage extends Component {
           {this.state.isLoading && (
             <LoadingWheel isLoading={this.state.isLoading} />
           )}
+
           {this.state.sharedGamesState && (
             <GamesTable
               sharedGames={this.state.sharedGamesState}
@@ -223,6 +278,7 @@ class MainPage extends Component {
             />
           )}
         </div>
+
         {/* <footer>
           {" "}
           Icons made by{" "}

@@ -35,6 +35,7 @@ module.exports = function (app) {
   }
 
   app.post("/api/games", async (req, res) => {
+    const privateUsers = [];
     for (let k = 0; k < req.body.usersArray.length; k++) {
       await db.SteamUser.findOne({
           where: {
@@ -50,44 +51,48 @@ module.exports = function (app) {
               let singleGame = {};
               //stores the database id for the user who's games are being found. Is used later to create join table rows(what games they own)
               let currentUserSteamId = await getSteamUserIdBySteamId(steamID);
-              for (let i = 0; i < response.data.response.games.length; i++) {
-                // refactored code for determining if a game is already in our DB
-                // the game will be created in the DB if it isn't already
-                // then once the game is confirmed in the DB, the many to many relationship
-                // is created between steamusers & games by createJoinRow
-                db.Game.findOrCreate({
-                  where: {
-                    name: response.data.response.games[i].name,
-                    appId: response.data.response.games[i].appid,
-                    playtime: response.data.response.games[i].playtime_forever,
-                    gameBanner: response.data.response.games[i].img_logo_url,
-                  }
-                }).then(game => {
-                  singleGame = game[0].dataValues;
-                  createJoinRow(currentUserSteamId, singleGame.id);
-                }).catch((err) => {
-                  console.log(err);
-                });
+              if (response.data.response.games) {
+                for (let i = 0; i < response.data.response.games.length; i++) {
+                  // refactored code for determining if a game is already in our DB
+                  // the game will be created in the DB if it isn't already
+                  // then once the game is confirmed in the DB, the many to many relationship
+                  // is created between steamusers & games by createJoinRow
+                  db.Game.findOrCreate({
+                    where: {
+                      name: response.data.response.games[i].name,
+                      appId: response.data.response.games[i].appid,
+                      playtime: response.data.response.games[i].playtime_forever,
+                      gameBanner: response.data.response.games[i].img_logo_url,
+                    }
+                  }).then(game => {
+                    singleGame = game[0].dataValues;
+                    createJoinRow(currentUserSteamId, singleGame.id);
+                  }).catch((err) => {
+                    console.log(err);
+                  });
 
-                // const gameFromDatabase = await db.Game.findOne({
-                //   where: {
-                //     appId: response.data.response.games[i].appid,
-                //   },
-                // });
-                // if (gameFromDatabase === null) {
-                //   //TODO refractor to use findOrCreate()
-                //   singleGame = await db.Game.create({
-                //     name: response.data.response.games[i].name,
-                //     appId: response.data.response.games[i].appid,
-                //     playtime: response.data.response.games[i].playtime_forever,
-                //     gameBanner: response.data.response.games[i].img_logo_url,
-                //   });
-                // } else {
-                //   singleGame = gameFromDatabase;
-                // }
-                //function that creates the row connecting the user to the games they own in the join table(SteamUserGames)
-                //this is the many to many relationship between games & Steam users
-                // await createJoinRow(currentUserSteamId, singleGame.id);
+                  // const gameFromDatabase = await db.Game.findOne({
+                  //   where: {
+                  //     appId: response.data.response.games[i].appid,
+                  //   },
+                  // });
+                  // if (gameFromDatabase === null) {
+                  //   //TODO refractor to use findOrCreate()
+                  //   singleGame = await db.Game.create({
+                  //     name: response.data.response.games[i].name,
+                  //     appId: response.data.response.games[i].appid,
+                  //     playtime: response.data.response.games[i].playtime_forever,
+                  //     gameBanner: response.data.response.games[i].img_logo_url,
+                  //   });
+                  // } else {
+                  //   singleGame = gameFromDatabase;
+                  // }
+                  //function that creates the row connecting the user to the games they own in the join table(SteamUserGames)
+                  //this is the many to many relationship between games & Steam users
+                  // await createJoinRow(currentUserSteamId, singleGame.id);
+                }
+              } else {
+                privateUsers.push(req.body.usersArray[k]);
               }
             })
             .catch((err) => {
@@ -99,8 +104,7 @@ module.exports = function (app) {
         });
     }
     await res.json({
-      success: true,
-      time: new Date().getTime()
+      privateUsers: privateUsers
     });
   });
 };
