@@ -54,7 +54,7 @@ class MainPage extends Component {
       privateUsers: false,
     });
 
-    const usersArray = Object.values(this.state.usersToSearch);
+    let usersArray = Object.values(this.state.usersToSearch);
     // this.setState({ searchedUsers: usersArray });
 
     if (usersArray.length > 0) {
@@ -84,12 +84,17 @@ class MainPage extends Component {
           }
         });
 
-      //adds users games to db
+      // On the backend, this API .post will first pings Steam's API to get the list of owned
+      // games for each user we're searching for. Then it finds or creates a row of data in our
+      // database for each game. Then it creates the many to many relationships between
+      // each user & their owned games.
       await axios
         .post("/api/games", {
           usersArray,
         })
         .then((res) => {
+          // Filter out users with private games lists from our foundUsers state
+          // because we won't be able to compare their games lists
           const newFoundUsers = this.state.foundUsers.filter((user) => {
             let filter = true;
             res.data.privateUsers.forEach((privateUser) => {
@@ -102,7 +107,16 @@ class MainPage extends Component {
           const newSearchedUsers = this.state.searchedUsers.filter((user) => {
             let filter = true;
             res.data.privateUsers.forEach((privateUser) => {
-              if (privateUser === user) {
+              if (user.includes(privateUser)) {
+                filter = false;
+              }
+            });
+            return filter;
+          });
+          usersArray = usersArray.filter((user) => {
+            let filter = true;
+            res.data.privateUsers.forEach((privateUser) => {
+              if (user.includes(privateUser)) {
                 filter = false;
               }
             });
@@ -115,6 +129,13 @@ class MainPage extends Component {
           });
         })
         .catch((err) => console.log(err));
+
+      //turns off loading wheel if no user's games can be compared
+      if (this.state.searchedUsers.length === 0) {
+        this.setState({
+          isLoading: false,
+        });
+      }
 
       //compares games
       await axios
@@ -207,20 +228,23 @@ class MainPage extends Component {
       );
     }
 
-    // const warningsDisplayedToUser = [];
-    // if (this.state.privateUsers === 1) {
-    //   warningsDisplayedToUser.push(
-    //     <h3 className="user-or-games-not-found-warning">{`This user either (1) has their games list set as private or (2) own no games: ${this.state.privateUsers.join(
-    //       ", "
-    //     )}`}</h3>
-    //   );
-    // } else if (this.state.privateUsers > 1) {
-    //   warningsDisplayedToUser.push(
-    //     <h3 className="user-or-games-not-found-warning">{`These user(s) either (1) have their games list set as private or (2) own no games: ${this.state.privateUsers.join(
-    //       ", "
-    //     )}`}</h3>
-    //   );
-    // }
+    // Setup the text for warning the website user about any users with private games lists
+    var privateUsersWarning = "";
+    if (this.state.privateUsers.length === 1) {
+      privateUsersWarning =
+        "This user either has their games list set as private or own no games:";
+    } else if (this.state.privateUsers.length > 1) {
+      privateUsersWarning =
+        "These users either have their games list set as private or own no games:";
+    }
+
+    // Setup the text for warning the website user about any invalid vanity URLs
+    var usersNotFoundWarning = "";
+    if (this.state.usersNotFound.length === 1) {
+      usersNotFoundWarning = "This user was not found:";
+    } else if (this.state.usersNotFound.length > 1) {
+      usersNotFoundWarning = "These users were not found:";
+    }
 
     return (
       <>
@@ -230,6 +254,9 @@ class MainPage extends Component {
             Compare your Steam games library to the libraries of 1 or more
             friends{" "}
           </h4>
+
+          {/* We need an explanation or even a screenshot of what a vanity 
+          URL is, as well as where to find it or how to create it. */}
 
           <div id="user-input-section">{userInputs}</div>
 
@@ -253,15 +280,13 @@ class MainPage extends Component {
           </div>
 
           {this.state.usersNotFound && (
-            <h3 className="user-or-games-not-found-warning">{`These user(s) were not found: ${this.state.usersNotFound.join(
+            <h3 className="user-or-games-not-found-warning">{`${usersNotFoundWarning} ${this.state.usersNotFound.join(
               ", "
             )}`}</h3>
           )}
 
-          {/* {warningsDisplayedToUser} */}
-
-          {this.state.privateUsers && (
-            <h3 className="user-or-games-not-found-warning">{`These user(s) either (1) have their games list set as private or (2) own no games: ${this.state.privateUsers.join(
+          {this.state.privateUsers && this.state.privateUsers.length > 0 && (
+            <h3 className="user-or-games-not-found-warning">{`${privateUsersWarning} ${this.state.privateUsers.join(
               ", "
             )}`}</h3>
           )}
