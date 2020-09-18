@@ -232,18 +232,18 @@ class MainPage extends Component {
     var privateUsersWarning = "";
     if (this.state.privateUsers.length === 1) {
       privateUsersWarning =
-        "This user either has their games list set as private or own no games:";
+        "This user has their games list set as private, or they own no games:";
     } else if (this.state.privateUsers.length > 1) {
       privateUsersWarning =
-        "These users either have their games list set as private or own no games:";
+        "These users have their games list set as private, or they own no games:";
     }
 
     // Setup the text for warning the website user about any invalid vanity URLs
     var usersNotFoundWarning = "";
     if (this.state.usersNotFound.length === 1) {
-      usersNotFoundWarning = "This user was not found:";
+      usersNotFoundWarning = "No user was found using this vanity URL:";
     } else if (this.state.usersNotFound.length > 1) {
-      usersNotFoundWarning = "These users were not found:";
+      usersNotFoundWarning = "No users were found using these vanity URLs:";
     }
 
     return (
