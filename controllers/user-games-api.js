@@ -34,6 +34,10 @@ module.exports = function (app) {
     return id;
   }
 
+  // This backend API .post first pings Steam's API to get the list of owned games
+  // for each user we're searching for. Then it finds or creates a row of data in our 
+  // database for each game. Then it creates the many to many relationships between
+  // each user & their owned games.
   app.post("/api/games", async (req, res) => {
     const privateUsers = [];
     for (let k = 0; k < req.body.usersArray.length; k++) {

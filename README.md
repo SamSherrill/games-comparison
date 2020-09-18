@@ -8,20 +8,16 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
-- ** When rendering warnings to user, take into account whether there are 1 or multiple users that the warning is about
 - Deal with async issues with removing privateUsers from foundUsers
 
-- How are we displaying to the user that a user's games list is private? We likely aren't doing this yet. Our warning is only if we didn't find the user. The loading wheel takes a long time to disappear if we search one user and his/her games list is private. Then the network tab said that sharedGames failed, in red text.
 - Maybe do some async refactoring for performance gains
 
-- Does the loading wheel turn off if all users are invalid?
-CURRENTLY:
-- Games table shows up with no games in the list, but the user name(s) listed at the top. This means if 1 user is private, and all others are public, then the list comes back empty.
-- TypeError: Cannot read property 'length' of undefined
-at C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:53:64
-at processTicksAndRejections (internal/process/task_queues.js:97:5)
-at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:47:11
-at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:39:7
+- Got this error right as we were wrapping up last session. I was manually testing invalid Vanity URLs & private users. We had just made changes regarding how we display warnings about those:
+TypeError: Cannot read property 'steamId' of null
+[0]     at C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:50:41
+[0]     at runMicrotasks (<anonymous>)
+[0]     at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[0]     at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:44:7
 
 - Heroku specific problem: On the free plan we're hitting the max of 3600 questions when we run comparisons for users with extremely large game libraries (800+). Specific breaking point currently is amusingmouse & sammysticks compared. That doesn't work. However, amusingmouse & dabigcheezey comparison will complete successfully. dabigcheezey owns only 30 games, but sammysticks owns 188. amusingmouse owns 846.
 
@@ -31,6 +27,7 @@ at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api
 1) DONE make a ternary statement in SharedGamesTable that handles whether there is 1 or more users
 2) DONE Rename SharedGamesTable to GamesTable, delete UserGamesTable, then change all references to this in MainPage & SharedGamesTable
 - DONE Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.
+- DONE When rendering warnings to the website user about invalid Vanity URLs & private profiles, take into account whether there are 1 or multiple users that the warning is about
 
 - Why do our components show up as "Anonymous" in the Components tab of the Dev Console? Is this a problem, or is this ideal (because we don't want our code public to the world)?
 - DONE Look into using findOrCreate instead of create in CreateJoinRow in user-games-api. 
@@ -38,6 +35,8 @@ at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api
 - Brian also suggested some specific SQL queries that could be used to eager load information.
 - Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
 
+- Consider howe we can refactor states. Can we combine some of these? Should we reorder them to be more sequential? Are there any other improvements we can make?
+- Strongly consider how our code can be best arranged to be readable. Are there blocks of code that execute before the block above? If so, we should probably move them into sequence in the code, to be more readable.
 - Analyze all of our async/awaits, setTimeout, and other steps we've taken to deal with the async issues we had in the original version of this project
 
 - DONE Show the number of games shared (suggestion from pita82, Sam's brother-in-law) -- we also now show the count of games owned by an individual user, when only 1 user is entered
@@ -59,13 +58,21 @@ at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api
 2) Setup some initial FE tests.
 Previous note on the need for tests: Should we write some tests to make sure functionality continues to work, without us having to manually test? I got thinking about this a lot from what we discussed during the Software Crafters meetings Thursday evening.
 
+- As usual, review comments to make sure they're correct & useful. Delete commented out code that we no longer need to retain.
+
 #### Errors to tackle in refactoring
 
-- FIXED Repeated games happened for the first time I've ever seen: [./games-repeated.jpg] -- Possible solution: build some logic that determines if names or gameBanner's match. If they do, display only one of those games. This does NOT remove the duplicates (if they are indeed duplicates, and not slightly different versions or editions of the same game) in our database.
 - 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
     - Follow up on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
     - More follow up: Sometimes user names don't appear in the table head even if they are still factored in to the logic that determines the shared games table. This is more likely to happen when the user is pulled into the DB the first time, but we've seen it happen at least 1 other time when a user was already in the database. That happened once with pita82, the 2nd day we used him as an example.
     - 9/15/2020 Even more follow up: We strongly assume that this has to do with the underlying syncronicty issues that caused us to write the setTimeout block of code in other-controller.js (about line 64 at this point). That res.json gets sent back to the front end before the table header is written to the DOM. We will need to figure out how to fix this.
+
+- DONE Turn off loading wheel if all Vanity URLs are invalid
+- FIXED Games table shows up with no games in the list, but the user name(s) listed at the top. This means if 1 user is private, and all others are public, then the list comes back empty.
+- FIXED Repeated games happened for the first time I've ever seen: [./games-repeated.jpg] -- Possible solution: build some logic that determines if names or gameBanner's match. If they do, display only one of those games. This does NOT remove the duplicates (if they are indeed duplicates, and not slightly different versions or editions of the same game) in our database.
+- FIXED How are we displaying to the user that a user's games list is private? We likely aren't doing this yet. Our warning is only if we didn't find the user. The loading wheel takes a long time to disappear if we search one user and his/her games list is private. Then the network tab said that sharedGames failed, in red text.
+    - When hitting Steam's API, GetPlayerSummaries will return communityvisibilitystate. However, "there are only two possible values returned: 1 - the profile is not visible to you (Private, Friends Only, etc), 3 - the profile is "Public", and the data is visible." So if a profile is public, but the games list is private, we'll have to catch that a different way. That said, we could us this to initially note private profiles.
+    - SOLUTION: We ultimately simply filtered out users who returned zero games in their list.
 
 #### Refactoring Advice from Brian Freeman:
 
