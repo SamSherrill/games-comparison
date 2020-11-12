@@ -32,7 +32,7 @@ const GamesTable = (props) => {
                   >
                     <img
                       className="gameBannerImage"
-                      src={`http://media.steampowered.com/steamcommunity/public/images/apps/${game.id}/${game.image}.jpg`}
+                      src={`https://media.steampowered.com/steamcommunity/public/images/apps/${game.id}/${game.image}.jpg`}
                       alt={`${game.name} logo`}
                     />
                     {game.name}
