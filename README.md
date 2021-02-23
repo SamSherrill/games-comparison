@@ -8,9 +8,19 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
+#### Simpler Issues to Get the Rust OFf:
+
+- Make username in the gamesTable a URL to the user's profile, instead of just plain text
+- Image of profile picture displayed next to the user's name
+
+- keyCode is deprecated
+#### Bigger Issues to Tackle int the Refactor:
+ 
 - Deal with async issues with removing privateUsers from foundUsers
 
 - Maybe do some async refactoring for performance gains
+
+- Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line.
 
 - Got this error right as we were wrapping up last session. I was manually testing invalid Vanity URLs & private users. We had just made changes regarding how we display warnings about those:
 TypeError: Cannot read property 'steamId' of null
@@ -35,7 +45,7 @@ TypeError: Cannot read property 'steamId' of null
 - Brian also suggested some specific SQL queries that could be used to eager load information.
 - Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
 
-- Consider howe we can refactor states. Can we combine some of these? Should we reorder them to be more sequential? Are there any other improvements we can make?
+- Consider how we can refactor states. Can we combine some of these? Should we reorder them to be more sequential? Are there any other improvements we can make?
 - Strongly consider how our code can be best arranged to be readable. Are there blocks of code that execute before the block above? If so, we should probably move them into sequence in the code, to be more readable.
 - Analyze all of our async/awaits, setTimeout, and other steps we've taken to deal with the async issues we had in the original version of this project
 

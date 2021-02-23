@@ -3,6 +3,8 @@ import "./GamesTable.scss";
 
 const GamesTable = (props) => {
   const userString = props.searchedUsers.join(", ");
+  // 2/22/2021 - We want to make the users name (vanityUrl) a link rather than just play text
+  // To do this, we will need to change what we're passing into userString above
 
   return (
     <>
