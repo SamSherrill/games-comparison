@@ -11,8 +11,12 @@ const GamesTable = (props) => {
   // const arrayOfProfileUrls = props.foundUsers[0].avatarUrl;
 
   const profileNameAndImage = props.foundUsers
-    .map((user) => {
-      return <ProfileDisplay user={user} key={user.id}/>;
+    .map((user, index) => {
+      let comma = "";
+      if(index < props.foundUsers.length - 1){
+        comma = ", ";
+      }
+      return <><ProfileDisplay user={user} key={user.id}/>{comma} </>;
     });
 
   return (
@@ -20,6 +24,7 @@ const GamesTable = (props) => {
       <table className="table">
         <thead>
           <tr>
+            {/* Could we OR do we even want to condense the following lines like we did the if statement in profileNameAndImage above? */}
             {props.foundUsers.length === 1 ? (
               <th className="profile-display">
                 {props.sharedGames.length} games owned by {profileNameAndImage}

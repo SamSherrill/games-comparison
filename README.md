@@ -10,21 +10,24 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 #### Simpler Issues to Get the Rust OFf:
 
-- Make username in the gamesTable a URL to the user's profile, instead of just plain text
-- Image of profile picture displayed next to the user's name
+- DONE Make username in the gamesTable a URL to the user's profile, instead of just plain text
+- DONE Image of profile picture displayed next to the user's name
+- Is there any more we want to do with this <a> tag?
+    - The table header formating on mobile needs improvement after we changed the usernames to a tags
+    - GOOD FIRST ISSUE 3/8: Display personaName & vanityUrl if those 2 are different for that user --- THIS LOGIC ALREADY EXISTS
 
 - in other-controller, in the app.post /sharedGames we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions there.
 
 - Could CSS from GamesTable.scss be taken into base.scss file?
 
 - keyCode is deprecated
-#### Bigger Issues to Tackle int the Refactor:
+#### Bigger Issues to Tackle in the Refactor:
 
 - Deal with async issues with removing privateUsers from foundUsers
 
 - Maybe do some async refactoring for performance gains
 
-- Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line.
+- Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an <a> tag
 
 - Consider if we can refactor how we phrase "foundUser" in MainPage.jsx and similar phrasing throughout the app to have more consistent terms, and be more readable / identifiable
 
