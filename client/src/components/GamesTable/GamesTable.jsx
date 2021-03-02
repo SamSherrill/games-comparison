@@ -1,10 +1,19 @@
 import React from "react";
 import "./GamesTable.scss";
+import ProfileDisplay from "../ProfileDisplay/ProfileDisplay";
 
 const GamesTable = (props) => {
-  const userString = props.searchedUsers.join(", ");
   // 2/22/2021 - We want to make the users name (vanityUrl) a link rather than just play text
   // To do this, we will need to change what we're passing into userString above
+
+  // const userString = props.searchedUsers.join(", ");
+
+  // const arrayOfProfileUrls = props.foundUsers[0].avatarUrl;
+
+  const profileNameAndImage = props.foundUsers
+    .map((user) => {
+      return <ProfileDisplay user={user} key={user.id}/>;
+    });
 
   return (
     <>
@@ -12,12 +21,12 @@ const GamesTable = (props) => {
         <thead>
           <tr>
             {props.foundUsers.length === 1 ? (
-              <th>
-                {props.sharedGames.length} games owned by {userString}
+              <th className="profile-display">
+                {props.sharedGames.length} games owned by {profileNameAndImage}
               </th>
             ) : (
-              <th>
-                {props.sharedGames.length} games shared by {userString}
+              <th className="profile-display">
+                {props.sharedGames.length} games shared by {profileNameAndImage}
               </th>
             )}
           </tr>

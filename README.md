@@ -13,14 +13,20 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Make username in the gamesTable a URL to the user's profile, instead of just plain text
 - Image of profile picture displayed next to the user's name
 
+- in other-controller, in the app.post /sharedGames we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions there.
+
+- Could CSS from GamesTable.scss be taken into base.scss file?
+
 - keyCode is deprecated
 #### Bigger Issues to Tackle int the Refactor:
- 
+
 - Deal with async issues with removing privateUsers from foundUsers
 
 - Maybe do some async refactoring for performance gains
 
 - Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line.
+
+- Consider if we can refactor how we phrase "foundUser" in MainPage.jsx and similar phrasing throughout the app to have more consistent terms, and be more readable / identifiable
 
 - Got this error right as we were wrapping up last session. I was manually testing invalid Vanity URLs & private users. We had just made changes regarding how we display warnings about those:
 TypeError: Cannot read property 'steamId' of null
@@ -30,6 +36,8 @@ TypeError: Cannot read property 'steamId' of null
 [0]     at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:44:7
 
 - Heroku specific problem: On the free plan we're hitting the max of 3600 questions when we run comparisons for users with extremely large game libraries (800+). Specific breaking point currently is amusingmouse & sammysticks compared. That doesn't work. However, amusingmouse & dabigcheezey comparison will complete successfully. dabigcheezey owns only 30 games, but sammysticks owns 188. amusingmouse owns 846.
+
+- Are we importing Bootstrap CSS the most ideal way? Current we pull in the CDN on index.html in the public folder
 
 ### 1st Major Refactor Plans: 
 

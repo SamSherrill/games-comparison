@@ -145,6 +145,7 @@ class MainPage extends Component {
         .then((res) => {
           this.setState({ isLoading: false });
           this.setState({
+            // Sets this state equal to the sharedGames array sent back from other-controller
             sharedGamesState: res.data.sharedGames,
           });
         })
