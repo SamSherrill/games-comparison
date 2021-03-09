@@ -16,21 +16,18 @@ const GamesTable = (props) => {
     );
   });
 
+  const sharedOrOwned = props.foundUsers.length === 1 ? "owned" : "shared";
+
   return (
     <>
       <table className="table">
         <thead>
           <tr>
             {/* Could we OR do we even want to condense the following lines like we did the if statement in profileNameAndImage above? */}
-            {props.foundUsers.length === 1 ? (
-              <th className="profile-display">
-                {props.sharedGames.length} games owned by {profileNameAndImage}
-              </th>
-            ) : (
-              <th className="profile-display">
-                {props.sharedGames.length} games shared by {profileNameAndImage}
-              </th>
-            )}
+            <th className="profile-display">
+              {props.sharedGames.length} games {sharedOrOwned} by{" "}
+              {profileNameAndImage}
+            </th>
           </tr>
         </thead>
         <tbody>

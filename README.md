@@ -10,10 +10,12 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 #### Simpler Issues to Get the Rust OFf:
 
+- *PUSH AT THE START OF 3/15 SESSION*
+
 - DONE Make username in the gamesTable a URL to the user's profile, instead of just plain text
 - DONE Image of profile picture displayed next to the user's name
 - Is there any more we want to do with this <a> tag?
-    - The table header formating on mobile needs improvement after we changed the usernames to a tags
+    - FIRST ISSUE 3/15: The table header formating on mobile needs improvement after we changed the usernames to a tags - This can maybe be helped with edits to the profile-display class.
     - DONE Display personaName & vanityUrl if those 2 are different for that user
 
 - User instructions regarding:
