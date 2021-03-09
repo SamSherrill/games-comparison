@@ -3,21 +3,18 @@ import "./GamesTable.scss";
 import ProfileDisplay from "../ProfileDisplay/ProfileDisplay";
 
 const GamesTable = (props) => {
-  // 2/22/2021 - We want to make the users name (vanityUrl) a link rather than just play text
-  // To do this, we will need to change what we're passing into userString above
-
-  // const userString = props.searchedUsers.join(", ");
-
-  // const arrayOfProfileUrls = props.foundUsers[0].avatarUrl;
-
-  const profileNameAndImage = props.foundUsers
-    .map((user, index) => {
-      let comma = "";
-      if(index < props.foundUsers.length - 1){
-        comma = ", ";
-      }
-      return <><ProfileDisplay user={user} key={user.id}/>{comma} </>;
-    });
+  const profileNameAndImage = props.foundUsers.map((user, index) => {
+    let comma = "";
+    if (index < props.foundUsers.length - 1) {
+      comma = ", ";
+    }
+    return (
+      <>
+        <ProfileDisplay user={user} key={user.id} />
+        {comma}{" "}
+      </>
+    );
+  });
 
   return (
     <>

@@ -14,7 +14,12 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - DONE Image of profile picture displayed next to the user's name
 - Is there any more we want to do with this <a> tag?
     - The table header formating on mobile needs improvement after we changed the usernames to a tags
-    - GOOD FIRST ISSUE 3/8: Display personaName & vanityUrl if those 2 are different for that user --- THIS LOGIC ALREADY EXISTS
+    - DONE Display personaName & vanityUrl if those 2 are different for that user
+
+- User instructions regarding:
+    - What is a vanity URL & how to create it
+    - How to set profile & games list public
+- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
 
 - in other-controller, in the app.post /sharedGames we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions there.
 
@@ -22,6 +27,13 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 - keyCode is deprecated
 #### Bigger Issues to Tackle in the Refactor:
+
+- Immediately after pressing the "Add User" button, it'd be really cool if the typing cursor defaulted to the first blank line, even if multiple blank user lines are added
+    - Partially DONE - the typing cursor now does autoFocus (in TextInput.jsx) to the most recently added line
+
+- Mouse cursor to follow the Add User button each time it's clicked
+
+- Full evaluation of the names & uses of state & vars within our app. Do those names accurately reflect what we're using them for? Can we delete or refactor blocks of code after these evaluations? We almost certainly can make this code more readable, and very likely can shorten it. searchedUsers state & array (on MainPage.jsx) is a prime example of something we have & maybe still can refactor.
 
 - Deal with async issues with removing privateUsers from foundUsers
 
