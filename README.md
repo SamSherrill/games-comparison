@@ -19,9 +19,42 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
+#### Simpler Issues to Get the Rust OFf:
+
+- *PUSH AT THE START OF 3/15 SESSION*
+
+- DONE Make username in the gamesTable a URL to the user's profile, instead of just plain text
+- DONE Image of profile picture displayed next to the user's name
+- Is there any more we want to do with this <a> tag?
+    - FIRST ISSUE 3/15: The table header formating on mobile needs improvement after we changed the usernames to a tags - This can maybe be helped with edits to the profile-display class.
+    - DONE Display personaName & vanityUrl if those 2 are different for that user
+
+- User instructions regarding:
+    - What is a vanity URL & how to create it
+    - How to set profile & games list public
+- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
+
+- in other-controller, in the app.post /sharedGames we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions there.
+
+- Could CSS from GamesTable.scss be taken into base.scss file?
+
+- keyCode is deprecated
+#### Bigger Issues to Tackle in the Refactor:
+
+- Immediately after pressing the "Add User" button, it'd be really cool if the typing cursor defaulted to the first blank line, even if multiple blank user lines are added
+    - Partially DONE - the typing cursor now does autoFocus (in TextInput.jsx) to the most recently added line
+
+- Mouse cursor to follow the Add User button each time it's clicked
+
+- Full evaluation of the names & uses of state & vars within our app. Do those names accurately reflect what we're using them for? Can we delete or refactor blocks of code after these evaluations? We almost certainly can make this code more readable, and very likely can shorten it. searchedUsers state & array (on MainPage.jsx) is a prime example of something we have & maybe still can refactor.
+
 - Deal with async issues with removing privateUsers from foundUsers
 
 - Maybe do some async refactoring for performance gains
+
+- Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an <a> tag
+
+- Consider if we can refactor how we phrase "foundUser" in MainPage.jsx and similar phrasing throughout the app to have more consistent terms, and be more readable / identifiable
 
 - Got this error right as we were wrapping up last session. I was manually testing invalid Vanity URLs & private users. We had just made changes regarding how we display warnings about those:
 TypeError: Cannot read property 'steamId' of null
@@ -31,6 +64,8 @@ TypeError: Cannot read property 'steamId' of null
 [0]     at async C:\Users\Samue\gt\sams-apps\games-comparison\controllers\user-games-api.js:44:7
 
 - Heroku specific problem: On the free plan we're hitting the max of 3600 questions when we run comparisons for users with extremely large game libraries (800+). Specific breaking point currently is amusingmouse & sammysticks compared. That doesn't work. However, amusingmouse & dabigcheezey comparison will complete successfully. dabigcheezey owns only 30 games, but sammysticks owns 188. amusingmouse owns 846.
+
+- Are we importing Bootstrap CSS the most ideal way? Current we pull in the CDN on index.html in the public folder
 
 ### 1st Major Refactor Plans: 
 
@@ -46,7 +81,7 @@ TypeError: Cannot read property 'steamId' of null
 - Brian also suggested some specific SQL queries that could be used to eager load information.
 - Speaking of eager load, would it be realistic to over-eager load a user's games list? We could first make sure that their profile & games list are public. We could display a warning if their profile is not public. Then we could pull the game's list & hold it in the background somehow, until the user hits Compare Games
 
-- Consider howe we can refactor states. Can we combine some of these? Should we reorder them to be more sequential? Are there any other improvements we can make?
+- Consider how we can refactor states. Can we combine some of these? Should we reorder them to be more sequential? Are there any other improvements we can make?
 - Strongly consider how our code can be best arranged to be readable. Are there blocks of code that execute before the block above? If so, we should probably move them into sequence in the code, to be more readable.
 - Analyze all of our async/awaits, setTimeout, and other steps we've taken to deal with the async issues we had in the original version of this project
 

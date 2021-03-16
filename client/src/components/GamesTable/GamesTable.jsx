@@ -1,23 +1,33 @@
 import React from "react";
 import "./GamesTable.scss";
+import ProfileDisplay from "../ProfileDisplay/ProfileDisplay";
 
 const GamesTable = (props) => {
-  const userString = props.searchedUsers.join(", ");
+  const profileNameAndImage = props.foundUsers.map((user, index) => {
+    let comma = "";
+    if (index < props.foundUsers.length - 1) {
+      comma = ", ";
+    }
+    return (
+      <>
+        <ProfileDisplay user={user} key={user.id} />
+        {comma}{" "}
+      </>
+    );
+  });
+
+  const sharedOrOwned = props.foundUsers.length === 1 ? "owned" : "shared";
 
   return (
     <>
       <table className="table">
         <thead>
           <tr>
-            {props.foundUsers.length === 1 ? (
-              <th>
-                {props.sharedGames.length} games owned by {userString}
-              </th>
-            ) : (
-              <th>
-                {props.sharedGames.length} games shared by {userString}
-              </th>
-            )}
+            {/* Could we OR do we even want to condense the following lines like we did the if statement in profileNameAndImage above? */}
+            <th className="profile-display">
+              {props.sharedGames.length} games {sharedOrOwned} by{" "}
+              {profileNameAndImage}
+            </th>
           </tr>
         </thead>
         <tbody>

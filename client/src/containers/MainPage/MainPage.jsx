@@ -55,7 +55,6 @@ class MainPage extends Component {
     });
 
     let usersArray = Object.values(this.state.usersToSearch);
-    // this.setState({ searchedUsers: usersArray });
 
     if (usersArray.length > 0) {
       await axios
@@ -66,11 +65,7 @@ class MainPage extends Component {
           const searchedUsers = [];
           this.setState({ foundUsers: res.data.foundUsers });
           res.data.foundUsers.forEach((user) => {
-            if (user.vanityUrl === user.personaName) {
               searchedUsers.push(user.personaName);
-            } else {
-              searchedUsers.push(`${user.personaName} (${user.vanityUrl})`);
-            }
           });
           this.setState({ searchedUsers: searchedUsers });
           if (res.data.userNotFound) {
@@ -145,6 +140,7 @@ class MainPage extends Component {
         .then((res) => {
           this.setState({ isLoading: false });
           this.setState({
+            // Sets this state equal to the sharedGames array sent back from other-controller
             sharedGamesState: res.data.sharedGames,
           });
         })
@@ -298,7 +294,10 @@ class MainPage extends Component {
           {this.state.sharedGamesState && (
             <GamesTable
               sharedGames={this.state.sharedGamesState}
-              searchedUsers={this.state.searchedUsers}
+              // After creating ProfileDisplay.jsx, and changing how we generate the displayName
+              // it appears we no longer need to pass searchedUsers down in props.
+              // We may be able to deleted searchedUers altogether, both the var & the state
+              // searchedUsers={this.state.searchedUsers}
               foundUsers={this.state.foundUsers}
             />
           )}

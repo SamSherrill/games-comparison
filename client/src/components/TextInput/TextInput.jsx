@@ -14,6 +14,7 @@ const TextInput = (props) => {
         placeholder={props.placeholder}
         onChange={props.onChange}
         spellCheck="false"
+        autoFocus
       />
       <div className="input-group-append">
         <button

@@ -185,6 +185,7 @@ module.exports = function (app) {
     await cb(retrievedUserArray);
   }
 
+  // REFACTOR? Below we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions here.
   app.post("/sharedGames", function (req, res) {
     getUsers(res, req.body.usersArray, (usersArray) => {
       let sharedGamesArray = [];

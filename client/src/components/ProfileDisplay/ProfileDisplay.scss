@@ -1,0 +1,11 @@
+@import "../../baseScss/base";
+
+.profile-display{
+    display: flex;
+}
+
+.profilePicture {
+    margin: 0 6px;
+    max-width: 32px;
+    max-height: 32px;
+}
