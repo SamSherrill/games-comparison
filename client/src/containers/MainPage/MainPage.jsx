@@ -183,7 +183,7 @@ class MainPage extends Component {
     const { name } = event.target;
 
     let deletedRowIndexPosition = Number(name.slice(name.length - 1));
-    // for loop for replacing the text of all input fields with the text of the following input field, starting with the deleted row
+    // for loop that replaces the text of all input fields with the text of the following input field, starting with the deleted row
     for (
       let i = deletedRowIndexPosition;
       i < this.state.additionalUsers - 1;
