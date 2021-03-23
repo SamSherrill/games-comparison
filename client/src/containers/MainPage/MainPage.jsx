@@ -7,11 +7,9 @@ import GamesTable from "../../components/GamesTable/GamesTable";
 import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 class MainPage extends Component {
-  // Setup a state for tracking username text input field
-  // Also initialize state for searching multiple users
-
+  // inputFieldCount is for our site users input lines for inputed vanityURLs
   state = {
-    additionalUsers: 2,
+    inputFieldCount: 2,
     usersToSearch: {},
     searchedUsers: "",
     userObject: false,
@@ -36,9 +34,9 @@ class MainPage extends Component {
 
   addUser = (event) => {
     // We don't want to compare the games lists of more than 10 users
-    if (this.state.additionalUsers < 10) {
+    if (this.state.inputFieldCount < 10) {
       this.setState({
-        additionalUsers: this.state.additionalUsers + 1,
+        inputFieldCount: this.state.inputFieldCount + 1,
       });
     }
     // The display warning about 10 user max will need to happen in render
@@ -186,7 +184,7 @@ class MainPage extends Component {
     // for loop that replaces the text of all input fields with the text of the following input field, starting with the deleted row
     for (
       let i = deletedRowIndexPosition;
-      i < this.state.additionalUsers - 1;
+      i < this.state.inputFieldCount - 1;
       i++
     ) {
       let deletedInputField = document.getElementById(`user${i}`);
@@ -194,12 +192,14 @@ class MainPage extends Component {
       deletedInputField.value = nextInputField.value;
     }
 
-    let removeAUser = this.state.additionalUsers;
-    removeAUser--;
-    this.setState({ additionalUsers: removeAUser });
+    // Seem to work just fine with this code removed and the live code line below refactored
+    // let removeAUser = this.state.inputFieldCount;
+    // removeAUser--;
+    this.setState({ inputFieldCount: this.state.inputFieldCount -1  });
 
+    // this loop updates state based on the new lines on screen
     let newUsersToSearch = {};
-    for (let i = 0; i < this.state.additionalUsers - 1; i++) {
+    for (let i = 0; i < this.state.inputFieldCount - 1; i++) {
       let currentInputField = document.getElementById(`user${i}`);
       newUsersToSearch[`user${i}`] = currentInputField.value;
     }
@@ -211,7 +211,7 @@ class MainPage extends Component {
     // to render for each time the add user button is clicked
     // TODO: Display a message once 10 username input fields are reached
     const userInputs = [];
-    for (let i = 0; i < this.state.additionalUsers; i++) {
+    for (let i = 0; i < this.state.inputFieldCount; i++) {
       userInputs.push(
         <TextInput
           index={i}

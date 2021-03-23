@@ -56,6 +56,10 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
 - Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
 
+- Shift this Readme into a proper readme
+    - Create a new markdown file that contains these plans and dev history notes.
+    - Move out the dev plans, and update this readme with proper instructions on use & license
+
 - Full evaluation of the names & uses of state & vars within our app. Do those names accurately reflect what we're using them for? Can we delete or refactor blocks of code after these evaluations? We almost certainly can make this code more readable, and very likely can shorten it. searchedUsers state & array (on MainPage.jsx) is a prime example of something we have & maybe still can refactor.
 
 - Deal with async issues with removing privateUsers from foundUsers
