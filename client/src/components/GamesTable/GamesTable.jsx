@@ -32,9 +32,9 @@ const GamesTable = (props) => {
           </th>
         </thead>
         <tbody>
-          {props.sharedGames.map((game, index) => {
+          {props.sharedGames.map((game) => {
             return (
-              <tr key={index}>
+              <tr key={game.id}>
                 {/* The td elements of the table provide cushion & a line between each game */}
                 <td>
                   <a
