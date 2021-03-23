@@ -1,40 +1,48 @@
 @import "../../baseScss/base";
 
 a {
-    color: white;
+  color: white;
 
-    &:hover {
-        color: #bebebe;
-    }
+  &:hover {
+    color: #bebebe;
+  }
 }
 
 table {
-    margin-top: 2%;
+  border:  2px solid white;
+  margin-top: 2%;
 }
 
 thead {
-    background-color: $steam-navy;
-    color: white;
+  background-color: $steam-navy;
+  color: white;
 }
 
 td,
 th {
-    font-weight: bold;
-    font-size: larger;
+  font-weight: bold;
+  font-size: larger;
 }
 
 td {
-    background-color: $steam-light-blue;
-    color: white;
+  background-color: $steam-light-blue;
+  color: white;
 }
 
-.gameBannerImage {
-    margin-right: 2%;
-    max-width: 120px;
-    width: 100%;
-    height: auto;
+@media screen and (max-width: 600px) {
+  .games-count-text {
+    margin-bottom: 20px;
+  }
 }
 
-.profile-display{
-    display: flex;
+.game-banner-image {
+  margin-right: 2%;
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  float: left
+}
+
+.profile-display {
+  display: flex;
 }

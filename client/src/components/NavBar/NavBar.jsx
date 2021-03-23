@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <div>
       <nav className="navbar">
-        <span className="navbar-brand mb-0 h1">Steam Library Comparer</span>
+        <h3>Steam Library Comparer</h3>
       </nav>
     </div>
   );

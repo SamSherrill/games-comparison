@@ -19,24 +19,23 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
-#### Simpler Issues to Get the Rust OFf:
-
-- *PUSH AT THE START OF 3/15 SESSION*
+**Last pushed to master on 3/15/2021**
+#### Simpler Issues to Get the Rust Off:
 
 - DONE Make username in the gamesTable a URL to the user's profile, instead of just plain text
 - DONE Image of profile picture displayed next to the user's name
-- Is there any more we want to do with this <a> tag?
-    - FIRST ISSUE 3/15: The table header formating on mobile needs improvement after we changed the usernames to a tags - This can maybe be helped with edits to the profile-display class.
+- Is there any more we want to do with this a tag?
+    - GOOD FOR NOW: The table header formating on mobile needs improvement after we changed the usernames to a tags - This can maybe be helped with edits to the profile-display class.
     - DONE Display personaName & vanityUrl if those 2 are different for that user
 
-- User instructions regarding:
-    - What is a vanity URL & how to create it
-    - How to set profile & games list public
-- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
+- GOOD FOR NOW - TD element removed from thead: On GamesTable.jsx we likely have unnecessary nesting of elements. For exampes for the table header we have a th inside a tr inside thead. We will likely be able to simplify the CSS as well if we make changes to the HTML nesting structure. -- We decided to keep the td element that separates each game listing in rows. td nested inside tr was necessary to keep the current styling.
 
 - in other-controller, in the app.post /sharedGames we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions there.
 
 - Could CSS from GamesTable.scss be taken into base.scss file?
+
+- Warnings & minor errors in dev console
+    - DONE 1 error states: index.js:1 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
 
 - keyCode is deprecated
 #### Bigger Issues to Tackle in the Refactor:
@@ -46,13 +45,24 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 - Mouse cursor to follow the Add User button each time it's clicked
 
+- Beautify the table
+- Beautify the site in general
+
+- Strongly leaning towards doing an "about the creators" page. Might include links to our Portfolios & GitHub profiles.
+
+- User instructions (likely in a separate page / container) regarding:
+    - What is a vanity URL & how to create it
+    - How to set profile & games list public
+- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
+- Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
+
 - Full evaluation of the names & uses of state & vars within our app. Do those names accurately reflect what we're using them for? Can we delete or refactor blocks of code after these evaluations? We almost certainly can make this code more readable, and very likely can shorten it. searchedUsers state & array (on MainPage.jsx) is a prime example of something we have & maybe still can refactor.
 
 - Deal with async issues with removing privateUsers from foundUsers
 
 - Maybe do some async refactoring for performance gains
 
-- Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an <a> tag
+- MAYBE DONE: Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an <a> tag
 
 - Consider if we can refactor how we phrase "foundUser" in MainPage.jsx and similar phrasing throughout the app to have more consistent terms, and be more readable / identifiable
 
@@ -66,6 +76,8 @@ TypeError: Cannot read property 'steamId' of null
 - Heroku specific problem: On the free plan we're hitting the max of 3600 questions when we run comparisons for users with extremely large game libraries (800+). Specific breaking point currently is amusingmouse & sammysticks compared. That doesn't work. However, amusingmouse & dabigcheezey comparison will complete successfully. dabigcheezey owns only 30 games, but sammysticks owns 188. amusingmouse owns 846.
 
 - Are we importing Bootstrap CSS the most ideal way? Current we pull in the CDN on index.html in the public folder
+
+- Deal with all deprecations
 
 ### 1st Major Refactor Plans: 
 
@@ -108,10 +120,11 @@ Previous note on the need for tests: Should we write some tests to make sure fun
 
 #### Errors to tackle in refactoring
 
-- 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
+- MAYBE DONE - 8/18/2020 found possible bug: First time we searched MrMuscles3000 since changing models & doing force:true. For the first time in a really long time, we ended up getting this console.log("Could not load user information") from line 38 of other-controller.js. We aren't sure why. His games list may have still be used to compare games with the other 3 users.
     - Follow up on the previous comment. Same error happened in the same way when we searched ichinyan for the first time since clearing the DB.
     - More follow up: Sometimes user names don't appear in the table head even if they are still factored in to the logic that determines the shared games table. This is more likely to happen when the user is pulled into the DB the first time, but we've seen it happen at least 1 other time when a user was already in the database. That happened once with pita82, the 2nd day we used him as an example.
     - 9/15/2020 Even more follow up: We strongly assume that this has to do with the underlying syncronicty issues that caused us to write the setTimeout block of code in other-controller.js (about line 64 at this point). That res.json gets sent back to the front end before the table header is written to the DOM. We will need to figure out how to fix this.
+    - March 2021 update: We moved the profile names in the table header to a new JSX file, ProfileDisplay. We also changed & simplified how we passed that info in props. These changes seem to have solved this.
 
 - DONE Turn off loading wheel if all Vanity URLs are invalid
 - FIXED Games table shows up with no games in the list, but the user name(s) listed at the top. This means if 1 user is private, and all others are public, then the list comes back empty.

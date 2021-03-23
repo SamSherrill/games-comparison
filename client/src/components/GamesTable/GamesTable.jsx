@@ -4,15 +4,15 @@ import ProfileDisplay from "../ProfileDisplay/ProfileDisplay";
 
 const GamesTable = (props) => {
   const profileNameAndImage = props.foundUsers.map((user, index) => {
-    let comma = "";
-    if (index < props.foundUsers.length - 1) {
-      comma = ", ";
-    }
+    // let comma = "";
+    // if (index < props.foundUsers.length - 1) {
+    //   comma = ", ";
+    // }
     return (
-      <>
+      <div className="display-name">
         <ProfileDisplay user={user} key={user.id} />
-        {comma}{" "}
-      </>
+        {/* {comma}{" "} */}
+      </div>
     );
   });
 
@@ -22,18 +22,20 @@ const GamesTable = (props) => {
     <>
       <table className="table">
         <thead>
-          <tr>
-            {/* Could we OR do we even want to condense the following lines like we did the if statement in profileNameAndImage above? */}
-            <th className="profile-display">
-              {props.sharedGames.length} games {sharedOrOwned} by{" "}
+          <th className="profile-display">
+            <div>
+              <p className="games-count-text">
+                {props.sharedGames.length} games {sharedOrOwned} by:{" "}
+              </p>
               {profileNameAndImage}
-            </th>
-          </tr>
+            </div>
+          </th>
         </thead>
         <tbody>
-          {props.sharedGames.map((game, index) => {
+          {props.sharedGames.map((game) => {
             return (
-              <tr key={index}>
+              <tr key={game.id}>
+                {/* The td elements of the table provide cushion & a line between each game */}
                 <td>
                   <a
                     href={`https://store.steampowered.com/app/${game.id}`}
@@ -41,8 +43,8 @@ const GamesTable = (props) => {
                     rel="noopener noreferrer"
                   >
                     <img
-                      className="gameBannerImage"
-                      src={`https://media.steampowered.com/steamcommunity/public/images/apps/${game.id}/${game.image}.jpg`}
+                      className="game-banner-image"
+                      src={`http://media.steampowered.com/steamcommunity/public/images/apps/${game.id}/${game.image}.jpg`}
                       alt={`${game.name} logo`}
                     />
                     {game.name}
