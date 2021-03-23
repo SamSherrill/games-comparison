@@ -7,11 +7,9 @@ import GamesTable from "../../components/GamesTable/GamesTable";
 import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 class MainPage extends Component {
-  // inputFieldCount is for our site users input lines for inputed vanityURLs
   state = {
     inputFieldCount: 2,
     usersToSearch: {},
-    searchedUsers: "",
     userObject: false,
     sharedGamesState: false,
     isLoading: false,
@@ -60,16 +58,11 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
-          const searchedUsers = [];
           this.setState({ foundUsers: res.data.foundUsers });
-          res.data.foundUsers.forEach((user) => {
-              searchedUsers.push(user.personaName);
-          });
-          this.setState({ searchedUsers: searchedUsers });
           if (res.data.userNotFound) {
             this.setState({ usersNotFound: res.data.notFoundUsers });
             if (
-              this.state.searchedUsers.length ===
+              this.state.foundUsers.length ===
               this.state.usersNotFound.length
             ) {
               this.setState({ isLoading: false });
@@ -97,15 +90,6 @@ class MainPage extends Component {
             });
             return filter;
           });
-          const newSearchedUsers = this.state.searchedUsers.filter((user) => {
-            let filter = true;
-            res.data.privateUsers.forEach((privateUser) => {
-              if (user.includes(privateUser)) {
-                filter = false;
-              }
-            });
-            return filter;
-          });
           usersArray = usersArray.filter((user) => {
             let filter = true;
             res.data.privateUsers.forEach((privateUser) => {
@@ -118,13 +102,12 @@ class MainPage extends Component {
           this.setState({
             privateUsers: res.data.privateUsers,
             foundUsers: newFoundUsers,
-            searchedUsers: newSearchedUsers,
           });
         })
         .catch((err) => console.log(err));
 
       //turns off loading wheel if no user's games can be compared
-      if (this.state.searchedUsers.length === 0) {
+      if (this.state.foundUsers.length === 0) {
         this.setState({
           isLoading: false,
         });

@@ -19,8 +19,10 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
-**Last pushed to master on 3/15/2021**
-#### Simpler Issues to Get the Rust Off:
+- **START ON 3/29:**
+    - Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
+
+    - conside: Pull out functions from compareGames and make them their own independent functions
 
 - DONE Make username in the gamesTable a URL to the user's profile, instead of just plain text
 - DONE Image of profile picture displayed next to the user's name
@@ -38,7 +40,6 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
     - DONE 1 error states: index.js:1 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
 
 - keyCode is deprecated
-#### Bigger Issues to Tackle in the Refactor:
 
 - Immediately after pressing the "Add User" button, it'd be really cool if the typing cursor defaulted to the first blank line, even if multiple blank user lines are added
     - Partially DONE - the typing cursor now does autoFocus (in TextInput.jsx) to the most recently added line
