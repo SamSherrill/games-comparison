@@ -132,9 +132,6 @@ class MainPage extends Component {
     } else {
       // If the user didn't enter at least one user, then the loading wheel is turned off
       this.setState({ isLoading: false });
-
-      // We discussed sending the user a warning to input at least one Vanity URL, but
-      // we're sure users will understand that nothing will happen until they do that.
     }
   };
 
@@ -237,7 +234,7 @@ class MainPage extends Component {
           {/* We need an explanation or even a screenshot of what a vanity 
           URL is, as well as where to find it or how to create it. */}
 
-          <div id="user-input-section">{userInputs}</div>
+          <div>{userInputs}</div>
 
           <div className="row">
             <div className="col">

@@ -70,7 +70,7 @@ We had to uninstall Axios from the front end to get the first FE Axios.post we w
 
 ### Code & Performance Refactoring
 
-- DONE Combine SharedGamesTable & UserGamesTable into one component. 
+- DONE Combine SharedGamesTable & UserGamesTable into 1 component.
 1) DONE make a ternary statement in SharedGamesTable that handles whether there is 1 or more users
 2) DONE Rename SharedGamesTable to GamesTable, delete UserGamesTable, then change all references to this in MainPage & SharedGamesTable
 - DONE Refactor the compareGames function in MainPage.jsx. We may be able to remove the if/else surrounding it, especially once the SharedGamesTable & UserGamesTable are combined.

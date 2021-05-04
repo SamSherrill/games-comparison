@@ -2,10 +2,31 @@
 
 ## To Do During Next Pairing Session:
 
-- **START ON 3/29:**
-    - Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
+- Documentation
+    - Partially DONE: Improve ReadMe
+        - Needs more thorough instructions (update once site instructions are written)
+        - Updated screenshots
+        - Anything else we'd like to update in the readme?
+    - Give user instructions on the site
+    - About the creators page. Include links to our Portfolios & GitHub profiles.
 
-    - consider: Pull out functions from compareGames and make them their own independent functions
+- 1) Update NavBar to support additional pages (which will actually be new containers at the same URL)
+    - a) DONE?: Install, import & setup react-router-dom
+- 2) DONE Create new containers for the 2 new pages
+
+- User instructions (likely in a separate page / container) regarding:
+    - What is a vanity URL & how to create it
+    - How to set profile & games list public
+- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
+- Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
+
+## To Do Soon
+
+- Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
+
+- Consider: Pull out functions from compareGames and make them their own independent functions
+    - Currently all FE API calls happen in MainPage.jsx. We should probably move the API requests to a separate file or files, then import them to MainPage.
+    - 5/3/21 - Follow up note on this: Throughout the logic above render() we set state. To the best of our knowledge, this would involve a huge re-write & migth be impossible to pull out those functions & API calls into another file.
 
 - GOOD FOR NOW - TD element removed from thead: On GamesTable.jsx we likely have unnecessary nesting of elements. For exampes for the table header we have a th inside a tr inside thead. We will likely be able to simplify the CSS as well if we make changes to the HTML nesting structure. -- We decided to keep the td element that separates each game listing in rows. td nested inside tr was necessary to keep the current styling.
 
@@ -25,14 +46,6 @@
 
 - Beautify the table
 - Beautify the site in general
-
-- Strongly leaning towards doing an "about the creators" page. Might include links to our Portfolios & GitHub profiles.
-
-- User instructions (likely in a separate page / container) regarding:
-    - What is a vanity URL & how to create it
-    - How to set profile & games list public
-- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
-- Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
 
 - Full evaluation of the names & uses of state & vars within our app. Do those names accurately reflect what we're using them for? Can we delete or refactor blocks of code after these evaluations? We almost certainly can make this code more readable, and very likely can shorten it. searchedUsers state & array (on MainPage.jsx) is a prime example of something we have & maybe still can refactor.
 
@@ -177,8 +190,6 @@ We found this website mid-August when someone we showed our app to brought it to
 - Add err handling. Need to tell user why certain things didn't work.
 - Resolve all warnings in the browser console.
 - See if we can resolve the depracation warning in the BE console. This one: (node:31268) [SEQUELIZE0004] DeprecationWarning: A boolean value was passed to options.operatorsAliases. This is a no-op with v5 and should be removed.
-- Currently all FE API calls happen in MainPage.jsx. We should probably move the API requests to a separate file or files, then import them to MainPage.
-- Consider combing SharedGamesTable & UserGamesTable into 1 component.
 - Currently we're using createJoinRow() in our controller to create the many to many relationship between users & games, but also to just give us an error if we try to duplicate an existing relationship. This is intentional, because it prevents us from having to first check if the relationship already exists. This makes a 2 step process (checking, then creating if it doesn't exist) into a 1 step process (just letting Sequelize do both). However, this may not be best practice. Consider & research if it needs to changes.
 - In other-contoller, towards the end, we have this: app.post("/sharedGames", function (req, res) { getUsers(res, req.body.usersArray, (usersArray).... etc. This bigger block of code has a lot of loops inside loops. How can we refactor this?
 

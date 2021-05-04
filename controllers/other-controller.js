@@ -70,46 +70,6 @@ module.exports = function (app) {
     }, 1000);
   });
 
-  // ORIGINAL CODE - it's more lines of code than our 2nd version above,
-  // but it only runs the Steam API call if the user isn't already in our DB
-  // We did some very basic manual A/B testing, and their doesn't seem to be
-  // any noticeable difference between the code blocks in speed performance.
-
-  // app.post("/api/steamUsers", async function (req, res) {
-  //   const notFoundUsers = [];
-  //   let userNotFound = false;
-  //   const foundUsers = [];
-  //   await req.body.usersArray.forEach(async (user) => {
-  //     await db.SteamUser.findOne({
-  //       where: {
-  //         vanityUrl: user,
-  //       },
-  //     }).then((dbUser) => {
-  //       if (!dbUser) {
-  //         getUserInfo(apiKey, user, async (newUser) => {
-  //           if (newUser === undefined) {
-  //             notFoundUsers.push(user);
-  //             userNotFound = true;
-  //           }
-  //           //TODO refractor to use findOrCreate()
-  //           await db.SteamUser.create(newUser).then(function (dbPost) {
-  //             createdUsers.push(dbPost);
-  //           });
-  //         });
-  //       } else {
-  //         foundUsers.push(dbUser);
-  //       }
-  //     });
-  //   });
-  //   setTimeout(() => {
-  //     res.json({
-  //       userNotFound: userNotFound,
-  //       notFoundUsers: notFoundUsers,
-  //       foundUsers: foundUsers
-  //     });
-  //   }, 1000);
-  // });
-
   app.get("/api/steamUsers", function (req, res) {
     db.SteamUser.findAll({}).then((user) => {
       res.json(user);
