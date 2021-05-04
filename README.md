@@ -22,7 +22,7 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 - **START ON 3/29:**
     - Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
 
-    - conside: Pull out functions from compareGames and make them their own independent functions
+    - consider: Pull out functions from compareGames and make them their own independent functions
 
 - DONE Make username in the gamesTable a URL to the user's profile, instead of just plain text
 - DONE Image of profile picture displayed next to the user's name
