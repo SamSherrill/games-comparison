@@ -7,13 +7,9 @@ import GamesTable from "../../components/GamesTable/GamesTable";
 import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 class MainPage extends Component {
-  // Setup a state for tracking username text input field
-  // Also initialize state for searching multiple users
-
   state = {
-    additionalUsers: 2,
+    inputFieldCount: 2,
     usersToSearch: {},
-    searchedUsers: "",
     userObject: false,
     sharedGamesState: false,
     isLoading: false,
@@ -36,9 +32,9 @@ class MainPage extends Component {
 
   addUser = (event) => {
     // We don't want to compare the games lists of more than 10 users
-    if (this.state.additionalUsers < 10) {
+    if (this.state.inputFieldCount < 10) {
       this.setState({
-        additionalUsers: this.state.additionalUsers + 1,
+        inputFieldCount: this.state.inputFieldCount + 1,
       });
     }
     // The display warning about 10 user max will need to happen in render
@@ -62,16 +58,11 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
-          const searchedUsers = [];
           this.setState({ foundUsers: res.data.foundUsers });
-          res.data.foundUsers.forEach((user) => {
-              searchedUsers.push(user.personaName);
-          });
-          this.setState({ searchedUsers: searchedUsers });
           if (res.data.userNotFound) {
             this.setState({ usersNotFound: res.data.notFoundUsers });
             if (
-              this.state.searchedUsers.length ===
+              this.state.foundUsers.length ===
               this.state.usersNotFound.length
             ) {
               this.setState({ isLoading: false });
@@ -99,15 +90,6 @@ class MainPage extends Component {
             });
             return filter;
           });
-          const newSearchedUsers = this.state.searchedUsers.filter((user) => {
-            let filter = true;
-            res.data.privateUsers.forEach((privateUser) => {
-              if (user.includes(privateUser)) {
-                filter = false;
-              }
-            });
-            return filter;
-          });
           usersArray = usersArray.filter((user) => {
             let filter = true;
             res.data.privateUsers.forEach((privateUser) => {
@@ -120,13 +102,12 @@ class MainPage extends Component {
           this.setState({
             privateUsers: res.data.privateUsers,
             foundUsers: newFoundUsers,
-            searchedUsers: newSearchedUsers,
           });
         })
         .catch((err) => console.log(err));
 
       //turns off loading wheel if no user's games can be compared
-      if (this.state.searchedUsers.length === 0) {
+      if (this.state.foundUsers.length === 0) {
         this.setState({
           isLoading: false,
         });
@@ -186,7 +167,7 @@ class MainPage extends Component {
     // for loop that replaces the text of all input fields with the text of the following input field, starting with the deleted row
     for (
       let i = deletedRowIndexPosition;
-      i < this.state.additionalUsers - 1;
+      i < this.state.inputFieldCount - 1;
       i++
     ) {
       let deletedInputField = document.getElementById(`user${i}`);
@@ -194,12 +175,14 @@ class MainPage extends Component {
       deletedInputField.value = nextInputField.value;
     }
 
-    let removeAUser = this.state.additionalUsers;
-    removeAUser--;
-    this.setState({ additionalUsers: removeAUser });
+    // Seem to work just fine with this code removed and the live code line below refactored
+    // let removeAUser = this.state.inputFieldCount;
+    // removeAUser--;
+    this.setState({ inputFieldCount: this.state.inputFieldCount -1  });
 
+    // this loop updates state based on the new lines on screen
     let newUsersToSearch = {};
-    for (let i = 0; i < this.state.additionalUsers - 1; i++) {
+    for (let i = 0; i < this.state.inputFieldCount - 1; i++) {
       let currentInputField = document.getElementById(`user${i}`);
       newUsersToSearch[`user${i}`] = currentInputField.value;
     }
@@ -211,7 +194,7 @@ class MainPage extends Component {
     // to render for each time the add user button is clicked
     // TODO: Display a message once 10 username input fields are reached
     const userInputs = [];
-    for (let i = 0; i < this.state.additionalUsers; i++) {
+    for (let i = 0; i < this.state.inputFieldCount; i++) {
       userInputs.push(
         <TextInput
           index={i}

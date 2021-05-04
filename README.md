@@ -19,8 +19,10 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
 
 ### To Do During Next Pairing Session:
 
-**Last pushed to master on 3/15/2021**
-#### Simpler Issues to Get the Rust Off:
+- **START ON 3/29:**
+    - Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
+
+    - consider: Pull out functions from compareGames and make them their own independent functions
 
 - DONE Make username in the gamesTable a URL to the user's profile, instead of just plain text
 - DONE Image of profile picture displayed next to the user's name
@@ -38,7 +40,6 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
     - DONE 1 error states: index.js:1 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
 
 - keyCode is deprecated
-#### Bigger Issues to Tackle in the Refactor:
 
 - Immediately after pressing the "Add User" button, it'd be really cool if the typing cursor defaulted to the first blank line, even if multiple blank user lines are added
     - Partially DONE - the typing cursor now does autoFocus (in TextInput.jsx) to the most recently added line
@@ -55,6 +56,10 @@ This app is a work in progress. It's purpose will be to allow gamers, like mysel
     - How to set profile & games list public
 - Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
 - Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
+
+- Shift this Readme into a proper readme
+    - Create a new markdown file that contains these plans and dev history notes.
+    - Move out the dev plans, and update this readme with proper instructions on use & license
 
 - Full evaluation of the names & uses of state & vars within our app. Do those names accurately reflect what we're using them for? Can we delete or refactor blocks of code after these evaluations? We almost certainly can make this code more readable, and very likely can shorten it. searchedUsers state & array (on MainPage.jsx) is a prime example of something we have & maybe still can refactor.
 
