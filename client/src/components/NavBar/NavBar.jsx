@@ -5,28 +5,36 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <>
-      <nav className="navbar">
-        <h3>Steam Library Comparer</h3>
+      <nav className="navbar navbar-dark navbar-expand-lg">
+        <Link className="navbar-brand" to="/">
+          Steam Games Comparer
+        </Link>
+
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
-          data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <div className="navbar-nav">
-            <Link className="nav-link" to="/HowToUse">
-              How to Use
-            </Link>
-            <Link className="nav-link" to="/AboutUs">
-              About Us
-            </Link>
-          </div>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to="/HowToUse">
+                How To Use
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/AboutUs">
+                About Us
+              </Link>
+            </li>
+          </ul>
         </div>
       </nav>
     </>
@@ -34,3 +42,46 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+{/* <nav className="navbar navbar-expand-lg job-nav">
+  <Link to="/">
+    <span className="navbar-brand mb-0 h1" id="brand-format">
+      job <span id="brand-two">init</span>
+    </span>
+  </Link>
+  <div className="collapse navbar-collapse" id="navbarNav"></div>
+    <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li className="nav-item active">
+        <Link className="nav-link nav-link-job" to="/login">
+          {loginFlag && localStorage.getItem("email")
+            ? localStorage.getItem("email")
+            : "login"}
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link nav-link-job" to="/signup">
+          signup
+        </Link>
+      </li>
+      {/* <li className="nav-item">
+            <Link className="nav-link nav-link-job" to="/account">
+              account
+            </Link>
+          </li> */}
+//       <li className="nav-item">
+//         <Link className="nav-link nav-link-job" to="/dashboard">
+//           dashboard
+//         </Link>
+//       </li>
+//       <li className="nav-item active">
+//         <Link
+//           className="nav-link nav-link-job"
+//           to="/login"
+//           onClick={handleClick}
+//         >
+//           logout
+//         </Link>
+//       </li>
+//     </ul>
+//   </div>
+// </nav>; */}

@@ -2,6 +2,8 @@
 
 ## To Do During Next Pairing Session:
 
+- *Warnings in VSCode terminal*
+
 - Documentation
     - Partially DONE: Improve ReadMe
         - Needs more thorough instructions (update once site instructions are written)
@@ -14,6 +16,11 @@
     - a) DONE?: Install, import & setup react-router-dom
 - 2) DONE Create new containers for the 2 new pages
 
+- Navbar:
+    - When in smaller width screens, a button appears. This button looks different from our other buttons.
+    - Page names are a darker grey than we want, and different from the main title's white color letters
+    - Don't love how the hover works with the text that was recently clicked, or the button.
+
 - User instructions (likely in a separate page / container) regarding:
     - What is a vanity URL & how to create it
     - How to set profile & games list public
@@ -21,6 +28,11 @@
 - Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
 
 ## To Do Soon
+
+- Fix when broken or non-existant images come back from steam for the game's banner image. Example: comparing pita82 & sammysticks - sonic all star racing image is broken
+- Don't show DLC or Betas - Example: comparing pita82 & sammysticks - sonic all star racing image is broken 
+
+- Our button's stay highlighted. Might be related to the btn class name.
 
 - Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
 
@@ -69,6 +81,10 @@ TypeError: Cannot read property 'steamId' of null
 - Are we importing Bootstrap CSS the most ideal way? Current we pull in the CDN on index.html in the public folder
 
 - Deal with all deprecations
+
+## Accessibility
+
+- span className="sr-only" (current) span was somethign that came with bootstrap related to the active class name for the currently selected button in our drop down navbar. We aren't using the active class at this point. We will consider using it. It will take coding the navbar to detect what page we're on. Since we're in react, this is a one page application, and we stay on the same URL the whole time.
 
 ## Refactor Plans: 
 
