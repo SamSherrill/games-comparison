@@ -8,11 +8,11 @@ https://comparegameslibrary.herokuapp.com/
 
 ## Screenshots
 ### Home Screen
-![Screen Shot](./ScreenShots/SteamCompareHome.PNG)
+![Screen Shot](./client/src/ScreenShots/SteamCompareHome.PNG)
 ### Loading
-![Screen Shot](./ScreenShots/SteamLoading.PNG)
+![Screen Shot](./client/src/ScreenShots/SteamLoading.PNG)
 ### Shared Games List
-![Screen Shot](./ScreenShots/ComparedGames.PNG)
+![Screen Shot](./client/src/ScreenShots/ComparedGames.PNG)
 
 ## Work In Progress
 

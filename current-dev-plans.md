@@ -22,9 +22,13 @@
     - Don't love how the hover works with the text that was recently clicked, or the button.
 
 - User instructions (likely in a separate page / container) regarding:
-    - What is a vanity URL & how to create it
+**Currently working on this. Next session get a screenshot with the browser window slightly smaller ie: closer up**
+    - What is a vanity URL & how to find it; mention that if they or their friends don't have a vanity URL, they can learn how to create one in the instructions below)
+    - How to create a vanity URL (if needed)
     - How to set profile & games list public
-- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
+    - Explain the site's warnings about private profiles & games lists; direct users to the appropriate help section
+
+- We decided that instead of a video, we will do screenshots. Screenshots will be easier to change when updates happen to the site.
 - Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
 
 ## To Do Soon

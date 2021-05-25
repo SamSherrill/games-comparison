@@ -1,6 +1,32 @@
 @import "../../baseScss/base";
 
-.written-instructions {
-    color: white;
+.written-instructions, .h3-text-header {
     padding-top: 1%;
+}
+
+.h3-text-header {
+    color: white;
+}
+
+.written-instructions {
+    color: $steam-light-grey;
+}
+
+.horizontal-line{
+    background-color: white;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+}
+
+.thinner-horizontal-line {
+    background-color: white;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+}
+
+.instructional-image{
+    width: 100%;
+    padding: 2.5%;
 }
