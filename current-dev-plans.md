@@ -4,6 +4,8 @@
 
 - *Warnings in VSCode terminal*
 
+**NEW BUG: Glowostent changed their username & maybe profile image. They no longer appear in the header, and might be causing errors in later searches because of the problems caused. For example: The "shared by" & "owned by" label in the header is getting switched. This all might be because we don't have a process for updating user info if it changes after that unique user was originally imported into the db. This may not be the case, because wouldn't the old username & pic load?**
+
 - Documentation
     - Partially DONE: Improve ReadMe
         - Needs more thorough instructions (update once site instructions are written)
@@ -24,7 +26,7 @@
 - User instructions (likely in a separate page / container) regarding:
     - DONE What is a vanity URL & how to find it; mention that if they or their friends don't have a vanity URL, they can learn how to create one in the instructions below)
     - DONE How to create a vanity URL (if needed)
-    **Currently working on this. Next session get a screenshot with the browser window slightly smaller ie: closer up**
+    **Currently working on this. Next session get a screenshot of setting public profile & games list**
     - How to set profile & games list public
     - Explain the site's warnings about private profiles & games lists; direct users to the appropriate help section
     - We decided that instead of a video, we will do screenshots. Screenshots will be easier to change when updates happen to the site.
@@ -72,7 +74,7 @@
 
 - Maybe do some async refactoring for performance gains
 
-- MAYBE DONE: Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an a tag
+- MAYBE DONE: Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an a tag -- **UPDATE 6-15-21: I think I saw this error again on the live site. The new header was already pushed, so there shouldn't be sync issues, because of the way we handle that in state & pass it in props.** 
 
 - Consider if we can refactor how we phrase "foundUser" in MainPage.jsx and similar phrasing throughout the app to have more consistent terms, and be more readable / identifiable
 
