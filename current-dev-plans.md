@@ -116,6 +116,7 @@ TypeError: Cannot read property 'steamId' of null
 - Do we run createJoinRow (to make many to many relationships between games & users) every time a search is run? Is there a way to avoid this for a performance gain? See Line 85 on MainPage.jsx & about line 50 or so on user-games-api.js controller.
 
 - Should appId be the primary key for our games table?
+- Should steamId be the primary key for our steamusers table?
 - Maybe add in a column for how many games each user owns - integer in steamuser table
 
 - WE'RE GOING TO NEED TO COME BACK TO THIS after doing a tutorial or 2. --- Writing tests to automatically confirm that we haven't broken the program each time we change some code.

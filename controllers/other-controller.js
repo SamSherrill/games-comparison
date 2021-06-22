@@ -23,19 +23,20 @@ module.exports = function (app) {
             )[4];
             if (res.data.response.players.length > 0) {
               let steamUser = {
-                personaName: res.data.response.players[0].personaname,
+                vanityUrl: vanityUrl,
                 steamId: res.data.response.players[0].steamid,
+                personaName: res.data.response.players[0].personaname,
                 profileUrl: res.data.response.players[0].profileurl,
                 avatarUrl: res.data.response.players[0].avatarmedium,
-                vanityUrl: vanityUrl,
               };
               return cb(steamUser);
             } else {
               console.log("Couldn't find user!");
             }
           })
-          .catch(() => {
+          .catch((err) => {
             console.log("Could not load user information");
+            console.log(err);
           });
       })
       .catch((err) => {
@@ -53,10 +54,15 @@ module.exports = function (app) {
           notFoundUsers.push(user);
           userNotFound = true;
         } else {
+          console.log("blah blah blah: ", steamUser);
           await db.SteamUser.findOrCreate({
             where: steamUser
           }).then((dbUser) => {
+            console.log("this is what we are looking for: ", dbUser);
             foundUsers.push(dbUser[0].dataValues);
+          }).catch((err) => {
+            console.log("Could not findOrCreate steamUser in the database");
+            console.log(err);
           });
         }
       });
@@ -70,56 +76,57 @@ module.exports = function (app) {
     }, 1000);
   });
 
-  app.get("/api/steamUsers", function (req, res) {
-    db.SteamUser.findAll({}).then((user) => {
-      res.json(user);
-    });
-  });
+  // Commented out the next 50 lines of code on 6/21/2021. It appears nothing broke.
+  // app.get("/api/steamUsers", function (req, res) {
+  //   db.SteamUser.findAll({}).then((user) => {
+  //     res.json(user);
+  //   });
+  // });
 
-  app.get("/api/steamUsers/:personaName", function (req, res) {
-    db.SteamUser.findOne({
-      where: {
-        personaName: req.params.personaName,
-      },
-    }).then((user) => {
-      console.log(
-        "User in the app.get(/api.steamUsers/:personaName function .then",
-        user
-      );
-      console.log("User object from database: ", user);
-      res.json(user);
-    });
-  });
+  // app.get("/api/steamUsers/:personaName", function (req, res) {
+  //   db.SteamUser.findOne({
+  //     where: {
+  //       personaName: req.params.personaName,
+  //     },
+  //   }).then((user) => {
+  //     console.log(
+  //       "User in the app.get(/api.steamUsers/:personaName function .then",
+  //       user
+  //     );
+  //     console.log("User object from database: ", user);
+  //     res.json(user);
+  //   });
+  // });
 
-  app.get("/SteamUser/:username", function (req, res) {
-    const user = req.params.username;
-    // use sequelize to find the user in our DB
-    db.SteamUser.findOne({
-        where: {
-          vanityUrl: user,
-        },
-        include: [db.Game],
-      })
-      .then((user) => {
-        {
-          user: user.dataValues
-        };
-        // check our DB for the user. IF they exist their with their games list,
-        // then we display those in the browser with res.render("SteamUser");
+  // app.get("/SteamUser/:username", function (req, res) {
+  //   const user = req.params.username;
+  //   // use sequelize to find the user in our DB
+  //   db.SteamUser.findOne({
+  //       where: {
+  //         vanityUrl: user,
+  //       },
+  //       include: [db.Game],
+  //     })
+  //     .then((user) => {
+  //       {
+  //         user: user.dataValues
+  //       };
+  //       // check our DB for the user. IF they exist there with their games list,
+  //       // then we display those in the browser with res.render("SteamUser");
 
-        // This block of code is specifically for handlebars (a server side rendering engine) so I'm commenting it out
-        // res.render("index", {
-        //   user: user,
-        // });
+  //       // This block of code is specifically for handlebars (a server side rendering engine) so I'm commenting it out
+  //       // res.render("index", {
+  //       //   user: user,
+  //       // });
 
-        res.json({
-          user: user,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+  //       res.json({
+  //         user: user,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // });
 
   async function getUsers(res, usersArray, cb) {
     let retrievedUserArray = [];
