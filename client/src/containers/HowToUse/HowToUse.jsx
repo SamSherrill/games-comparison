@@ -10,11 +10,11 @@ const HowToUse = () => {
     <div className="container">
       <div className="row">
         <h1 className="page-title">How To Use</h1>
+        <div className="horizontal-line"></div>
       </div>
 
       <div className="row">
-        <div className="horizontal-line"></div>
-        <div className="col-sm-6">
+        <div className="col-lg-6">
           <h3 className="h3-text-header"> Overview of Steam Games Comparer</h3>
           <p className="written-instructions">
             Find out which games are shared within multiple users' libraries.
@@ -29,7 +29,7 @@ const HowToUse = () => {
             try any of these users: sammysticks, dabigcheezey, glowostent.
           </p>
         </div>
-        <div className="col-sm-6">
+        <div className="col-lg-6">
           <img
             className="instructional-image"
             src={ComparedGames}
@@ -40,7 +40,7 @@ const HowToUse = () => {
 
       <div className="row">
         <div className="thinner-horizontal-line"></div>
-        <div className="col-sm-6">
+        <div className="col-lg-6">
           <h3 className="h3-text-header">
             How to Find Your Custom URL on Steam
           </h3>
@@ -56,7 +56,7 @@ const HowToUse = () => {
             screenshot.
           </p>
         </div>
-        <div className="col-sm-6">
+        <div className="col-lg-6">
           <img
             className="instructional-image"
             src={VanityURLImage}
@@ -67,7 +67,7 @@ const HowToUse = () => {
 
       <div className="row">
         <div className="thinner-horizontal-line"></div>
-        <div className="col-sm-6">
+        <div className="col-lg-6">
           <h3 className="h3-text-header">
             How to Set a Custom URL If You Don't Have One
           </h3>
@@ -82,7 +82,7 @@ const HowToUse = () => {
             URL. Click save at the bottom.
           </p>
         </div>
-        <div className="col-sm-6">
+        <div className="col-lg-6">
           <img
             className="instructional-image"
             src={SettingVanityURL}
