@@ -6,6 +6,8 @@
 
 **NEW BUG: Glowostent changed their username & maybe profile image. They no longer appear in the header, and might be causing errors in later searches because of the problems caused. For example: The "shared by" & "owned by" label in the header is getting switched. This all might be because we don't have a process for updating user info if it changes after that unique user was originally imported into the db. This may not be the case, because wouldn't the old username & pic load?**
 
+- THIS PROBLEM IS: The persona names don't match in the specific problem case mentioned. This is because the user changed their persona name, but not their vanityUrl. We are trying to figure out how to use UPSERT, or something like it.
+
 - Documentation
     - Partially DONE: Improve ReadMe
         - Needs more thorough instructions (update once site instructions are written)
