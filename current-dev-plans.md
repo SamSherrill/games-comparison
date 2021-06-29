@@ -2,6 +2,8 @@
 
 ## To Do During Next Pairing Session:
 
+- Figure out how to get the buttons on AboutUs to link to the corresponding websites using the Button component we created, instead of Bootstrap buttons.
+
 - *Warnings in VSCode terminal*
 
 **NEW BUG: Glowostent changed their username & maybe profile image. They no longer appear in the header, and might be causing errors in later searches because of the problems caused. For example: The "shared by" & "owned by" label in the header is getting switched. This all might be because we don't have a process for updating user info if it changes after that unique user was originally imported into the db. This may not be the case, because wouldn't the old username & pic load?**
