@@ -2,7 +2,11 @@
 
 ## To Do During Next Pairing Session:
 
-- Figure out how to get the buttons on AboutUs to link to the corresponding websites using the Button component we created, instead of Bootstrap buttons.
+- Warning when user not found should direct our users to the How To page.
+
+- Add a fall back image for games that have no image
+
+- Discuss filtering Games Table next session. See refactoring notes on this. Look at other guy's site.
 
 - *Warnings in VSCode terminal*
 
@@ -101,6 +105,9 @@ TypeError: Cannot read property 'steamId' of null
 - span className="sr-only" (current) span was somethign that came with bootstrap related to the active class name for the currently selected button in our drop down navbar. We aren't using the active class at this point. We will consider using it. It will take coding the navbar to detect what page we're on. Since we're in react, this is a one page application, and we stay on the same URL the whole time.
 
 ## Refactor Plans: 
+
+- Sort / filters for Games Table
+- This would probably involve a useEffect hook or something similar to render & re-render the page based on the selected filter options.
 
 - Why do our components show up as "Anonymous" in the Components tab of the Dev Console? Is this a problem, or is this ideal (because we don't want our code public to the world)?
 - Brian also suggested some specific SQL queries that could be used to eager load information.
