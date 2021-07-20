@@ -9,8 +9,8 @@ const GamesTable = (props) => {
     //   comma = ", ";
     // }
     return (
-      <div className="display-name">
-        <ProfileDisplay user={user} key={user.id} />
+      <div className="display-name" key={user.id}>
+        <ProfileDisplay user={user}/>
         {/* {comma}{" "} */}
       </div>
     );
@@ -22,14 +22,16 @@ const GamesTable = (props) => {
     <>
       <table className="table">
         <thead>
-          <th className="profile-display">
-            <div>
-              <p className="games-count-text">
-                {props.sharedGames.length} games {sharedOrOwned} by:{" "}
-              </p>
-              {profileNameAndImage}
-            </div>
-          </th>
+          <tr>
+            <th className="profile-display">
+              <div>
+                <p className="games-count-text">
+                  {props.sharedGames.length} games {sharedOrOwned} by:{" "}
+                </p>
+                {profileNameAndImage}
+              </div>
+            </th>
+          </tr>
         </thead>
         <tbody>
           {props.sharedGames.map((game) => {

@@ -1,18 +1,18 @@
 # Games Library Comparison App
 
 ## Use
-Find out which games are shared within multiple users' libraries. Just type in the vanity URL of up to 10 users to find out what games they share in common. The vanity url is the last part of a user's profile url (e.g. http://steamcommunity.com/profiles/**"vanity url"**). It is by default the user ID but can be found and updated in your profile section. Make sure account settings for the profile and it's game library is public. For a tested example try any of these users: sammysticks, dabigcheezey, glowostent.
+Find out which games are shared within multiple users' libraries. Just type in the vanity URL of up to 10 users to find out what games they share in common. The vanity url is the last part of a user's profile url (e.g. http://steamcommunity.com/id/**"vanity url"**). It is by default the user's Steam ID number, but can be updated in the settings of your Steam profile. Make sure account settings for the profile and it's game library is public. For a tested example try any of these users: sammysticks, dabigcheezey, glowostent.
 
 ## Deployed Site
 https://comparegameslibrary.herokuapp.com/
 
 ## Screenshots
 ### Home Screen
-![Screen Shot](./ScreenShots/SteamCompareHome.PNG)
+![Screen Shot](./client/src/ScreenShots/SteamCompareHome.PNG)
 ### Loading
-![Screen Shot](./ScreenShots/SteamLoading.PNG)
+![Screen Shot](./client/src/ScreenShots/SteamLoading.PNG)
 ### Shared Games List
-![Screen Shot](./ScreenShots/ComparedGames.PNG)
+![Screen Shot](./client/src/ScreenShots/ComparedGames.JPG)
 
 ## Work In Progress
 

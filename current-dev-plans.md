@@ -2,16 +2,67 @@
 
 ## To Do During Next Pairing Session:
 
-- **START ON 3/29:**
-    - Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
+- Warning when user not found should direct our users to the How To page.
 
-    - consider: Pull out functions from compareGames and make them their own independent functions
+- Add a fall back image for games that have no image
+
+- Discuss filtering Games Table next session. See refactoring notes on this. Look at other guy's site.
+
+- *Warnings in VSCode terminal*
+
+**NEW BUG: Glowostent changed their username & maybe profile image. They no longer appear in the header, and might be causing errors in later searches because of the problems caused. For example: The "shared by" & "owned by" label in the header is getting switched. This all might be because we don't have a process for updating user info if it changes after that unique user was originally imported into the db. This may not be the case, because wouldn't the old username & pic load?**
+
+- THIS PROBLEM IS: The persona names don't match in the specific problem case mentioned. This is because the user changed their persona name, but not their vanityUrl. We are trying to figure out how to use UPSERT, or something like it.
+
+- Documentation
+    - Partially DONE: Improve ReadMe
+        - Needs more thorough instructions (update once site instructions are written)
+        - Updated screenshots
+        - Anything else we'd like to update in the readme?
+    - Give user instructions on the site
+    - About the creators page. Include links to our Portfolios & GitHub profiles.
+
+- 1) Update NavBar to support additional pages (which will actually be new containers at the same URL)
+    - a) DONE?: Install, import & setup react-router-dom
+- 2) DONE Create new containers for the 2 new pages
+
+- Navbar:
+    - When in smaller width screens, a button appears. This button looks different from our other buttons.
+    - Page names are a darker grey than we want, and different from the main title's white color letters
+    - Don't love how the hover works with the text that was recently clicked, or the button.
+
+- User instructions (likely in a separate page / container) regarding:
+    - DONE What is a vanity URL & how to find it; mention that if they or their friends don't have a vanity URL, they can learn how to create one in the instructions below)
+    - DONE How to create a vanity URL (if needed)
+    **Currently working on this. Next session get a screenshot of setting public profile & games list**
+    - How to set profile & games list public
+    - Explain the site's warnings about private profiles & games lists; direct users to the appropriate help section
+    - We decided that instead of a video, we will do screenshots. Screenshots will be easier to change when updates happen to the site.
+
+- About Us
+    - DONE Created DevProfile component
+    - We will need to pass our profile pictures down as props
+- Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
+
+## To Do Soon
+
+- Fix when broken or non-existant images come back from steam for the game's banner image. Example: comparing pita82 & sammysticks - sonic all star racing image is broken
+- Don't show DLC or Betas - Example: comparing pita82 & sammysticks - sonic all star racing image is broken 
+
+- Our button's stay highlighted. Might be related to the btn class name.
+
+- Discuss usersArray. It is an array pulled from the state usersToSearch, which is an object. The fact that it is an array is legacy code from project 2 in bootcamp when we first created this app. It being an array may be fine. Changing it to an object would likely involve a huge overall of the controllers & a small overall of the compareGames function in MainPage.
+
+- Consider: Pull out functions from compareGames and make them their own independent functions
+    - Currently all FE API calls happen in MainPage.jsx. We should probably move the API requests to a separate file or files, then import them to MainPage.
+    - 5/3/21 - Follow up note on this: Throughout the logic above render() we set state. To the best of our knowledge, this would involve a huge re-write & migth be impossible to pull out those functions & API calls into another file.
 
 - GOOD FOR NOW - TD element removed from thead: On GamesTable.jsx we likely have unnecessary nesting of elements. For exampes for the table header we have a th inside a tr inside thead. We will likely be able to simplify the CSS as well if we make changes to the HTML nesting structure. -- We decided to keep the td element that separates each game listing in rows. td nested inside tr was necessary to keep the current styling.
 
 - in other-controller, in the app.post /sharedGames we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions there.
 
-- Could CSS from GamesTable.scss be taken into base.scss file?
+- Could CSS from GamesTable.scss be taken into base.scss file? That CSS might also be otherwise simplified.
+- Also, we directly edit HTML elements in that scss file, and we should add classes that we modify instead.
 
 - Warnings & minor errors in dev console
     - DONE 1 error states: index.js:1 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
@@ -26,21 +77,13 @@
 - Beautify the table
 - Beautify the site in general
 
-- Strongly leaning towards doing an "about the creators" page. Might include links to our Portfolios & GitHub profiles.
-
-- User instructions (likely in a separate page / container) regarding:
-    - What is a vanity URL & how to create it
-    - How to set profile & games list public
-- Warnings that direct users to the appropriate help section if their profile isn't public, or their games list isn't
-- Consider a small i or ? in a box that links to or even generates a small box that opens up in screen when the user hovers over the ? box or the entire warning
-
 - Full evaluation of the names & uses of state & vars within our app. Do those names accurately reflect what we're using them for? Can we delete or refactor blocks of code after these evaluations? We almost certainly can make this code more readable, and very likely can shorten it. searchedUsers state & array (on MainPage.jsx) is a prime example of something we have & maybe still can refactor.
 
 - Deal with async issues with removing privateUsers from foundUsers
 
 - Maybe do some async refactoring for performance gains
 
-- MAYBE DONE: Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an a tag
+- MAYBE DONE: Almost certainly an async issue: Sometimes a user's vanityUrl is not displayed on the header of the games table alongside the other users' vanityUrls. We believe this is a timing out of userString being built somewhere along the line. FOLLOW UP: Let's see if this issue persists now that we have this information all contained in an a tag -- **UPDATE 6-15-21: I think I saw this error again on the live site. The new header was already pushed, so there shouldn't be sync issues, because of the way we handle that in state & pass it in props.** 
 
 - Consider if we can refactor how we phrase "foundUser" in MainPage.jsx and similar phrasing throughout the app to have more consistent terms, and be more readable / identifiable
 
@@ -57,7 +100,14 @@ TypeError: Cannot read property 'steamId' of null
 
 - Deal with all deprecations
 
+## Accessibility
+
+- span className="sr-only" (current) span was somethign that came with bootstrap related to the active class name for the currently selected button in our drop down navbar. We aren't using the active class at this point. We will consider using it. It will take coding the navbar to detect what page we're on. Since we're in react, this is a one page application, and we stay on the same URL the whole time.
+
 ## Refactor Plans: 
+
+- Sort / filters for Games Table
+- This would probably involve a useEffect hook or something similar to render & re-render the page based on the selected filter options.
 
 - Why do our components show up as "Anonymous" in the Components tab of the Dev Console? Is this a problem, or is this ideal (because we don't want our code public to the world)?
 - Brian also suggested some specific SQL queries that could be used to eager load information.
@@ -78,6 +128,7 @@ TypeError: Cannot read property 'steamId' of null
 - Do we run createJoinRow (to make many to many relationships between games & users) every time a search is run? Is there a way to avoid this for a performance gain? See Line 85 on MainPage.jsx & about line 50 or so on user-games-api.js controller.
 
 - Should appId be the primary key for our games table?
+- Should steamId be the primary key for our steamusers table?
 - Maybe add in a column for how many games each user owns - integer in steamuser table
 
 - WE'RE GOING TO NEED TO COME BACK TO THIS after doing a tutorial or 2. --- Writing tests to automatically confirm that we haven't broken the program each time we change some code.
@@ -177,8 +228,6 @@ We found this website mid-August when someone we showed our app to brought it to
 - Add err handling. Need to tell user why certain things didn't work.
 - Resolve all warnings in the browser console.
 - See if we can resolve the depracation warning in the BE console. This one: (node:31268) [SEQUELIZE0004] DeprecationWarning: A boolean value was passed to options.operatorsAliases. This is a no-op with v5 and should be removed.
-- Currently all FE API calls happen in MainPage.jsx. We should probably move the API requests to a separate file or files, then import them to MainPage.
-- Consider combing SharedGamesTable & UserGamesTable into 1 component.
 - Currently we're using createJoinRow() in our controller to create the many to many relationship between users & games, but also to just give us an error if we try to duplicate an existing relationship. This is intentional, because it prevents us from having to first check if the relationship already exists. This makes a 2 step process (checking, then creating if it doesn't exist) into a 1 step process (just letting Sequelize do both). However, this may not be best practice. Consider & research if it needs to changes.
 - In other-contoller, towards the end, we have this: app.post("/sharedGames", function (req, res) { getUsers(res, req.body.usersArray, (usersArray).... etc. This bigger block of code has a lot of loops inside loops. How can we refactor this?
 

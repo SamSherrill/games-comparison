@@ -15,7 +15,7 @@ const ProfileDisplay = ({ user }) => {
     <div>
       {/* For whatever reason in order to get the image & username on the same line, this profile-display class is also necessary here
       in the a tag, even though it's also used in GamesTable.jsx */}
-      <a className="profile-display" href={user.profileUrl} target="_blank">
+      <a className="profile-display" href={user.profileUrl} target="_blank" rel="noopener noreferrer">
         <img
           className="profilePicture"
           src={user.avatarUrl}

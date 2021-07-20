@@ -1,0 +1,19 @@
+@import "../../baseScss/base";
+
+.written-instructions,
+.h3-text-header {
+  padding-top: 1%;
+}
+
+.h3-text-header {
+  color: white;
+}
+
+.written-instructions {
+  color: $steam-light-grey;
+}
+
+.instructional-image {
+  width: 100%;
+  padding: 2.5%;
+}
