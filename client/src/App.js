@@ -21,7 +21,7 @@ function App() {
 
 export default App;
 
-{/* <Router>
+/* <Router>
       <div className="content">
         <Navbar />
         <Switch>
@@ -35,4 +35,4 @@ export default App;
         </Switch>
         <Footer />
       </div>
-    </Router> */}
+    </Router> */

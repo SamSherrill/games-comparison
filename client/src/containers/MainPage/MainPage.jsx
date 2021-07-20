@@ -172,9 +172,6 @@ class MainPage extends Component {
       deletedInputField.value = nextInputField.value;
     }
 
-    // Seem to work just fine with this code removed and the live code line below refactored
-    // let removeAUser = this.state.inputFieldCount;
-    // removeAUser--;
     this.setState({ inputFieldCount: this.state.inputFieldCount -1  });
 
     // this loop updates state based on the new lines on screen
@@ -189,11 +186,13 @@ class MainPage extends Component {
   render() {
     // Following code causes an additional username input field
     // to render for each time the add user button is clicked
+
     // TODO: Display a message once 10 username input fields are reached
     const userInputs = [];
     for (let i = 0; i < this.state.inputFieldCount; i++) {
       userInputs.push(
         <TextInput
+          key={`user ${i}`}
           index={i}
           placeholder="Steam Vanity URL"
           name={"user" + i}
@@ -231,27 +230,22 @@ class MainPage extends Component {
             friends{" "}
           </h4>
 
-          {/* We need an explanation or even a screenshot of what a vanity 
-          URL is, as well as where to find it or how to create it. */}
-
           <div>{userInputs}</div>
 
           <div className="row">
             <div className="col">
               <Button
-                text="Compare Games"
                 id="compare-games-button"
                 onClick={this.compareGames}
                 type="submit"
-              />
+              >Compare Games</Button>
             </div>
 
             <div className="col">
               <Button
-                text="Add User"
                 id="add-user-button"
                 onClick={this.addUser}
-              />
+              >Add User</Button>
             </div>
           </div>
 
@@ -274,27 +268,10 @@ class MainPage extends Component {
           {this.state.sharedGamesState && (
             <GamesTable
               sharedGames={this.state.sharedGamesState}
-              // After creating ProfileDisplay.jsx, and changing how we generate the displayName
-              // it appears we no longer need to pass searchedUsers down in props.
-              // We may be able to deleted searchedUers altogether, both the var & the state
-              // searchedUsers={this.state.searchedUsers}
               foundUsers={this.state.foundUsers}
             />
           )}
         </div>
-
-        {/* <footer>
-          {" "}
-          Icons made by{" "}
-          <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
-            Freepik
-          </a>{" "}
-          from{" "}
-          <a href="https://www.flaticon.com/" title="Flaticon">
-            {" "}
-            www.flaticon.com
-          </a>
-        </footer> */}
       </>
     );
   }

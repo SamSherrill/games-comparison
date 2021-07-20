@@ -13,7 +13,7 @@ const AboutUs = () => {
         DevPortfolio: "https://rospond-portfolio.herokuapp.com/",
         GitHubUrlEnd: "drospond",
         LinkedUrlEnd: "david-rospond-60054393",
-        DevBio: "Cheese maker turned software developer, I started programming in 2019 and haven't looked back since. I like to keep hmy programming skills tight through side projects while on occasion still keeping things a little cheesy",
+        DevBio: "Cheese maker turned software developer, I started programming in 2019 and haven't looked back since. I like to keep my programming skills tight through side projects while on occasion still keeping things a little cheesy.",
     };
     const SamProfileDetails = {
         DevName: "Sam Sherrill",
@@ -21,7 +21,7 @@ const AboutUs = () => {
         DevPortfolio: "https://github.com/SamSherrill",
         GitHubUrlEnd: "SamSherrill",
         LinkedUrlEnd: "samuelsherrill",
-        DevBio: "My 10+ years in sales were great, but I like coding a whole lot more. In January 2020 I finally made the decision to leave sales forever, and was accepted into Georgia Tech's full-time coding bootcamp. I've been loving my career in development since then!",
+        DevBio: "My 10+ years in sales were great, but I like coding a whole lot more. In January 2020 I was accepted into Georgia Tech's full-time coding bootcamp, and I made the decision to leave sales permanently. I've been loving my career as a software engineer!",
     };
 
     return (

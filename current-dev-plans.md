@@ -57,7 +57,8 @@
 
 - in other-controller, in the app.post /sharedGames we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions there.
 
-- Could CSS from GamesTable.scss be taken into base.scss file?
+- Could CSS from GamesTable.scss be taken into base.scss file? That CSS might also be otherwise simplified.
+- Also, we directly edit HTML elements in that scss file, and we should add classes that we modify instead.
 
 - Warnings & minor errors in dev console
     - DONE 1 error states: index.js:1 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
