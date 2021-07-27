@@ -1,6 +1,7 @@
 import React from "react";
 import "./GamesTable.scss";
 import ProfileDisplay from "../ProfileDisplay/ProfileDisplay";
+import noGameBanner from "../../Images/GameBannerUnavailableIcon.jpg"
 
 const GamesTable = (props) => {
   const profileNameAndImage = props.foundUsers.map((user, index) => {
@@ -35,6 +36,7 @@ const GamesTable = (props) => {
         </thead>
         <tbody>
           {props.sharedGames.map((game) => {
+            const imageSource = game.image ? `http://media.steampowered.com/steamcommunity/public/images/apps/${game.id}/${game.image}.jpg` : noGameBanner;
             return (
               <tr key={game.id}>
                 {/* The td elements of the table provide cushion & a line between each game */}
@@ -46,7 +48,7 @@ const GamesTable = (props) => {
                   >
                     <img
                       className="game-banner-image"
-                      src={`http://media.steampowered.com/steamcommunity/public/images/apps/${game.id}/${game.image}.jpg`}
+                      src={imageSource}
                       alt={`${game.name} logo`}
                     />
                     {game.name}

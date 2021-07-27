@@ -2,11 +2,13 @@
 
 ## To Do During Next Pairing Session:
 
-- Warning when user not found should direct our users to the How To page.
+- DONE: Warnings for when user not found, or games list private, should direct our users to the How To page.
 
-- Add a fall back image for games that have no image
+- DONE: Add a fall back image for games that have no image
 
 - Discuss filtering Games Table next session. See refactoring notes on this. Look at other guy's site.
+
+- Console logs in terminal we wrote while trouble shooting steamUser update issues
 
 - *Warnings in VSCode terminal*
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./MainPage.scss";
 import axios from "axios";
 import TextInput from "../../components/TextInput/TextInput";
@@ -213,12 +214,12 @@ class MainPage extends Component {
         "These users have their games list set as private, or they own no games:";
     }
 
-    // Setup the text for warning the website user about any invalid vanity URLs
+    // Setup the text for warning the website user about any invalid custom URLs
     var usersNotFoundWarning = "";
     if (this.state.usersNotFound.length === 1) {
-      usersNotFoundWarning = "No user was found using this vanity URL:";
+      usersNotFoundWarning = "No user was found using this custom URL:";
     } else if (this.state.usersNotFound.length > 1) {
-      usersNotFoundWarning = "No users were found using these vanity URLs:";
+      usersNotFoundWarning = "No users were found using these custom URLs:";
     }
 
     return (
@@ -238,27 +239,34 @@ class MainPage extends Component {
                 id="compare-games-button"
                 onClick={this.compareGames}
                 type="submit"
-              >Compare Games</Button>
+              >
+                Compare Games
+              </Button>
             </div>
 
             <div className="col">
-              <Button
-                id="add-user-button"
-                onClick={this.addUser}
-              >Add User</Button>
+              <Button id="add-user-button" onClick={this.addUser}>
+                Add User
+              </Button>
             </div>
           </div>
 
           {this.state.usersNotFound && (
-            <h3 className="user-or-games-not-found-warning">{`${usersNotFoundWarning} ${this.state.usersNotFound.join(
-              ", "
-            )}`}</h3>
+            <h4 className="user-or-games-not-found-warning">
+              {`${usersNotFoundWarning} ${this.state.usersNotFound.join(
+                ", "
+              )} --- To get help setting your games list to public, see our How To Use page `}
+              <Link to="/HowToUse">HERE</Link>
+            </h4>
           )}
 
           {this.state.privateUsers && this.state.privateUsers.length > 0 && (
-            <h3 className="user-or-games-not-found-warning">{`${privateUsersWarning} ${this.state.privateUsers.join(
-              ", "
-            )}`}</h3>
+            <h4 className="user-or-games-not-found-warning">
+              {`${privateUsersWarning} ${this.state.privateUsers.join(
+                ", "
+              )}  --- If you're unsure what a custom URL is, or how to set one up, see our How To Use page `}
+              <Link to="/HowToUse">HERE</Link>
+            </h4>
           )}
 
           {this.state.isLoading && (
