@@ -23,3 +23,8 @@ module.exports = function (sequelize, DataTypes) {
 //     "mac": false,
 //     "linux": true
 //     },
+
+//metacritic, categories, genres, release date, controller supprt
+
+// path start res.data[appid].data...
+// .categories

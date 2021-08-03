@@ -120,6 +120,11 @@ class MainPage extends Component {
           usersArray,
         })
         .then((res) => {
+          //order games list by game name
+          res.data.sharedGames.sort((a,b) =>{
+            if(a.name < b.name) return -1;
+            return 1;
+          })
           this.setState({ isLoading: false });
           this.setState({
             // Sets this state equal to the sharedGames array sent back from other-controller
@@ -133,7 +138,7 @@ class MainPage extends Component {
     } else {
       // If the user didn't enter at least one user, then the loading wheel is turned off
       this.setState({ isLoading: false });
-    }
+    }    
   };
 
   // Deletes a user key:value pair from the usersToSearch state.
