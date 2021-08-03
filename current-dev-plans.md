@@ -2,11 +2,24 @@
 
 ## To Do During Next Pairing Session:
 
-- Warning when user not found should direct our users to the How To page.
+- DONE: Warnings for when user not found, or games list private, should direct our users to the How To page.
+- Consider linking to Steam profile settings directly similar to how Steam Friend Filters page does. (https://www.lorenzostanco.com/lab/steam/friends)
 
-- Add a fall back image for games that have no image
+- DONE: Add a fall back image for games that have no image
 
 - Discuss filtering Games Table next session. See refactoring notes on this. Look at other guy's site.
+- DONE: We want to start by filtering by name
+- This filter is hard coded. If we want to add more options, we will have to make some significant changes to what we ask Steam for & store in our db. Then we'll have to add these filter options to the front end.
+- Info we want from Steam to eventually do more on the front end:
+    - Tags (co-op, etc); this is probably an easier thing to fit into our table
+    - Metacritic rating
+    - Friends list of each player (probably more complicated)
+- This URL is probably what we'll use to get more info: https://store.steampowered.com/api/appdetails?appids=218620, however friends list would be a different API request, seen here: https://developer.valvesoftware.com/wiki/Steam_Web_API#Game_interfaces_and_methods
+- We will need to force true our tables after we make the change. 
+- We want to change the primary key to be the appId
+- Later: We want to pull price in at some point, once we're ready to provide a list of games that some entered users don't own. But for now, we won't do that.
+
+- Console logs in terminal we wrote while trouble shooting steamUser update issues
 
 - *Warnings in VSCode terminal*
 
@@ -14,30 +27,30 @@
 
 - THIS PROBLEM IS: The persona names don't match in the specific problem case mentioned. This is because the user changed their persona name, but not their vanityUrl. We are trying to figure out how to use UPSERT, or something like it.
 
-- Documentation
+- Almost DONE: Documentation
     - Partially DONE: Improve ReadMe
         - Needs more thorough instructions (update once site instructions are written)
         - Updated screenshots
         - Anything else we'd like to update in the readme?
-    - Give user instructions on the site
-    - About the creators page. Include links to our Portfolios & GitHub profiles.
+    - DONE: Give user instructions on the site
+    - DONE: About the creators page. Include links to our Portfolios & GitHub profiles.
 
-- 1) Update NavBar to support additional pages (which will actually be new containers at the same URL)
-    - a) DONE?: Install, import & setup react-router-dom
+- 1) DONE: Update NavBar to support additional pages (which will actually be new containers at the same URL)
+    - a) DONE: Install, import & setup react-router-dom
 - 2) DONE Create new containers for the 2 new pages
 
 - Navbar:
-    - When in smaller width screens, a button appears. This button looks different from our other buttons.
-    - Page names are a darker grey than we want, and different from the main title's white color letters
-    - Don't love how the hover works with the text that was recently clicked, or the button.
+    - DONE: When in smaller width screens, a button appears. This button looks different from our other buttons.
+    - Page names are a darker grey than we want, and different from the main title's white color letters - MAYBE won't change. If we do, it'll be later.
+    - Don't love how the hover works with the text that was recently clicked, or the button. - MAYBE won't change. If we do, it'll be later.
 
 - User instructions (likely in a separate page / container) regarding:
     - DONE What is a vanity URL & how to find it; mention that if they or their friends don't have a vanity URL, they can learn how to create one in the instructions below)
     - DONE How to create a vanity URL (if needed)
-    **Currently working on this. Next session get a screenshot of setting public profile & games list**
-    - How to set profile & games list public
-    - Explain the site's warnings about private profiles & games lists; direct users to the appropriate help section
-    - We decided that instead of a video, we will do screenshots. Screenshots will be easier to change when updates happen to the site.
+    - DONE Get a screenshot of setting public profile & games list
+    - **How to set profile & games list public - This was done, but we may want to direct users to their profile settings, and we think this URL will take them directly there: https://steamcommunity.com/my/edit/settings**
+    - DONE Explain the site's warnings about private profiles & games lists; direct users to the appropriate help section
+    - DONE We decided that instead of a video, we will do screenshots. Screenshots will be easier to change when updates happen to the site.
 
 - About Us
     - DONE Created DevProfile component
