@@ -2,6 +2,7 @@
 
 ## To Do During Next Pairing Session:
 
+-**CREATE NEW BRANCH & WORK OFF THAT FROM NOW ON**
 - DONE: Warnings for when user not found, or games list private, should direct our users to the How To page.
 - Consider linking to Steam profile settings directly similar to how Steam Friend Filters page does. (https://www.lorenzostanco.com/lab/steam/friends)
 
