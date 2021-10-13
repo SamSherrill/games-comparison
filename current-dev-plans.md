@@ -2,6 +2,21 @@
 
 ## To Do During Next Pairing Session:
 
+**10/12/21 - trying to get unblocked**
+This branch (3rd-major-refactor) has so far been an unsuccessful experiment. If we can't get unblocked next session, we decided to consider working on a different app.
+Currently our main blocker is the need to copy a lot of info from Steam's other API, which has a lot more game detail. That API only allows 10 calls per 10 seconds.
+
+Things to research & try:
+- Database change - maybe our only option:
+    - Is there a better option than Heroku?
+
+- A crawler will be required to pull data on all steam games from steam to our new DB
+
+Ideas that almost certainly won't unblock us:
+- Redis - is that browser based storage? How does it work?
+    - If we go browser based storage, how much improvement do we need in our axios calls?
+    - Are there other browser based storage options that we want to consider?
+
 **Consider using Redis for many to many games comparison in browser & developing a crawler to get appdetails in our database.**
 - Steampowered appdetails only allows 10 requests per 10 seconds
 - JawsDB 3600 queries per hour
