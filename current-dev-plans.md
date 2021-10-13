@@ -2,7 +2,13 @@
 
 ## To Do During Next Pairing Session:
 
--**CREATE NEW BRANCH & WORK OFF THAT FROM NOW ON**
+**Consider using Redis for many to many games comparison in browser & developing a crawler to get appdetails in our database.**
+- Steampowered appdetails only allows 10 requests per 10 seconds
+- JawsDB 3600 queries per hour
+
+- ***We probably want to unbreak our app before we remake it***
+
+- DONE: LET'S GET CRAZY! and update node next time to use ?. optional chaining in user games api
 - DONE: Warnings for when user not found, or games list private, should direct our users to the How To page.
 - Consider linking to Steam profile settings directly similar to how Steam Friend Filters page does. (https://www.lorenzostanco.com/lab/steam/friends)
 
@@ -21,6 +27,9 @@
 - Later: We want to pull price in at some point, once we're ready to provide a list of games that some entered users don't own. But for now, we won't do that.
 
 - Console logs in terminal we wrote while trouble shooting steamUser update issues
+
+- Games showing up multiple times in games table that have the same appid but slightly different variations of same name & gamebanner. EX: Endless Legend in sammysticks' library
+- Alphabetical order prioritizes capital letters over lower case. Example from sammysticks' library: FTL is listed higher than Factorio
 
 - *Warnings in VSCode terminal*
 

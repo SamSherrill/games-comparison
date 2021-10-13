@@ -54,11 +54,11 @@ module.exports = function (app) {
           notFoundUsers.push(user);
           userNotFound = true;
         } else {
-          console.log("blah blah blah: ", steamUser);
+          // console.log("blah blah blah: ", steamUser);
           await db.SteamUser.findOrCreate({
             where: steamUser
           }).then((dbUser) => {
-            console.log("this is what we are looking for: ", dbUser);
+            // console.log("this is what we are looking for: ", dbUser);
             foundUsers.push(dbUser[0].dataValues);
           }).catch((err) => {
             console.log("Could not findOrCreate steamUser in the database");
@@ -152,7 +152,7 @@ module.exports = function (app) {
     await cb(retrievedUserArray);
   }
 
-  // REFACTOR? Below we use sharedGamesArray to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions here.
+  // REFACTOR? Below we use shared Array to build the array, but we then simply send back sharedGames in the res.json. Maybe simplify the naming conventions here.
   app.post("/sharedGames", function (req, res) {
     getUsers(res, req.body.usersArray, (usersArray) => {
       let sharedGamesArray = [];
@@ -168,6 +168,7 @@ module.exports = function (app) {
           continue;
         } else {
           sharedGamesArray.push({
+            // we change the name of the appId & gameBanner. Should we keep this consistent throughout all levels of the app?
             name: usersArray[0].user.Games[i].dataValues.name,
             id: usersArray[0].user.Games[i].appId,
             image: usersArray[0].user.Games[i].gameBanner

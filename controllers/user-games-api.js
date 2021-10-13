@@ -57,27 +57,40 @@ module.exports = function (app) {
               let currentUserSteamId = await getSteamUserIdBySteamId(steamID);
               if (response.data.response.games) {
                 for (let i = 0; i < response.data.response.games.length; i++) {
+                  // get additional information on this game from a separate Steam API
+                  const { appid, name, img_logo_url } = response.data.response.games[i];
+                  // ***** Consider checking our own database first, before hitting steams store api below
+                  const gameAdditionalInfo = await axios.get(`https://store.steampowered.com/api/appdetails?appids=${appid}`)
+                  
                   // refactored code for determining if a game is already in our DB
                   // the game will be created in the DB if it isn't already
                   // then once the game is confirmed in the DB, the many to many relationship
                   // is created between steamusers & games by createJoinRow
+                  // console.log("appid: ", appid);
+                  // console.log("gameAdditionalInfo: ", gameAdditionalInfo.data);
                   db.Game.findOrCreate({
                     where: {
-                      name: response.data.response.games[i].name,
-                      appId: response.data.response.games[i].appid,
-                      playtime: response.data.response.games[i].playtime_forever,
-                      gameBanner: response.data.response.games[i].img_logo_url,
+                      name,
+                      appId: appid,
+                      // playtime: response.data.response.games[i].playtime_forever,
+                      gameBanner: img_logo_url,
+                      metacriticScore: gameAdditionalInfo.data[appid].data?.metacritic?.score || 0,
+                      metacriticURL: gameAdditionalInfo.data[appid].data?.metacritic?.url || "",
+                      controllerSupport: gameAdditionalInfo.data[appid].data?.controller_support || "",
+                      releaseDate: gameAdditionalInfo.data[appid].data?.release_date.date || new Date(),
+                      genres: JSON.stringify(gameAdditionalInfo.data[appid].data?.genres),
+                      categories: JSON.stringify(gameAdditionalInfo.data[appid].data?.categories),
                     }
                   }).then(game => {
                     singleGame = game[0].dataValues;
-                    createJoinRow(currentUserSteamId, singleGame.id);
+                    createJoinRow(currentUserSteamId, singleGame.appId);
                   }).catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                   });
 
                   // const gameFromDatabase = await db.Game.findOne({
                   //   where: {
-                  //     appId: response.data.response.games[i].appid,
+                  //     appId: response.data.response.games[i].appId,
                   //   },
                   // });
                   // if (gameFromDatabase === null) {
